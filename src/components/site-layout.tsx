@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Building2, Menu, X } from "lucide-react";
+import { HandCoins, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const nav = [
@@ -28,9 +28,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
+          <Link to="/" className="flex items-center gap-3 font-bold tracking-tight">
             <BrandIcon />
-            <span className="text-lg">Smallbizloanz</span>
+            <span className="text-base sm:text-lg">Smallbizloanz</span>
           </Link>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
             {nav.map((n) => (
@@ -98,7 +98,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-10 md:grid-cols-3">
             <div>
-              <div className="flex items-center gap-2 font-bold">
+              <div className="flex items-center gap-3 font-bold">
                 <BrandIcon />
                 <span>Smallbizloanz</span>
               </div>
@@ -186,8 +186,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function BrandIcon() {
   return (
-    <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-brand-foreground shadow-sm">
-      <Building2 className="h-4.5 w-4.5" aria-hidden="true" />
+    <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-brand-foreground shadow-sm ring-1 ring-brand/20">
+      <HandCoins className="h-5 w-5" aria-hidden="true" />
     </span>
   );
 }
