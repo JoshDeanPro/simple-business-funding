@@ -1,0 +1,16 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Smallbizloanz social preview</title>
+  <desc id="desc">Small business loans and business funding</desc>
+  <rect width="1200" height="630" rx="48" fill="#F8FBFD"/>
+  <circle cx="1024" cy="112" r="210" fill="#D6F4F2"/>
+  <circle cx="136" cy="548" r="170" fill="#EAF2FA"/>
+  <rect x="86" y="86" width="1028" height="458" rx="36" fill="#FFFFFF" stroke="#D7E2EA"/>
+  <rect x="130" y="130" width="76" height="76" rx="22" fill="#0F172A"/>
+  <text x="168" y="179" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700">S</text>
+  <text x="228" y="168" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">Smallbizloanz</text>
+  <text x="130" y="296" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="800" letter-spacing="-1.8">Small business loans</text>
+  <text x="130" y="372" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="800" letter-spacing="-1.8">and business funding</text>
+  <text x="130" y="448" fill="#526170" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="500">Straightforward application. Clear review process. Contact by phone or email.</text>
+  <rect x="130" y="486" width="274" height="58" rx="29" fill="#0EA5A2"/>
+  <text x="267" y="524" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Apply for funding</text>
+</svg>
