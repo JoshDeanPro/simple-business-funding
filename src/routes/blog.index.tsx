@@ -116,11 +116,11 @@ function BlogPage() {
             {otherPosts.map((post) => (
               <div
                 key={post.slug}
-                className="group card-premium p-6 rounded flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-cobalt transition-colors"
+                className="group py-6 border-b border-neutral-border/30 last:border-b-0 flex flex-col md:flex-row md:items-center justify-between gap-6"
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-2 text-xs font-semibold text-cobalt">
-                    <span className="uppercase tracking-wider">{post.category}</span>
+                    <span>{post.category}</span>
                     <span className="h-1 w-1 rounded-full bg-neutral-border" />
                     <span className="text-muted-text">{post.readTime}</span>
                   </div>
@@ -129,20 +129,18 @@ function BlogPage() {
                       {post.title}
                     </Link>
                   </h4>
-                  <p className="mt-2 text-xs text-muted-text leading-relaxed max-w-2xl">
+                  <p className="mt-2 text-sm text-muted-text leading-relaxed max-w-2xl">
                     {post.intro}
                   </p>
                 </div>
                 <div className="shrink-0">
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-full btn-premium-outline group-hover:border-cobalt group-hover:bg-cobalt group-hover:text-white font-semibold text-xs h-8 px-4"
+                  <Link
+                    to="/blog/$slug"
+                    params={{ slug: post.slug }}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-cobalt hover:underline py-2"
                   >
-                    <Link to="/blog/$slug" params={{ slug: post.slug }}>
-                      Read Article
-                    </Link>
-                  </Button>
+                    Read article <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </div>
               </div>
             ))}

@@ -157,22 +157,24 @@ function BlogArticlePage() {
           {/* Related Resources */}
           <div className="mt-14 border-t border-neutral-border/50 pt-10">
             <h2 className="text-lg font-bold text-ink mb-6">Related resources</h2>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-8 sm:grid-cols-2">
               {related.map((item) => (
                 <Link
                   key={item.slug}
                   to="/blog/$slug"
                   params={{ slug: item.slug }}
-                  className="group card-premium p-5 rounded-xl hover:border-cobalt transition-colors"
+                  className="group py-4 border-b border-neutral-border/20 flex flex-col justify-between"
                 >
-                  <p className="text-xs font-semibold text-cobalt">{item.category}</p>
-                  <h3 className="mt-2.5 text-sm font-bold text-ink group-hover:text-cobalt transition-colors leading-snug">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-text line-clamp-2">
-                    {item.intro}
-                  </p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-cobalt hover:underline">
+                  <div>
+                    <p className="text-xs font-semibold text-cobalt">
+                      {item.category}
+                    </p>
+                    <h3 className="mt-2 text-sm font-bold text-ink group-hover:text-cobalt transition-colors leading-snug">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-text line-clamp-2">{item.intro}</p>
+                  </div>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-cobalt hover:underline">
                     Read article{" "}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </span>

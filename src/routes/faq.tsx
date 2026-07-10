@@ -170,29 +170,29 @@ function FaqPage() {
           </aside>
 
           {/* FAQ Sections */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             {groups.map((group) => {
               const id = group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
               return (
                 <section
                   key={group.title}
                   id={id}
-                  className="scroll-mt-20 card-premium rounded p-6"
+                  className="scroll-mt-24 space-y-4 pb-6 border-b border-neutral-border/30 last:border-b-0 last:pb-0"
                 >
-                  <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">
+                  <h2 className="text-lg sm:text-xl font-bold text-ink mb-4">
                     {group.title}
                   </h2>
-                  <Accordion type="single" collapsible className="space-y-2">
+                  <Accordion type="single" collapsible className="divide-y divide-neutral-border/30">
                     {group.items.map((f, i) => (
                       <AccordionItem
                         key={f.q}
                         value={`${group.title}-${i}`}
-                        className="border border-neutral-border/40 rounded-lg bg-cloud/50 px-4 mb-2 last:mb-0 last:border-b-0"
+                        className="border-b border-neutral-border/20 last:border-b-0"
                       >
-                        <AccordionTrigger className="text-left text-sm font-semibold hover:no-underline py-3 text-ink">
+                        <AccordionTrigger className="text-left text-sm sm:text-base font-semibold hover:no-underline py-4 text-ink hover:text-cobalt transition-colors">
                           {f.q}
                         </AccordionTrigger>
-                        <AccordionContent className="text-xs text-muted-text leading-relaxed pb-3">
+                        <AccordionContent className="text-sm text-muted-text leading-relaxed pb-4">
                           {f.a}
                         </AccordionContent>
                       </AccordionItem>

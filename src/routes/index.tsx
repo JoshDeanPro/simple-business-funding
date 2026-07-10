@@ -425,32 +425,32 @@ function Index() {
             </h2>
           </div>
 
-          <div className="card-premium bg-white p-6 rounded-2xl">
-            <Accordion type="single" collapsible className="space-y-2">
-              <AccordionItem value="item-1" className="border-b border-neutral-border/40 pb-2">
-                <AccordionTrigger className="text-left text-sm font-semibold hover:no-underline py-2 text-ink">
+          <div className="max-w-3xl mx-auto">
+            <Accordion type="single" collapsible className="divide-y divide-neutral-border/40">
+              <AccordionItem value="item-1" className="border-b border-neutral-border/40">
+                <AccordionTrigger className="text-left text-sm sm:text-base font-semibold hover:no-underline py-4 text-ink hover:text-cobalt transition-colors">
                   How many months of statements are required?
                 </AccordionTrigger>
-                <AccordionContent className="text-xs text-muted-text leading-relaxed pt-1">
+                <AccordionContent className="text-sm text-muted-text leading-relaxed pb-4">
                   Six months of consecutive recent business bank statements are requested so the
                   review can be conducted against actual operating history and cash flow.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-2" className="border-b border-neutral-border/40 pb-2">
-                <AccordionTrigger className="text-left text-sm font-semibold hover:no-underline py-2 text-ink">
+              <AccordionItem value="item-2" className="border-b border-neutral-border/40">
+                <AccordionTrigger className="text-left text-sm sm:text-base font-semibold hover:no-underline py-4 text-ink hover:text-cobalt transition-colors">
                   Is approval guaranteed by SmallBizLoans?
                 </AccordionTrigger>
-                <AccordionContent className="text-xs text-muted-text leading-relaxed pt-1">
+                <AccordionContent className="text-sm text-muted-text leading-relaxed pb-4">
                   No. SmallBizLoans coordinates files but does not make credit decisions. Approval,
                   terms, and offers are determined exclusively by Mom &amp; Pop Business Funding
                   after review.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-3" className="border-b-0 pb-0">
-                <AccordionTrigger className="text-left text-sm font-semibold hover:no-underline py-2 text-ink">
+              <AccordionItem value="item-3" className="border-b-0">
+                <AccordionTrigger className="text-left text-sm sm:text-base font-semibold hover:no-underline py-4 text-ink hover:text-cobalt transition-colors">
                   Is SmallBizLoans a bank?
                 </AccordionTrigger>
-                <AccordionContent className="text-xs text-muted-text leading-relaxed pt-1">
+                <AccordionContent className="text-sm text-muted-text leading-relaxed pb-4">
                   No, we are an independent representative working to assist small business owners.
                   We help package files and submit them to direct funding providers.
                 </AccordionContent>
