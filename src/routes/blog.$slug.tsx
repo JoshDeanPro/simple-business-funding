@@ -68,7 +68,7 @@ function BlogArticlePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               to="/blog"
-              className="inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:bg-brand/90"
+              className="inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:bg-brand-hover"
             >
               <ArrowLeft className="h-4 w-4" /> Back to resources
             </Link>
@@ -137,7 +137,7 @@ function BlogArticlePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/apply"
-                className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground hover:bg-brand/90"
+                className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground hover:bg-brand-hover"
               >
                 Apply now <ArrowRight className="h-4 w-4" />
               </Link>

@@ -118,7 +118,7 @@ function Index() {
               <Button
                 asChild
                 size="lg"
-                className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand/90 sm:w-auto"
+                className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand-hover sm:w-auto"
               >
                 <Link to="/apply">
                   Apply Now <ArrowRight className="ml-1 h-4 w-4" />
@@ -156,7 +156,7 @@ function Index() {
           {benefits.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-sm"
+              className="bg-transparent p-2 transition-colors hover:bg-surface"
             >
               <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand text-white">
                 <Icon className="h-5 w-5" />
@@ -189,7 +189,7 @@ function Index() {
             <Button
               asChild
               size="lg"
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
             >
               <Link to="/apply">
                 Start your application <ArrowRight className="ml-1 h-4 w-4" />

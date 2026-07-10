@@ -218,7 +218,7 @@ function ContactPage() {
                 <Button
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+                  className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
                 >
                   {status === "sending" ? "Sending…" : "Send message"}
                 </Button>

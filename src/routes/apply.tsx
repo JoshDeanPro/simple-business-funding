@@ -437,7 +437,7 @@ function ApplyPage() {
             review your information and contact you regarding the next steps.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
+            <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover">
               <Link to="/">Back to home</Link>
             </Button>
             <Button asChild variant="outline" className="rounded-full">
@@ -1096,7 +1096,7 @@ function ApplyPage() {
                 type="button"
                 onClick={next}
                 disabled={submitting}
-                className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+                className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
               >
                 Continue <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
@@ -1105,7 +1105,7 @@ function ApplyPage() {
                 type="button"
                 onClick={submit}
                 disabled={submitting}
-                className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+                className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
               >
                 {submitting ? "Submitting…" : "Submit application"}
               </Button>

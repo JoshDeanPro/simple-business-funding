@@ -48,7 +48,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div className="hidden md:block">
             <Button
               asChild
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
             >
               <Link to="/apply">Apply Now</Link>
             </Button>
@@ -81,7 +81,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               ))}
               <Button
                 asChild
-                className="mt-2 rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+                className="mt-2 rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
               >
                 <Link to="/apply" onClick={() => setOpen(false)}>
                   Apply Now

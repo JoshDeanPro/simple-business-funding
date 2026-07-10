@@ -114,7 +114,7 @@ function FaqPage() {
         </Accordion>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
+          <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover">
             <Link to="/apply">Apply for business funding</Link>
           </Button>
           <Button asChild variant="outline" className="rounded-full">
