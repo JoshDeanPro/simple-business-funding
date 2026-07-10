@@ -82,9 +82,9 @@ export const Route = createFileRoute("/contact")({
   },
   head: () => {
     const seo = pageHead({
-      title: "Contact Smallbizloanz | Business Funding Assistance",
+      title: "Contact SmallBizLoans | Business Funding Assistance",
       description:
-        "Contact Smallbizloanz by phone, email, or the contact form for help with business funding questions and applications.",
+        "Contact SmallBizLoans by phone, email, or the contact form for help with business funding questions and applications.",
       path: "/contact",
     });
     return {
@@ -92,9 +92,9 @@ export const Route = createFileRoute("/contact")({
       scripts: [
         toJsonLd(
           webpageSchema({
-            title: "Contact Smallbizloanz",
+            title: "Contact SmallBizLoans",
             description:
-              "Contact Smallbizloanz by phone, email, or the contact form for help with business funding questions and applications.",
+              "Contact SmallBizLoans by phone, email, or the contact form for help with business funding questions and applications.",
             path: "/contact",
             breadcrumbs: [
               { name: "Home", path: "/" },
@@ -135,7 +135,7 @@ function ContactPage() {
         <div className="grid gap-12 md:grid-cols-2">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
-              Contact Smallbizloanz
+              Contact SmallBizLoans
             </p>
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
               Get help with your business funding application.

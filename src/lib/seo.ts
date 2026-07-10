@@ -1,4 +1,4 @@
-export const SITE_NAME = "Smallbizloanz";
+export const SITE_NAME = "SmallBizLoans";
 export const SITE_URL = "https://smallbizloanz.com";
 export const DEFAULT_SOCIAL_IMAGE = "/social-card.svg";
 

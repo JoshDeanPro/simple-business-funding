@@ -23,11 +23,11 @@ import {
 export const Route = createFileRoute("/")({
   head: () => {
     const seo = pageHead({
-      title: "Small Business Loans and Business Funding | Smallbizloanz",
+      title: "Small Business Loans and Business Funding | SmallBizLoans",
       description:
         "Apply online for small-business funding with a clear review process, six months of recent business bank statements, and straightforward contact options.",
       path: "/",
-      imageAlt: "Smallbizloanz small business loans and business funding",
+      imageAlt: "SmallBizLoans small business loans and business funding",
     });
     return {
       ...seo,

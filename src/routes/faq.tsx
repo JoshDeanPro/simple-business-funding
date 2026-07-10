@@ -12,7 +12,7 @@ import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 export const Route = createFileRoute("/faq")({
   head: () => {
     const seo = pageHead({
-      title: "Small Business Loan and Funding FAQ | Smallbizloanz",
+      title: "Small Business Loan and Funding FAQ | SmallBizLoans",
       description:
         "Answers to common questions about applying for small-business funding, bank statements, review timing, and application support.",
       path: "/faq",
@@ -73,7 +73,7 @@ const faqs = [
   },
   {
     q: "How can I get help with my application?",
-    a: "You can contact Smallbizloanz by phone or email if you need help before or during the application process.",
+    a: "You can contact SmallBizLoans by phone or email if you need help before or during the application process.",
   },
 ];
 

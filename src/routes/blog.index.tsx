@@ -7,7 +7,7 @@ import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 export const Route = createFileRoute("/blog")({
   head: () => {
     const seo = pageHead({
-      title: "Small Business Funding Resources | Smallbizloanz",
+      title: "Small Business Funding Resources | SmallBizLoans",
       description:
         "Practical guidance on business funding, bank statements, application documents, and reviewing funding terms.",
       path: "/blog",

@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Smallbizloanz">
-  <rect width="24" height="24" rx="6" fill="#00FF00"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="SmallBizLoans">
   <g stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" fill="#FFFFFF"/>
-    <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" fill="none"/>
-    <path d="M12 18V6" fill="none"/>
+    <rect width="20" height="14" x="2" y="6" rx="2" fill="#00FF00"/>
+    <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" fill="none"/>
+    <path d="M22 13a18.15 18.15 0 0 1-20 0" fill="none"/>
+    <path d="M12 12h.01" fill="none"/>
   </g>
 </svg>

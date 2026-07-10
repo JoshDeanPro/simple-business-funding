@@ -225,7 +225,7 @@ export const Route = createFileRoute("/apply")({
   },
   head: () => {
     const seo = pageHead({
-      title: "Apply for Small Business Funding | Smallbizloanz",
+      title: "Apply for Small Business Funding | SmallBizLoans",
       description:
         "Apply online for small-business funding. The application requests business details, ownership information, and recent business bank statements.",
       path: "/apply",
@@ -455,7 +455,7 @@ function ApplyPage() {
         <div className="mb-8 space-y-4">
           <div className="rounded-2xl border border-border bg-surface p-5 text-sm leading-6 text-muted-foreground">
             <p>
-              Complete this application if you want Smallbizloanz to review a small-business
+              Complete this application if you want SmallBizLoans to review a small-business
               funding request. The review may require six months of recent business bank
               statements and other business or ownership details. Submission does not guarantee
               approval or funding.
@@ -991,7 +991,7 @@ function ApplyPage() {
                 <ul className="mt-2 list-disc space-y-1 pl-5">
                   <li>All submitted information and documents are true, correct, and complete.</li>
                   <li>
-                    Smallbizloanz.com, its agents, partners, and funding providers may verify the
+                    SmallBizLoans.com, its agents, partners, and funding providers may verify the
                     submitted information.
                   </li>
                   <li>
@@ -1047,7 +1047,7 @@ function ApplyPage() {
                   className="mt-0.5"
                 />
                 <span className="text-sm">
-                  I authorize Smallbizloanz.com to review the information and documents I have
+                  I authorize SmallBizLoans.com to review the information and documents I have
                   submitted, and I certify the statements above.
                 </span>
               </label>
@@ -1114,7 +1114,7 @@ function ApplyPage() {
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          Your information is submitted securely. Smallbizloanz.com does not guarantee approval,
+          Your information is submitted securely. SmallBizLoans.com does not guarantee approval,
           funding, rates, terms, or funding amounts.
         </p>
       </section>

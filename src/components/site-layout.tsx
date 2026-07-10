@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { BadgeDollarSign, Menu, X } from "lucide-react";
+import { BriefcaseBusiness, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const nav = [
@@ -30,7 +30,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-3 font-extrabold tracking-[-0.03em]">
             <BrandIcon />
-                <span className="text-lg sm:text-xl">Smallbizloanz</span>
+                <span className="text-lg sm:text-xl">SmallBizLoans</span>
           </Link>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
             {nav.map((n) => (
@@ -100,7 +100,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <div>
               <div className="flex items-center gap-3 font-extrabold tracking-[-0.03em]">
                 <BrandIcon />
-                <span className="text-lg">Smallbizloanz</span>
+                <span className="text-lg">SmallBizLoans</span>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
                 Business funding information, application guidance, and a straightforward way to
@@ -133,7 +133,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 </li>
                 <li>
                   <Link to="/contact" className="hover:text-foreground">
-                    Contact Smallbizloanz
+                    Contact SmallBizLoans
                   </Link>
                 </li>
                 <li>
@@ -169,13 +169,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
           <div className="mt-10 border-t border-border/70 pt-6 text-xs leading-relaxed text-muted-foreground">
             <p>
-              Smallbizloanz.com does not guarantee approval, funding, rates, terms, or funding
+              SmallBizLoans.com does not guarantee approval, funding, rates, terms, or funding
               amounts. Submitting an application does not constitute an offer of credit or funding.
               Final eligibility and terms depend on review of the applicant&rsquo;s information and
               supporting documents.
             </p>
             <p className="mt-4">
-              &copy; {new Date().getFullYear()} Smallbizloanz. All rights reserved.
+              &copy; {new Date().getFullYear()} SmallBizLoans. All rights reserved.
             </p>
           </div>
         </div>
@@ -186,8 +186,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function BrandIcon() {
   return (
-    <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
-      <BadgeDollarSign className="h-5 w-5 text-white" fill="currentColor" stroke="#000000" aria-hidden="true" />
+    <span className="grid h-9 w-9 place-items-center text-brand">
+      <BriefcaseBusiness className="h-7 w-7" fill="currentColor" stroke="#000000" aria-hidden="true" />
     </span>
   );
 }

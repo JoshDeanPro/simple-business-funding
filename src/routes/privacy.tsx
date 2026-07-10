@@ -5,8 +5,8 @@ import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 export const Route = createFileRoute("/privacy")({
   head: () => {
     const seo = pageHead({
-      title: "Privacy Policy | Smallbizloanz",
-      description: "Privacy policy for Smallbizloanz.com.",
+      title: "Privacy Policy | SmallBizLoans",
+      description: "Privacy policy for SmallBizLoans.com.",
       path: "/privacy",
     });
     return {
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/privacy")({
         toJsonLd(
           webpageSchema({
             title: "Privacy Policy",
-            description: "Privacy policy for Smallbizloanz.com.",
+            description: "Privacy policy for SmallBizLoans.com.",
             path: "/privacy",
             breadcrumbs: [
               { name: "Home", path: "/" },
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/privacy")({
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Privacy Policy</p>
         <h1 className="mt-3 text-4xl font-bold tracking-tight">Privacy Policy</h1>
         <p className="mt-4 text-muted-foreground">
-          Smallbizloanz.com respects your privacy. We collect the information you provide through
+          SmallBizLoans.com respects your privacy. We collect the information you provide through
           our application and contact forms to review your funding request, verify submitted
           details with permitted third parties, and communicate with you about your application.
           We do not sell your personal information. For questions about how we handle your

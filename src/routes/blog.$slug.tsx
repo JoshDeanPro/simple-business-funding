@@ -9,14 +9,14 @@ export const Route = createFileRoute("/blog/$slug")({
     const post = getBlogPost(params.slug);
     if (!post) {
       return pageHead({
-        title: "Article not found | Smallbizloanz",
+        title: "Article not found | SmallBizLoans",
         description: "The requested article is not available.",
         path: `/blog/${params.slug}`,
       });
     }
 
     const seo = pageHead({
-      title: `${post.title} | Smallbizloanz`,
+      title: `${post.title} | SmallBizLoans`,
       description: post.intro,
       path: `/blog/${post.slug}`,
       type: "article",
