@@ -448,11 +448,11 @@ function ApplyPage() {
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button
               asChild
-              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
+              className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
             >
               <Link to="/">Back to home</Link>
             </Button>
-            <Button asChild variant="outline" className="rounded border-neutral-border hover:bg-paper text-ink">
+            <Button asChild variant="outline" className="rounded-full border-neutral-border hover:bg-paper text-ink">
               <Link to="/contact">Contact us</Link>
             </Button>
           </div>
@@ -1221,7 +1221,7 @@ function ApplyPage() {
               variant="outline"
               onClick={back}
               disabled={step === 0 || submitting}
-              className="rounded border border-neutral-border hover:bg-paper text-ink"
+              className="rounded-full border border-neutral-border hover:bg-paper text-ink"
             >
               <ChevronLeft className="mr-1 h-4 w-4" /> Back
             </Button>
@@ -1230,7 +1230,7 @@ function ApplyPage() {
                 type="button"
                 onClick={next}
                 disabled={submitting}
-                className="rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
+                className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
               >
                 Continue <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
@@ -1239,7 +1239,7 @@ function ApplyPage() {
                 type="button"
                 onClick={submit}
                 disabled={submitting}
-                className="rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
+                className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
               >
                 {submitting ? "Submitting…" : "Submit application"}
               </Button>

@@ -68,13 +68,13 @@ function BlogArticlePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               to="/blog"
-              className="inline-flex items-center gap-2 rounded bg-evergreen text-white hover:bg-evergreen/90 px-4 py-2 text-sm font-semibold"
+              className="inline-flex items-center gap-2 rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-4 py-2 text-sm font-semibold"
             >
               <ArrowLeft className="h-4 w-4" /> Back to resources
             </Link>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 rounded border border-neutral-border bg-white hover:bg-paper px-4 py-2 text-sm font-semibold text-ink"
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-border bg-white hover:bg-paper px-4 py-2 text-sm font-semibold text-ink"
             >
               Go home
             </Link>
@@ -140,13 +140,13 @@ function BlogArticlePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/apply"
-                className="inline-flex items-center gap-2 rounded bg-evergreen px-4 py-2 text-xs font-semibold text-white hover:bg-evergreen/90"
+                className="inline-flex items-center gap-2 rounded-full bg-evergreen px-4 py-2 text-xs font-semibold text-white hover:bg-evergreen/90"
               >
                 Apply now <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center rounded border border-neutral-border bg-white px-4 py-2 text-xs font-semibold text-ink hover:bg-paper"
+                className="inline-flex items-center rounded-full border border-neutral-border bg-white px-4 py-2 text-xs font-semibold text-ink hover:bg-paper"
               >
                 Contact us
               </Link>

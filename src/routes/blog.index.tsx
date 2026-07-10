@@ -88,7 +88,7 @@ function BlogPage() {
                 <div className="mt-6">
                   <Button
                     asChild
-                    className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-5 font-semibold text-xs h-9"
+                    className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-5 font-semibold text-xs h-9"
                   >
                     <Link to="/blog/$slug" params={{ slug: featured.slug }}>
                       Read Featured Guide <ArrowRight className="ml-1 h-3.5 w-3.5" />
@@ -137,7 +137,7 @@ function BlogPage() {
                   <Button
                     asChild
                     variant="outline"
-                    className="rounded border-neutral-border group-hover:border-evergreen group-hover:bg-evergreen group-hover:text-white font-semibold text-xs h-8 px-4"
+                    className="rounded-full border-neutral-border group-hover:border-evergreen group-hover:bg-evergreen group-hover:text-white font-semibold text-xs h-8 px-4"
                   >
                     <Link to="/blog/$slug" params={{ slug: post.slug }}>
                       Read Article

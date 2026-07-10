@@ -121,7 +121,7 @@ function Index() {
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <Button
                 asChild
-                className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
+                className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
               >
                 <Link to="/apply">
                   Start My Application <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -203,7 +203,7 @@ function Index() {
                 </p>
               </div>
               <div className="shrink-0 flex items-center gap-3.5">
-                <Button asChild size="sm" className="rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold">
+                <Button asChild size="sm" className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold">
                   <Link to="/apply">Start Application</Link>
                 </Button>
               </div>
@@ -284,7 +284,7 @@ function Index() {
             <div className="grid gap-8 md:grid-cols-3 relative">
               <div className="relative">
                 <div className="flex items-center gap-3 md:flex-col md:items-start">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-evergreen bg-paper text-evergreen font-bold text-sm relative z-10">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-evergreen bg-paper text-evergreen font-bold text-sm relative z-10">
                     01
                     <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-signal-green border border-white" />
                   </div>
@@ -297,7 +297,7 @@ function Index() {
               
               <div className="relative">
                 <div className="flex items-center gap-3 md:flex-col md:items-start">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-neutral-border bg-white text-muted-text font-bold text-sm relative z-10">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-neutral-border bg-white text-muted-text font-bold text-sm relative z-10">
                     02
                   </div>
                   <div className="md:mt-4">
@@ -309,7 +309,7 @@ function Index() {
               
               <div className="relative">
                 <div className="flex items-center gap-3 md:flex-col md:items-start">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-neutral-border bg-white text-muted-text font-bold text-sm relative z-10">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-neutral-border bg-white text-muted-text font-bold text-sm relative z-10">
                     03
                   </div>
                   <div className="md:mt-4">
@@ -324,7 +324,7 @@ function Index() {
           <div className="mt-12 flex justify-start">
             <Button
               asChild
-              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
+              className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
             >
               <Link to="/apply">
                 Start My Application <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -404,7 +404,7 @@ function Index() {
           <div className="mt-8 flex flex-col justify-center gap-3.5 sm:flex-row">
             <Button
               asChild
-              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
+              className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
             >
               <Link to="/apply">
                 Start My Application <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -413,7 +413,7 @@ function Index() {
             <Button
               asChild
               variant="outline"
-              className="rounded border-neutral-border hover:bg-paper text-ink"
+              className="rounded-full border-neutral-border hover:bg-paper text-ink"
             >
               <a href="#what-youll-need">Review Requirements</a>
             </Button>

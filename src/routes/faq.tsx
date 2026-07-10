@@ -203,14 +203,14 @@ function FaqPage() {
               <div className="flex gap-3">
                 <Button
                   asChild
-                  className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-4 font-semibold text-xs h-8"
+                  className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-4 font-semibold text-xs h-8"
                 >
                   <Link to="/apply">Start Application</Link>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
-                  className="rounded border-neutral-border hover:bg-paper text-ink px-4 text-xs h-8"
+                  className="rounded-full border-neutral-border hover:bg-paper text-ink px-4 text-xs h-8"
                 >
                   <Link to="/contact">Contact us</Link>
                 </Button>

@@ -48,14 +48,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div className="hidden md:block">
             <Button
               asChild
-              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-5 font-semibold text-sm h-9"
+              className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-5 font-semibold text-sm h-9"
             >
               <Link to="/apply">Apply Now</Link>
             </Button>
           </div>
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded transition-colors hover:bg-sage/40 md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-sage/40 md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-controls="mobile-navigation"
             aria-expanded={open}
@@ -81,7 +81,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               ))}
               <Button
                 asChild
-                className="mt-2 rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
+                className="mt-2 rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
               >
                 <Link to="/apply" onClick={() => setOpen(false)}>
                   Apply Now
