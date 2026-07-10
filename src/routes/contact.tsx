@@ -149,7 +149,7 @@ function ContactPage() {
                 href="mailto:lizzy.alemayehu@smallbizloanz.com"
                 className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-brand-foreground">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-white">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
@@ -165,7 +165,7 @@ function ContactPage() {
                 href="tel:+17209001921"
                 className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-brand-foreground">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-white">
                   <Phone className="h-5 w-5" />
                 </span>
                 <div>

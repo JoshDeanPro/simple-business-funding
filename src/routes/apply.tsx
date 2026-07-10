@@ -428,7 +428,7 @@ function ApplyPage() {
     return (
       <SiteLayout>
         <section className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6">
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-brand-foreground">
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-white">
             <CheckCircle2 className="h-7 w-7" />
           </div>
           <h1 className="mt-6 text-4xl font-bold tracking-tight">Application received</h1>

@@ -186,7 +186,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function BrandIcon() {
   return (
-    <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-brand-foreground">
+    <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
       <HandCoins className="h-5 w-5" aria-hidden="true" />
     </span>
   );

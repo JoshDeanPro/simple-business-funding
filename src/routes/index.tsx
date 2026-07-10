@@ -158,7 +158,7 @@ function Index() {
               key={title}
               className="rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-sm"
             >
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand text-brand-foreground">
+              <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand text-white">
                 <Icon className="h-5 w-5" />
               </div>
               <h3 className="mt-4 text-base font-semibold">{title}</h3>
