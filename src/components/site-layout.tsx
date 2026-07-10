@@ -38,7 +38,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   const headerClass = scrolled
     ? "sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-border/50 shadow-sm transition-all duration-200"
-    : "sticky top-0 z-40 bg-transparent border-b border-transparent transition-all duration-200";
+    : isHome
+      ? "absolute top-0 left-0 w-full z-40 bg-transparent border-b border-transparent transition-all duration-200"
+      : "sticky top-0 z-40 bg-white border-b border-neutral-border/50 transition-all duration-200";
 
   const logoTextClass =
     !scrolled && isHome

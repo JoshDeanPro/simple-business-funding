@@ -80,7 +80,7 @@ function Index() {
   return (
     <SiteLayout>
       {/* 1. Integrated Editorial Brand Hero */}
-      <section className="bg-midnight-gradient text-white relative overflow-hidden py-16 sm:py-24">
+      <section className="bg-midnight-gradient text-white relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24">
         {/* Abstract background brand lighting */}
         <div className="absolute inset-0 pointer-events-none -z-10">
           <div className="absolute -top-32 left-[15%] h-[450px] w-[450px] rounded-full bg-glow-radial blur-3xl opacity-50" />
