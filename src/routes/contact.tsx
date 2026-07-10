@@ -11,9 +11,15 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Smallbizloanz" },
-      { name: "description", content: "Get in touch with Smallbizloanz by phone, email, or the contact form." },
+      {
+        name: "description",
+        content: "Get in touch with Smallbizloanz by phone, email, or the contact form.",
+      },
       { property: "og:title", content: "Contact — Smallbizloanz" },
-      { property: "og:description", content: "Reach a Smallbizloanz representative by phone or email." },
+      {
+        property: "og:description",
+        content: "Reach a Smallbizloanz representative by phone or email.",
+      },
     ],
   }),
   component: ContactPage,
@@ -32,6 +38,17 @@ function ContactPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
+        <div className="relative mb-12 h-56 overflow-hidden rounded-3xl sm:h-72">
+          <img
+            src="/images/hero-business-funding.png"
+            alt="Business owner and advisor planning together"
+            className="h-full w-full object-cover object-right"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/45 to-transparent" />
+          <p className="absolute inset-y-0 left-0 flex max-w-sm items-center px-8 text-2xl font-semibold text-primary-foreground sm:px-12 sm:text-3xl">
+            A real person is ready to help.
+          </p>
+        </div>
         <div className="grid gap-12 md:grid-cols-2">
           <div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact us</h1>
@@ -39,21 +56,33 @@ function ContactPage() {
               Have a question about the application or your business situation? We're happy to help.
             </p>
             <div className="mt-8 space-y-4">
-              <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-brand">
+              <a
+                href="mailto:lizzy.alemayehu@smallbizloanz.com"
+                className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-brand"
+              >
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand/10 text-brand">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
-                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</div>
-                  <div className="mt-0.5 break-all text-sm font-medium">lizzy.alemayehu@smallbizloanz.com</div>
+                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Email
+                  </div>
+                  <div className="mt-0.5 break-all text-sm font-medium">
+                    lizzy.alemayehu@smallbizloanz.com
+                  </div>
                 </div>
               </a>
-              <a href="tel:+17209001921" className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-brand">
+              <a
+                href="tel:+17209001921"
+                className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-brand"
+              >
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand/10 text-brand">
                   <Phone className="h-5 w-5" />
                 </span>
                 <div>
-                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Phone</div>
+                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Phone
+                  </div>
                   <div className="mt-0.5 text-sm font-medium">(720) 900-1921</div>
                 </div>
               </a>
@@ -80,14 +109,22 @@ function ContactPage() {
                   <Field id="phone" label="Phone" type="tel" />
                 </div>
                 <div>
-                  <Label htmlFor="message">Message <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="message">
+                    Message <span className="text-destructive">*</span>
+                  </Label>
                   <Textarea id="message" name="message" required rows={5} className="mt-1.5" />
                 </div>
-                <Button type="submit" disabled={status === "sending"} className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
+                <Button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+                >
                   {status === "sending" ? "Sending…" : "Send message"}
                 </Button>
                 {status === "error" && (
-                  <p className="text-sm text-destructive">Something went wrong. Please try again or email us directly.</p>
+                  <p className="text-sm text-destructive">
+                    Something went wrong. Please try again or email us directly.
+                  </p>
                 )}
               </form>
             )}
@@ -98,10 +135,23 @@ function ContactPage() {
   );
 }
 
-function Field({ id, label, type = "text", required }: { id: string; label: string; type?: string; required?: boolean }) {
+function Field({
+  id,
+  label,
+  type = "text",
+  required,
+}: {
+  id: string;
+  label: string;
+  type?: string;
+  required?: boolean;
+}) {
   return (
     <div>
-      <Label htmlFor={id}>{label}{required && <span className="text-destructive"> *</span>}</Label>
+      <Label htmlFor={id}>
+        {label}
+        {required && <span className="text-destructive"> *</span>}
+      </Label>
       <Input id={id} name={id} type={type} required={required} className="mt-1.5" />
     </div>
   );

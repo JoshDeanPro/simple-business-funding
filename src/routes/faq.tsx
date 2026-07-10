@@ -1,15 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
       { title: "FAQ — Smallbizloanz" },
-      { name: "description", content: "Answers to common questions about applying for small business funding through Smallbizloanz." },
+      {
+        name: "description",
+        content:
+          "Answers to common questions about applying for small business funding through Smallbizloanz.",
+      },
       { property: "og:title", content: "FAQ — Smallbizloanz" },
-      { property: "og:description", content: "Common questions about the Smallbizloanz application and review process." },
+      {
+        property: "og:description",
+        content: "Common questions about the Smallbizloanz application and review process.",
+      },
     ],
   }),
   component: FaqPage,
@@ -46,18 +58,36 @@ function FaqPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Frequently asked questions</h1>
+        <img
+          src="/images/blog-business-growth.png"
+          alt="Business owner reviewing plans in a workshop"
+          className="mb-10 h-56 w-full rounded-3xl object-cover object-center sm:h-72"
+        />
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          Frequently asked questions
+        </h1>
         <p className="mt-4 text-muted-foreground">
-          Everything you need to know about applying. If your question isn't answered here, we're happy to help.
+          Everything you need to know about applying. If your question isn't answered here, we're
+          happy to help.
         </p>
 
-        <Accordion type="single" collapsible className="mt-10 rounded-2xl border border-border bg-card px-2">
+        <Accordion
+          type="single"
+          collapsible
+          className="mt-10 rounded-2xl border border-border bg-card px-2"
+        >
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="border-b border-border last:border-b-0">
+            <AccordionItem
+              key={i}
+              value={`item-${i}`}
+              className="border-b border-border last:border-b-0"
+            >
               <AccordionTrigger className="px-4 text-left text-base font-medium hover:no-underline">
                 {f.q}
               </AccordionTrigger>
-              <AccordionContent className="px-4 text-sm text-muted-foreground">{f.a}</AccordionContent>
+              <AccordionContent className="px-4 text-sm text-muted-foreground">
+                {f.a}
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
