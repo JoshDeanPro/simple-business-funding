@@ -157,14 +157,14 @@ function ContactPage() {
             
             <div className="space-y-4 pt-4 border-t border-neutral-border/50">
               <div>
-                <span className="block text-[10px] uppercase font-bold text-muted-text">Direct Line</span>
+                <span className="block text-xs font-bold text-muted-text mb-1">Direct Line</span>
                 <a href="tel:+17209001921" className="text-lg font-bold text-ink hover:underline">
                   (720) 900-1921
                 </a>
                 <span className="block text-xs text-muted-text mt-0.5">Available during normal business hours.</span>
               </div>
               <div>
-                <span className="block text-[10px] uppercase font-bold text-muted-text">Coordinator Email</span>
+                <span className="block text-xs font-bold text-muted-text mb-1">Coordinator Email</span>
                 <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="text-base font-bold text-ink break-all hover:underline">
                   lizzy.alemayehu@smallbizloanz.com
                 </a>

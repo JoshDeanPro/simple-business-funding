@@ -155,7 +155,7 @@ function BlogArticlePage() {
 
           {/* Related Resources */}
           <div className="mt-14 border-t border-neutral-border/50 pt-10">
-            <h2 className="text-base font-bold text-ink uppercase tracking-wider mb-6">Related resources</h2>
+            <h2 className="text-lg font-bold text-ink mb-6">Related resources</h2>
             <div className="grid gap-6 sm:grid-cols-2">
               {related.map((item) => (
                 <Link
@@ -164,7 +164,7 @@ function BlogArticlePage() {
                   params={{ slug: item.slug }}
                   className="group card-premium p-5 rounded-xl hover:border-cobalt transition-colors"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-wider text-cobalt">
+                  <p className="text-xs font-semibold text-cobalt">
                     {item.category}
                   </p>
                   <h3 className="mt-2.5 text-sm font-bold text-ink group-hover:text-cobalt transition-colors leading-snug">

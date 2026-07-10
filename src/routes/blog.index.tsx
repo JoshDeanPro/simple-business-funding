@@ -109,8 +109,8 @@ function BlogPage() {
 
         {/* Articles List */}
         <div>
-          <h3 className="text-sm font-bold text-ink uppercase tracking-wider border-b border-neutral-border/50 pb-2 mb-6">
-            All Library Articles
+          <h3 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-6">
+            All library articles
           </h3>
           <div className="space-y-4">
             {otherPosts.map((post) => (

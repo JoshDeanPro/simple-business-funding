@@ -119,8 +119,8 @@ function FaqPage() {
           {/* Sticky left navigation rail */}
           <aside className="space-y-6 lg:sticky lg:top-24">
             <div className="hidden lg:block card-premium p-4 rounded text-xs">
-              <h3 className="font-bold text-ink uppercase tracking-wider mb-3 border-b border-neutral-border/50 pb-2">
-                Help Categories
+              <h3 className="sm:text-sm font-bold text-ink mb-3 border-b border-neutral-border/50 pb-2">
+                Help categories
               </h3>
               <ul className="space-y-2.5">
                 {groups.map((group) => {
@@ -141,19 +141,19 @@ function FaqPage() {
 
             {/* Support Desk Card */}
             <div className="card-premium p-4 rounded text-xs">
-              <h4 className="font-bold text-ink uppercase tracking-wider mb-2">Still need help?</h4>
+              <h4 className="sm:text-sm font-bold text-ink mb-2">Still need help?</h4>
               <p className="text-muted-text leading-relaxed">
                 Connect directly with our file representative desk for assistance.
               </p>
               <div className="mt-4 space-y-2.5 bg-cloud p-3 rounded border border-neutral-border/40">
                 <div>
-                  <span className="block text-[9px] uppercase font-bold text-muted-text">Call Support</span>
+                  <span className="block text-[11px] font-bold text-muted-text">Call Support</span>
                   <a href="tel:+17209001921" className="text-ink font-bold hover:underline block mt-0.5">
                     (720) 900-1921
                   </a>
                 </div>
                 <div>
-                  <span className="block text-[9px] uppercase font-bold text-muted-text">Support Email</span>
+                  <span className="block text-[11px] font-bold text-muted-text">Support Email</span>
                   <a
                     href="mailto:lizzy.alemayehu@smallbizloanz.com"
                     className="text-ink font-bold break-all hover:underline block mt-0.5"

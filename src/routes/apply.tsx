@@ -437,7 +437,7 @@ function ApplyPage() {
     return (
       <SiteLayout>
         <section className="mx-auto max-w-xl px-4 py-16 text-center sm:px-6 bg-white border border-neutral-border rounded mt-12 mb-24">
-          <div className="mx-auto grid h-12 w-12 place-items-center rounded bg-sage/40 text-evergreen border border-evergreen">
+          <div className="mx-auto grid h-12 w-12 place-items-center rounded bg-soft-aqua text-cobalt border border-cobalt">
             <CheckCircle2 className="h-6 w-6" />
           </div>
           <h1 className="mt-6 text-2xl font-bold tracking-tight text-ink">Application received</h1>
@@ -448,7 +448,7 @@ function ApplyPage() {
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button
               asChild
-              className="rounded-full btn-premium-evergreen px-6 font-semibold"
+              className="rounded-full btn-premium-cobalt px-6 font-semibold"
             >
               <Link to="/">Back to home</Link>
             </Button>

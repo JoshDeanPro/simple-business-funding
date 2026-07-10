@@ -328,7 +328,7 @@ function Index() {
 
           {/* Quiet, separate no-guarantee disclosure */}
           <div className="flex flex-col justify-center bg-cloud/35 p-6 rounded-2xl border border-neutral-border/30">
-            <span className="text-[10px] font-bold text-cobalt uppercase tracking-wider mb-2">Approval notice</span>
+            <span className="text-xs font-bold text-cobalt mb-2">Approval notice</span>
             <p className="text-xs text-muted-text leading-relaxed">
               SmallBizLoans.com is an independent representative and does not make credit decisions. Approval, terms, and final offers depend entirely on the underwriting review of your statements and files conducted by Mom &amp; Pop Business Funding.
             </p>
@@ -362,13 +362,13 @@ function Index() {
           
           <div className="flex flex-wrap gap-6 text-xs shrink-0 w-full sm:w-auto">
             <div>
-              <span className="block text-[9px] uppercase font-bold text-muted-text mb-0.5">Direct Line</span>
+              <span className="block text-[11px] font-bold text-muted-text mb-0.5">Direct Line</span>
               <a href="tel:+17209001921" className="text-ink font-bold hover:underline text-sm sm:text-base block">
                 (720) 900-1921
               </a>
             </div>
             <div>
-              <span className="block text-[9px] uppercase font-bold text-muted-text mb-0.5">Email Support</span>
+              <span className="block text-[11px] font-bold text-muted-text mb-0.5">Email Support</span>
               <a
                 href="mailto:lizzy.alemayehu@smallbizloanz.com"
                 className="text-ink font-bold break-all hover:underline block"
