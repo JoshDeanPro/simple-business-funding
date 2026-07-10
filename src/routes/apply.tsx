@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CheckCircle2, ChevronLeft, ChevronRight, Info, Upload, X } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, Info, Upload, X } from "@/components/ui/icons";
 import { useMemo, useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";

@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Clock3 } from "lucide-react";
+import { ArrowRight, Clock3 } from "@/components/ui/icons";
 import { SiteLayout } from "@/components/site-layout";
 import { blogPosts } from "@/lib/blog-posts";
 import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";

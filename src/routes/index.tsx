@@ -9,7 +9,7 @@ import {
   Landmark,
   Layers,
   PhoneCall,
-} from "lucide-react";
+} from "@/components/ui/icons";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import {

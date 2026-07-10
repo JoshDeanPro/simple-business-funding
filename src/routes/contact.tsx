@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CheckCircle2, Mail, Phone } from "lucide-react";
+import { CheckCircle2, Mail, Phone } from "@/components/ui/icons";
 import { useRef, useState, type FormEvent } from "react";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";

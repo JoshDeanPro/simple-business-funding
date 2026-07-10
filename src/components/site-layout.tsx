@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { BriefcaseBusiness, Menu, X } from "lucide-react";
+import { BriefcaseBusiness, Menu, X } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 
 const nav = [
