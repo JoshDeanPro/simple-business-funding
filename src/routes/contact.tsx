@@ -134,7 +134,7 @@ function ContactPage() {
 
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
         {/* Header */}
         <div className="mb-10 pb-6 border-b border-neutral-border/50">
           <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
@@ -180,11 +180,11 @@ function ContactPage() {
           </div>
 
           {/* Simple Contact Form */}
-          <div className="rounded border border-neutral-border bg-white p-6 sm:p-8">
+          <div className="card-premium p-6 sm:p-8 rounded-2xl">
             <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">Send a Message</h2>
             {status === "sent" ? (
               <div className="py-8 flex flex-col items-center text-center">
-                <div className="flex h-10 w-10 items-center justify-center rounded bg-sage/40 text-evergreen border border-evergreen">
+                <div className="flex h-10 w-10 items-center justify-center rounded bg-soft-aqua text-cobalt border border-cobalt">
                   <CheckCircle2 className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 text-lg font-bold text-ink">Message sent</h3>
@@ -219,7 +219,7 @@ function ContactPage() {
                 <Button
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
+                  className="w-full rounded-full btn-premium-cobalt font-semibold"
                 >
                   {status === "sending" ? "Sending…" : "Send message"}
                 </Button>

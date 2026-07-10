@@ -104,7 +104,7 @@ const groups = [
 function FaqPage() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
         {/* Help Center Header */}
         <div className="mb-10 pb-6 border-b border-neutral-border/50">
           <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
@@ -118,7 +118,7 @@ function FaqPage() {
         <div className="grid gap-8 lg:grid-cols-[200px_1fr] items-start">
           {/* Sticky left navigation rail */}
           <aside className="space-y-6 lg:sticky lg:top-24">
-            <div className="hidden lg:block border border-neutral-border bg-white p-4 rounded text-xs">
+            <div className="hidden lg:block card-premium p-4 rounded text-xs">
               <h3 className="font-bold text-ink uppercase tracking-wider mb-3 border-b border-neutral-border/50 pb-2">
                 Help Categories
               </h3>
@@ -129,7 +129,7 @@ function FaqPage() {
                     <li key={group.title}>
                       <a
                         href={`#${id}`}
-                        className="text-muted-text font-semibold hover:text-evergreen hover:underline transition-colors block"
+                        className="text-muted-text font-semibold hover:text-cobalt hover:underline transition-colors block"
                       >
                         {group.title}
                       </a>
@@ -140,12 +140,12 @@ function FaqPage() {
             </div>
 
             {/* Support Desk Card */}
-            <div className="border border-neutral-border bg-white p-4 rounded text-xs">
+            <div className="card-premium p-4 rounded text-xs">
               <h4 className="font-bold text-ink uppercase tracking-wider mb-2">Still need help?</h4>
               <p className="text-muted-text leading-relaxed">
                 Connect directly with our file representative desk for assistance.
               </p>
-              <div className="mt-4 space-y-2.5 bg-paper p-3 rounded border border-neutral-border/40">
+              <div className="mt-4 space-y-2.5 bg-cloud p-3 rounded border border-neutral-border/40">
                 <div>
                   <span className="block text-[9px] uppercase font-bold text-muted-text">Call Support</span>
                   <a href="tel:+17209001921" className="text-ink font-bold hover:underline block mt-0.5">
@@ -170,7 +170,7 @@ function FaqPage() {
             {groups.map((group) => {
               const id = group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
               return (
-                <section key={group.title} id={id} className="scroll-mt-20 bg-white border border-neutral-border rounded p-6">
+                <section key={group.title} id={id} className="scroll-mt-20 card-premium rounded p-6">
                   <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">
                     {group.title}
                   </h2>
@@ -179,7 +179,7 @@ function FaqPage() {
                       <AccordionItem
                         key={f.q}
                         value={`${group.title}-${i}`}
-                        className="border border-neutral-border/40 rounded bg-paper/20 px-4 last:border-b-0"
+                        className="border border-neutral-border/40 rounded-lg bg-cloud/50 px-4 mb-2 last:mb-0 last:border-b-0"
                       >
                         <AccordionTrigger className="text-left text-sm font-semibold hover:no-underline py-3 text-ink">
                           {f.q}
@@ -203,14 +203,14 @@ function FaqPage() {
               <div className="flex gap-3">
                 <Button
                   asChild
-                  className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-4 font-semibold text-xs h-8"
+                  className="rounded-full btn-premium-evergreen px-4 font-semibold text-xs h-8"
                 >
                   <Link to="/apply">Start Application</Link>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
-                  className="rounded-full border-neutral-border hover:bg-paper text-ink px-4 text-xs h-8"
+                  className="rounded-full btn-premium-outline px-4 text-xs h-8"
                 >
                   <Link to="/contact">Contact us</Link>
                 </Button>

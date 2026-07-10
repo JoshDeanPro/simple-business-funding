@@ -59,8 +59,8 @@ function BlogArticlePage() {
   if (!post) {
     return (
       <SiteLayout>
-        <section className="mx-auto max-w-xl px-4 py-24 text-center sm:px-6 bg-white border border-neutral-border rounded mt-12 mb-24">
-          <p className="text-sm font-semibold text-evergreen uppercase tracking-wider">Article not found</p>
+        <section className="mx-auto max-w-xl px-4 py-24 text-center sm:px-6 card-premium rounded mt-12 mb-24">
+          <p className="text-sm font-semibold text-cobalt uppercase tracking-wider">Article not found</p>
           <h1 className="mt-4 text-2xl font-bold tracking-tight text-ink">That article is not available.</h1>
           <p className="mt-2 text-sm text-muted-text">
             Try looking through our resources library or return to the homepage.
@@ -68,13 +68,13 @@ function BlogArticlePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               to="/blog"
-              className="inline-flex items-center gap-2 rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-4 py-2 text-sm font-semibold"
+              className="inline-flex items-center gap-2 rounded-full btn-premium-cobalt px-4 py-2 text-sm font-semibold"
             >
               <ArrowLeft className="h-4 w-4" /> Back to resources
             </Link>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 rounded-full border border-neutral-border bg-white hover:bg-paper px-4 py-2 text-sm font-semibold text-ink"
+              className="inline-flex items-center gap-2 rounded-full btn-premium-outline px-4 py-2 text-sm font-semibold"
             >
               Go home
             </Link>
@@ -88,17 +88,17 @@ function BlogArticlePage() {
 
   return (
     <SiteLayout>
-      <article className="mx-auto max-w-4xl px-4 pb-24 pt-8 sm:px-6">
+      <article className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-evergreen hover:underline"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-cobalt hover:underline"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to all resources
         </Link>
         
         <div className="mt-8 grid gap-8 md:grid-cols-[1.2fr_0.8fr] items-center border-b border-neutral-border/50 pb-8 mb-10">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-evergreen">
+            <div className="flex items-center gap-2 text-xs font-semibold text-cobalt">
               <span className="uppercase tracking-wider">{post.category}</span>
               <span className="h-1 w-1 rounded-full bg-neutral-border" />
               <span className="text-muted-text">{post.readTime}</span>
@@ -108,7 +108,7 @@ function BlogArticlePage() {
             </h1>
             <p className="mt-4 text-sm leading-relaxed text-muted-text">{post.intro}</p>
           </div>
-          <div className="border border-neutral-border bg-paper p-1 rounded overflow-hidden">
+          <div className="card-premium bg-cloud p-1 rounded-2xl overflow-hidden">
             <img
               src={post.image}
               alt={post.alt}
@@ -120,7 +120,7 @@ function BlogArticlePage() {
         <div className="mx-auto max-w-2xl">
           {post.sections.map((section) => (
             <section key={section.heading} className="mb-10">
-              <h2 className="text-xl font-bold tracking-tight text-ink sm:text-2xl border-l-2 border-evergreen pl-3 mb-4">
+              <h2 className="text-xl font-bold tracking-tight text-ink sm:text-2xl border-l-2 border-cobalt pl-3 mb-4">
                 {section.heading}
               </h2>
               {section.paragraphs.map((paragraph) => (
@@ -132,7 +132,7 @@ function BlogArticlePage() {
           ))}
 
           {/* Talk card */}
-          <div className="mt-14 rounded border border-neutral-border bg-white p-6 sm:p-8 text-ink">
+          <div className="mt-14 card-premium p-6 sm:p-8 text-ink rounded-2xl">
             <h2 className="text-lg font-bold text-ink">Ready to explore financing options?</h2>
             <p className="mt-2 text-xs leading-relaxed text-muted-text">
               Completing the secure online application takes about 5 minutes. You can also contact our team if you have questions.
@@ -140,13 +140,13 @@ function BlogArticlePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/apply"
-                className="inline-flex items-center gap-2 rounded-full bg-evergreen px-4 py-2 text-xs font-semibold text-white hover:bg-evergreen/90"
+                className="inline-flex items-center gap-2 rounded-full btn-premium-cobalt px-4 py-2 text-xs font-semibold"
               >
                 Apply now <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center rounded-full border border-neutral-border bg-white px-4 py-2 text-xs font-semibold text-ink hover:bg-paper"
+                className="inline-flex items-center rounded-full btn-premium-outline px-4 py-2 text-xs font-semibold"
               >
                 Contact us
               </Link>
@@ -162,16 +162,16 @@ function BlogArticlePage() {
                   key={item.slug}
                   to="/blog/$slug"
                   params={{ slug: item.slug }}
-                  className="group rounded border border-neutral-border bg-white p-5 hover:border-evergreen transition-colors"
+                  className="group card-premium p-5 rounded-xl hover:border-cobalt transition-colors"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-wider text-evergreen">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-cobalt">
                     {item.category}
                   </p>
-                  <h3 className="mt-2.5 text-sm font-bold text-ink group-hover:text-evergreen transition-colors leading-snug">
+                  <h3 className="mt-2.5 text-sm font-bold text-ink group-hover:text-cobalt transition-colors leading-snug">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-muted-text line-clamp-2">{item.intro}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-evergreen hover:underline">
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-cobalt hover:underline">
                     Read article{" "}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </span>

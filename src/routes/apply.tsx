@@ -448,11 +448,11 @@ function ApplyPage() {
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button
               asChild
-              className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
+              className="rounded-full btn-premium-evergreen px-6 font-semibold"
             >
               <Link to="/">Back to home</Link>
             </Button>
-            <Button asChild variant="outline" className="rounded-full border-neutral-border hover:bg-paper text-ink">
+            <Button asChild variant="outline" className="rounded-full btn-premium-outline">
               <Link to="/contact">Contact us</Link>
             </Button>
           </div>
@@ -463,7 +463,7 @@ function ApplyPage() {
 
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
             Business funding application
@@ -477,7 +477,7 @@ function ApplyPage() {
           {/* Compact Sticky Rail */}
           <aside className="space-y-6 lg:sticky lg:top-24">
             {/* Desktop stepper */}
-            <div className="hidden lg:block border border-neutral-border bg-white p-5 rounded">
+            <div className="hidden lg:block card-premium p-5 rounded">
               <h3 className="text-xs font-bold text-ink uppercase tracking-wider mb-4 border-b border-neutral-border/50 pb-2">
                 Progress
               </h3>
@@ -512,7 +512,7 @@ function ApplyPage() {
             </div>
 
             {/* Support info */}
-            <div className="border border-neutral-border bg-white p-5 rounded text-xs space-y-4">
+            <div className="card-premium p-5 rounded text-xs space-y-4">
               <h4 className="font-bold text-ink border-b border-neutral-border/50 pb-2 uppercase tracking-wider">
                 Support & Contact
               </h4>
@@ -547,7 +547,7 @@ function ApplyPage() {
           {/* Main workspace */}
           <div>
             {/* Before you begin disclosure */}
-            <div className="border border-neutral-border bg-white p-5 rounded text-xs leading-relaxed text-ink mb-6">
+            <div className="card-premium p-5 rounded text-xs leading-relaxed text-ink mb-6">
               <p className="font-bold text-ink">Application disclosure</p>
               <p className="mt-1.5 text-muted-text">
                 SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
@@ -562,7 +562,7 @@ function ApplyPage() {
             </div>
 
             {/* Workspace Card wrapper */}
-            <div className="border border-neutral-border bg-white p-6 sm:p-8 rounded">
+            <div className="card-premium p-6 sm:p-8 rounded">
               <div className="border-b border-neutral-border/50 pb-4 mb-6">
                 <p className="text-xs text-muted-text flex items-center justify-between">
                   <span>
@@ -570,9 +570,9 @@ function ApplyPage() {
                   </span>
                   <span>Fields marked * are required</span>
                 </p>
-                <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-paper relative">
+                <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-cloud relative border border-neutral-border/20">
                   <div
-                    className="absolute top-0 left-0 h-full bg-signal-green transition-all duration-300"
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cobalt to-aqua transition-all duration-300"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -1221,7 +1221,7 @@ function ApplyPage() {
               variant="outline"
               onClick={back}
               disabled={step === 0 || submitting}
-              className="rounded-full border border-neutral-border hover:bg-paper text-ink"
+              className="rounded-full btn-premium-outline font-semibold"
             >
               <ChevronLeft className="mr-1 h-4 w-4" /> Back
             </Button>
@@ -1230,7 +1230,7 @@ function ApplyPage() {
                 type="button"
                 onClick={next}
                 disabled={submitting}
-                className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
+                className="rounded-full btn-premium-cobalt font-semibold"
               >
                 Continue <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
@@ -1239,7 +1239,7 @@ function ApplyPage() {
                 type="button"
                 onClick={submit}
                 disabled={submitting}
-                className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
+                className="rounded-full btn-premium-cobalt font-semibold"
               >
                 {submitting ? "Submitting…" : "Submit application"}
               </Button>

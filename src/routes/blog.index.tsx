@@ -52,7 +52,7 @@ function BlogPage() {
 
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
         {/* Header */}
         <div className="mb-10 pb-6 border-b border-neutral-border/50">
           <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
@@ -65,10 +65,10 @@ function BlogPage() {
 
         {/* Featured Guide */}
         {featured && (
-          <div className="bg-white border border-neutral-border p-6 sm:p-8 rounded mb-12">
+          <div className="card-premium p-6 sm:p-8 rounded mb-12">
             <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] items-center">
               <div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-evergreen">
+                <div className="flex items-center gap-2 text-xs font-semibold text-cobalt">
                   <span className="uppercase tracking-wider">{featured.category}</span>
                   <span className="h-1 w-1 rounded-full bg-neutral-border" />
                   <span className="text-muted-text">{featured.readTime}</span>
@@ -77,7 +77,7 @@ function BlogPage() {
                   <Link
                     to="/blog/$slug"
                     params={{ slug: featured.slug }}
-                    className="hover:text-evergreen transition-colors"
+                    className="hover:text-cobalt transition-colors"
                   >
                     {featured.title}
                   </Link>
@@ -88,7 +88,7 @@ function BlogPage() {
                 <div className="mt-6">
                   <Button
                     asChild
-                    className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-5 font-semibold text-xs h-9"
+                    className="rounded-full btn-premium-cobalt px-5 font-semibold text-xs h-9"
                   >
                     <Link to="/blog/$slug" params={{ slug: featured.slug }}>
                       Read Featured Guide <ArrowRight className="ml-1 h-3.5 w-3.5" />
@@ -116,15 +116,15 @@ function BlogPage() {
             {otherPosts.map((post) => (
               <div
                 key={post.slug}
-                className="group bg-white border border-neutral-border rounded p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-evergreen transition-colors"
+                className="group card-premium p-6 rounded flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-cobalt transition-colors"
               >
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-evergreen">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-cobalt">
                     <span className="uppercase tracking-wider">{post.category}</span>
                     <span className="h-1 w-1 rounded-full bg-neutral-border" />
                     <span className="text-muted-text">{post.readTime}</span>
                   </div>
-                  <h4 className="mt-2 text-lg font-bold text-ink group-hover:text-evergreen transition-colors leading-snug">
+                  <h4 className="mt-2 text-lg font-bold text-ink group-hover:text-cobalt transition-colors leading-snug">
                     <Link to="/blog/$slug" params={{ slug: post.slug }}>
                       {post.title}
                     </Link>
@@ -137,7 +137,7 @@ function BlogPage() {
                   <Button
                     asChild
                     variant="outline"
-                    className="rounded-full border-neutral-border group-hover:border-evergreen group-hover:bg-evergreen group-hover:text-white font-semibold text-xs h-8 px-4"
+                    className="rounded-full btn-premium-outline group-hover:border-cobalt group-hover:bg-cobalt group-hover:text-white font-semibold text-xs h-8 px-4"
                   >
                     <Link to="/blog/$slug" params={{ slug: post.slug }}>
                       Read Article

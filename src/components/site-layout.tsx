@@ -25,20 +25,20 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   }, [open]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-paper text-ink selection:bg-sage">
+    <div className="flex min-h-screen flex-col bg-warm-white text-ink selection:bg-soft-aqua">
       <header className="sticky top-0 z-40 border-b border-neutral-border/50 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2.5 font-bold tracking-tight text-ink transition-opacity hover:opacity-90">
             <BrandIcon />
-            <span className="text-lg">SmallBizLoans</span>
+            <span className="text-lg font-display font-extrabold tracking-tight">SmallBizLoans</span>
           </Link>
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-sm font-medium text-muted-text transition-colors hover:text-ink"
-                activeProps={{ className: "text-evergreen font-semibold" }}
+                className="text-sm font-semibold text-muted-text transition-colors hover:text-ink py-1 border-b-2 border-transparent"
+                activeProps={{ className: "text-cobalt font-bold border-cobalt" }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {n.label}
@@ -48,14 +48,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div className="hidden md:block">
             <Button
               asChild
-              className="rounded-full bg-evergreen text-white hover:bg-evergreen/90 px-5 font-semibold text-sm h-9"
+              className="rounded-full btn-premium-cobalt px-5 font-semibold text-sm h-9"
             >
               <Link to="/apply">Apply Now</Link>
             </Button>
           </div>
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-sage/40 md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-cloud md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-controls="mobile-navigation"
             aria-expanded={open}
@@ -72,8 +72,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   key={n.to}
                   to={n.to}
                   onClick={() => setOpen(false)}
-                  className="rounded px-3 py-2.5 text-sm font-medium text-muted-text hover:bg-sage/20 hover:text-ink"
-                  activeProps={{ className: "bg-sage/30 text-evergreen font-semibold" }}
+                  className="rounded px-3 py-2.5 text-sm font-semibold text-muted-text hover:bg-cloud hover:text-ink"
+                  activeProps={{ className: "bg-soft-aqua text-cobalt font-bold" }}
                   activeOptions={{ exact: n.to === "/" }}
                 >
                   {n.label}
@@ -81,7 +81,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               ))}
               <Button
                 asChild
-                className="mt-2 rounded-full bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
+                className="mt-2 rounded-full btn-premium-cobalt font-semibold w-full"
               >
                 <Link to="/apply" onClick={() => setOpen(false)}>
                   Apply Now
@@ -94,27 +94,27 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="mt-20 border-t border-neutral-border bg-ink text-white">
+      <footer className="mt-24 border-t border-neutral-border/20 bg-midnight-navy text-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="grid gap-12 md:grid-cols-3">
             <div>
               <div className="flex items-center gap-2.5 font-bold tracking-tight text-white">
                 <BrandIcon />
-                <span className="text-lg">SmallBizLoans</span>
+                <span className="text-lg font-display font-extrabold tracking-tight">SmallBizLoans</span>
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-sage/75">
+              <p className="mt-4 text-sm leading-relaxed text-cloud/70">
                 Providing structured, dependable business funding information and clear application paths for owner-operated small businesses.
               </p>
               <Link
                 to="/apply"
-                className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-signal-green hover:underline"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-signal-lime hover:underline"
               >
-                Start your application
+                Start your application &rarr;
               </Link>
             </div>
             <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-sage/50">Navigation</h4>
-              <ul className="mt-4 space-y-2.5 text-sm text-sage/80">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-cloud/40">Navigation</h4>
+              <ul className="mt-4 space-y-2.5 text-sm text-cloud/80">
                 <li>
                   <Link to="/" className="hover:text-white transition-colors">
                     Home
@@ -153,31 +153,28 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </ul>
             </div>
             <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-sage/50">Contact info</h4>
-              <ul className="mt-4 space-y-3 text-sm text-sage/80">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-cloud/40">Contact info</h4>
+              <ul className="mt-4 space-y-3.5 text-sm text-cloud/85">
                 <li>
-                  <span className="block text-xs text-sage/40">Email assistance</span>
-                  <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="font-medium hover:text-white break-all">
+                  <span className="block text-xs text-cloud/40 font-bold uppercase tracking-wider mb-1">Email assistance</span>
+                  <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="font-semibold hover:text-white break-all hover:underline">
                     lizzy.alemayehu@smallbizloanz.com
                   </a>
                 </li>
                 <li>
-                  <span className="block text-xs text-sage/40">Phone support</span>
-                  <a href="tel:+17209001921" className="font-medium hover:text-white">
+                  <span className="block text-xs text-cloud/40 font-bold uppercase tracking-wider mb-1">Phone support</span>
+                  <a href="tel:+17209001921" className="font-semibold hover:text-white hover:underline text-base">
                     (720) 900-1921
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="mt-12 border-t border-white/10 pt-8 text-xs leading-relaxed text-sage/60">
+          <div className="mt-12 border-t border-white/10 pt-8 text-xs leading-relaxed text-cloud/50">
             <p>
-              SmallBizLoans.com does not guarantee approval, funding, rates, terms, or funding
-              amounts. Submitting an application does not constitute an offer of credit or funding.
-              Final eligibility and terms depend on review of the applicant&rsquo;s information and
-              supporting documents.
+              SmallBizLoans.com is an independent representative coordinating application files with Mom &amp; Pop Business Funding. SmallBizLoans.com does not make underwriting reviews, credit decisions, or guarantee approval, funding, rates, terms, or final funding amounts. Submitting an application or contact form does not constitute an offer of credit or funding. Final eligibility depends entirely on review and verification of applicant information by Mom &amp; Pop Business Funding.
             </p>
-            <p className="mt-4">
+            <p className="mt-4 font-semibold">
               &copy; {new Date().getFullYear()} SmallBizLoans. All rights reserved.
             </p>
           </div>
@@ -189,7 +186,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function BrandIcon() {
   return (
-    <span className="grid h-8 w-8 place-items-center text-evergreen bg-sage/30 rounded">
+    <span className="grid h-8 w-8 place-items-center text-cobalt bg-soft-aqua rounded-lg border border-neutral-border/30">
       <BriefcaseBusiness className="h-5 w-5" fill="currentColor" aria-hidden="true" />
     </span>
   );

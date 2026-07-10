@@ -28,7 +28,7 @@ export const Route = createFileRoute("/terms")({
   },
   component: () => (
     <SiteLayout>
-      <section className="mx-auto max-w-4xl px-4 pb-24 pt-8 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
         <div className="mb-8 pb-4 border-b border-neutral-border/50">
           <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
             Terms of Use
