@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { HandCoins, Menu, X } from "lucide-react";
+import { BadgeDollarSign, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const nav = [
@@ -28,9 +28,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-3 font-bold tracking-tight">
+          <Link to="/" className="flex items-center gap-3 font-extrabold tracking-[-0.03em]">
             <BrandIcon />
-            <span className="text-base sm:text-lg">Smallbizloanz</span>
+                <span className="text-lg sm:text-xl">Smallbizloanz</span>
           </Link>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
             {nav.map((n) => (
@@ -98,9 +98,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-10 md:grid-cols-3">
             <div>
-              <div className="flex items-center gap-3 font-bold">
+              <div className="flex items-center gap-3 font-extrabold tracking-[-0.03em]">
                 <BrandIcon />
-                <span>Smallbizloanz</span>
+                <span className="text-lg">Smallbizloanz</span>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
                 Business funding information, application guidance, and a straightforward way to
@@ -187,7 +187,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 function BrandIcon() {
   return (
     <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
-      <HandCoins className="h-5 w-5" aria-hidden="true" />
+      <BadgeDollarSign className="h-5 w-5 text-white" fill="currentColor" stroke="#000000" aria-hidden="true" />
     </span>
   );
 }
