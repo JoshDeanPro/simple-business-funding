@@ -1,0 +1,117 @@
+import { Link } from "@tanstack/react-router";
+import { useState, type ReactNode } from "react";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const nav = [
+  { to: "/", label: "Home" },
+  { to: "/apply", label: "Apply" },
+  { to: "/faq", label: "FAQ" },
+  { to: "/blog", label: "Blog" },
+  { to: "/contact", label: "Contact" },
+] as const;
+
+export function SiteLayout({ children }: { children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground text-sm">S</span>
+            <span className="text-lg">Smallbizloanz</span>
+          </Link>
+          <nav className="hidden items-center gap-7 md:flex">
+            {nav.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
+                activeOptions={{ exact: n.to === "/" }}
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="hidden md:block">
+            <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
+              <Link to="/apply">Apply Now</Link>
+            </Button>
+          </div>
+          <button
+            className="grid h-10 w-10 place-items-center rounded-md md:hidden"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+        {open && (
+          <div className="border-t border-border/70 bg-background md:hidden">
+            <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
+              {nav.map((n) => (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  onClick={() => setOpen(false)}
+                  className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                  activeProps={{ className: "bg-muted text-foreground" }}
+                  activeOptions={{ exact: n.to === "/" }}
+                >
+                  {n.label}
+                </Link>
+              ))}
+              <Button asChild className="mt-2 rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
+                <Link to="/apply" onClick={() => setOpen(false)}>Apply Now</Link>
+              </Button>
+            </div>
+          </div>
+        )}
+      </header>
+
+      <main className="flex-1">{children}</main>
+
+      <footer className="mt-24 border-t border-border/70 bg-surface">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <div className="grid gap-10 md:grid-cols-3">
+            <div>
+              <div className="flex items-center gap-2 font-bold">
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground text-sm">S</span>
+                <span>Smallbizloanz</span>
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Straightforward small-business funding with a simple application and minimal paperwork.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold">Site</h4>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                {nav.map((n) => (
+                  <li key={n.to}><Link to={n.to} className="hover:text-foreground">{n.label}</Link></li>
+                ))}
+                <li><Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="hover:text-foreground">Terms of Use</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold">Contact</h4>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <li><a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="hover:text-foreground">lizzy.alemayehu@smallbizloanz.com</a></li>
+                <li><a href="tel:+17209001921" className="hover:text-foreground">(720) 900-1921</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-10 border-t border-border/70 pt-6 text-xs leading-relaxed text-muted-foreground">
+            <p>
+              Smallbizloanz.com does not guarantee approval, funding, rates, terms, or funding amounts. Submitting an application does
+              not constitute an offer of credit or funding. Final eligibility and terms depend on review of the applicant&rsquo;s
+              information and supporting documents.
+            </p>
+            <p className="mt-4">&copy; {new Date().getFullYear()} Smallbizloanz. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
