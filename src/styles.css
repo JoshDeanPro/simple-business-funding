@@ -82,4 +82,10 @@
 @layer utilities {
   /* Bright green is reserved for surfaces and controls; text uses a readable dark green. */
   .text-brand { color: #006b00; }
+
+  /* Flat design: surfaces and fills define the hierarchy instead of outlines and shadows. */
+  .border, .border-b, .border-t, .border-y, .border-2, .border-dashed,
+  [class*="border-border"], [class*="border-input"], [class*="border-primary"],
+  [class*="border-destructive"] { border-color: transparent !important; }
+  .shadow, .shadow-sm, .shadow-lg, .shadow-xl, [class*="shadow-"] { box-shadow: none !important; }
 }
