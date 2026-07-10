@@ -428,7 +428,7 @@ function ApplyPage() {
     return (
       <SiteLayout>
         <section className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6">
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand/15 text-brand">
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-brand-foreground">
             <CheckCircle2 className="h-7 w-7" />
           </div>
           <h1 className="mt-6 text-4xl font-bold tracking-tight">Application received</h1>
@@ -784,7 +784,7 @@ function ApplyPage() {
                   {["Sole proprietorship", "Corporation", "Partnership", "LLC"].map((option) => (
                     <label
                       key={option}
-                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm hover:border-brand has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/5"
+                      className="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 text-sm hover:bg-accent has-[[data-state=checked]]:bg-accent"
                     >
                       <RadioGroupItem value={option} /> {option}
                     </label>
@@ -893,7 +893,7 @@ function ApplyPage() {
                   ].map(([value, label]) => (
                     <label
                       key={value}
-                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm hover:border-brand has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/5"
+                      className="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 text-sm hover:bg-accent has-[[data-state=checked]]:bg-accent"
                     >
                       <RadioGroupItem value={value} /> {label}
                     </label>
@@ -1128,7 +1128,7 @@ function SectionTitle({ children }: { children: ReactNode }) {
 
 function Note({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-brand/20 bg-brand/5 p-3 text-sm text-foreground">
+    <div className="flex items-start gap-2 rounded-lg bg-accent p-3 text-sm text-foreground">
       <Info className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
       <p>{children}</p>
     </div>
@@ -1235,7 +1235,7 @@ function FileField({
       </Label>
       <label
         htmlFor={id}
-        className="mt-1.5 flex cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-border bg-background px-4 py-6 text-center transition-colors hover:border-brand hover:bg-brand/5"
+        className="mt-1.5 flex cursor-pointer flex-col items-center justify-center gap-1 rounded-xl bg-surface px-4 py-6 text-center transition-colors hover:bg-accent"
       >
         <Upload className="h-5 w-5 text-muted-foreground" />
         <span className="text-sm font-medium">

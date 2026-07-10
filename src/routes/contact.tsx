@@ -147,9 +147,9 @@ function ContactPage() {
             <div className="mt-8 space-y-4">
               <a
                 href="mailto:lizzy.alemayehu@smallbizloanz.com"
-                className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-brand"
+                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand/10 text-brand">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-brand-foreground">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
@@ -163,9 +163,9 @@ function ContactPage() {
               </a>
               <a
                 href="tel:+17209001921"
-                className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-brand"
+                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand/10 text-brand">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-brand-foreground">
                   <Phone className="h-5 w-5" />
                 </span>
                 <div>

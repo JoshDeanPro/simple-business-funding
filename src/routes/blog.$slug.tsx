@@ -143,7 +143,7 @@ function BlogArticlePage() {
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center rounded-full border border-input px-5 py-2.5 text-sm font-semibold hover:border-brand hover:bg-accent"
+                className="inline-flex items-center rounded-full bg-surface px-5 py-2.5 text-sm font-semibold hover:bg-accent"
               >
                 Contact us
               </Link>
