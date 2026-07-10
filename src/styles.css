@@ -40,28 +40,28 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.995 0.003 240);
-  --foreground: oklch(0.20 0.03 250);
-  --surface: oklch(0.975 0.008 240);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.20 0.03 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.20 0.03 250);
-  --primary: oklch(0.24 0.05 250);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.96 0.008 240);
-  --secondary-foreground: oklch(0.24 0.05 250);
-  --muted: oklch(0.96 0.008 240);
-  --muted-foreground: oklch(0.48 0.02 250);
-  --accent: oklch(0.94 0.02 200);
-  --accent-foreground: oklch(0.24 0.05 250);
-  --destructive: oklch(0.60 0.22 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.90 0.01 240);
-  --input: oklch(0.90 0.01 240);
-  --ring: oklch(0.55 0.09 200);
-  --brand: oklch(0.55 0.09 200);
-  --brand-foreground: oklch(0.99 0 0);
+  --background: #f7f8f7;
+  --foreground: #101410;
+  --surface: #eef0ee;
+  --card: #ffffff;
+  --card-foreground: #101410;
+  --popover: #ffffff;
+  --popover-foreground: #101410;
+  --primary: #00ff00;
+  --primary-foreground: #000000;
+  --secondary: #e4e8e4;
+  --secondary-foreground: #101410;
+  --muted: #e8ece8;
+  --muted-foreground: #465047;
+  --accent: #dcffdc;
+  --accent-foreground: #101410;
+  --destructive: #b42318;
+  --destructive-foreground: #ffffff;
+  --border: #c8d0c8;
+  --input: #aeb8ae;
+  --ring: #00ff00;
+  --brand: #00ff00;
+  --brand-foreground: #000000;
 }
 
 @layer base {
@@ -74,5 +74,12 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+  label { font-weight: 600; }
+  :focus-visible { outline: 2px solid #000000; outline-offset: 2px; }
+}
+
+@layer utilities {
+  /* Bright green is reserved for surfaces and controls; text uses a readable dark green. */
+  .text-brand { color: #006b00; }
 }
