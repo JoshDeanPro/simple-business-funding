@@ -29,8 +29,8 @@ export const Route = createFileRoute("/")({
       path: "/",
       imageAlt: "Smallbizloanz small business loans and business funding",
     }),
-    meta: [
-      { name: "theme-color", content: "#f9fafb" },
+    meta: [{ name: "theme-color", content: "#f9fafb" }],
+    scripts: [
       toJsonLd(organizationSchema()),
       toJsonLd(websiteSchema("/")),
       toJsonLd(

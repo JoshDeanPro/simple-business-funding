@@ -136,16 +136,12 @@ export function articleSchema({
   description,
   path,
   image,
-  updatedAt,
-  publishedAt,
   section,
 }: {
   title: string;
   description: string;
   path: string;
   image: string;
-  updatedAt: string;
-  publishedAt: string;
   section: string;
 }) {
   return {
@@ -157,8 +153,6 @@ export function articleSchema({
         description,
         image: absoluteUrl(image),
         url: absoluteUrl(path),
-        datePublished: publishedAt,
-        dateModified: updatedAt,
         articleSection: section,
         author: {
           "@type": "Organization",
@@ -191,5 +185,5 @@ export function breadcrumbSchema(items: BreadcrumbItem[], path: string) {
 }
 
 export function toJsonLd(value: Record<string, unknown>) {
-  return { "script:ld+json": value };
+  return { type: "application/ld+json", children: JSON.stringify(value) };
 }

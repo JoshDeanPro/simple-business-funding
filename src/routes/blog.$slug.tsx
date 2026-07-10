@@ -22,7 +22,7 @@ export const Route = createFileRoute("/blog/$slug")({
         path: `/blog/${post.slug}`,
         type: "article",
       }),
-      meta: [
+      scripts: [
         toJsonLd(
           webpageSchema({
             title: post.title,
@@ -42,8 +42,6 @@ export const Route = createFileRoute("/blog/$slug")({
             description: post.intro,
             path: `/blog/${post.slug}`,
             image: post.image,
-            updatedAt: post.updatedAt,
-            publishedAt: post.publishedAt,
             section: post.category,
           }),
         ),
@@ -104,9 +102,6 @@ function BlogArticlePage() {
               <span className="inline-flex items-center gap-1 text-muted-foreground normal-case tracking-normal">
                 <Clock3 className="h-3.5 w-3.5" />
                 {post.readTime}
-              </span>
-              <span className="normal-case tracking-normal text-muted-foreground">
-                Updated {formatDate(post.updatedAt)}
               </span>
             </div>
             <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">

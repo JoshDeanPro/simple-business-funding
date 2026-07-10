@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { CheckCircle2, Mail, Phone } from "lucide-react";
 import { useState } from "react";
-import { Mail, Phone, CheckCircle2 } from "lucide-react";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { emailRow, sendLeadEmail } from "@/lib/email.server";
+import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   server: {
@@ -22,7 +23,10 @@ export const Route = createFileRoute("/contact")({
         if (!body.name?.trim() || !body.email?.trim() || !body.message?.trim()) {
           return Response.json(
             { error: "Name, email, and message are required." },
-            { status: 400 },
+            {
+              status: 400,
+              headers: { "X-Robots-Tag": "noindex, nofollow" },
+            },
           );
         }
         try {
@@ -36,29 +40,43 @@ export const Route = createFileRoute("/contact")({
             ],
             body.message,
           );
-          return Response.json({ success: true });
+          return Response.json(
+            { success: true },
+            { headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
         } catch (error) {
           console.error(error);
           return Response.json(
             { error: "We could not send your message. Please try again shortly." },
-            { status: 500 },
+            {
+              status: 500,
+              headers: { "X-Robots-Tag": "noindex, nofollow" },
+            },
           );
         }
       },
     },
   },
   head: () => ({
-    meta: [
-      { title: "Contact — Smallbizloanz" },
-      {
-        name: "description",
-        content: "Get in touch with Smallbizloanz by phone, email, or the contact form.",
-      },
-      { property: "og:title", content: "Contact — Smallbizloanz" },
-      {
-        property: "og:description",
-        content: "Reach a Smallbizloanz representative by phone or email.",
-      },
+    ...pageHead({
+      title: "Contact Smallbizloanz | Business Funding Assistance",
+      description:
+        "Contact Smallbizloanz by phone, email, or the contact form for help with business funding questions and applications.",
+      path: "/contact",
+    }),
+    scripts: [
+      toJsonLd(
+        webpageSchema({
+          title: "Contact Smallbizloanz",
+          description:
+            "Contact Smallbizloanz by phone, email, or the contact form for help with business funding questions and applications.",
+          path: "/contact",
+          breadcrumbs: [
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ],
+        }),
+      ),
     ],
   }),
   component: ContactPage,
@@ -89,9 +107,15 @@ function ContactPage() {
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
         <div className="grid gap-12 md:grid-cols-2">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact us</h1>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+              Contact Smallbizloanz
+            </p>
+            <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+              Get help with your business funding application.
+            </h1>
             <p className="mt-4 text-muted-foreground">
-              Have a question about the application or your business situation? We're happy to help.
+              Use the contact options below if you need help before you start the application or
+              if you have questions about the review process.
             </p>
             <div className="mt-8 space-y-4">
               <a
@@ -128,8 +152,12 @@ function ContactPage() {
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+            <p className="text-sm text-muted-foreground">
+              Tell us what you need help with. Include your business name if the question is about
+              an application or a funding request.
+            </p>
             {status === "sent" ? (
-              <div className="flex flex-col items-center text-center">
+              <div className="mt-6 flex flex-col items-center text-center">
                 <CheckCircle2 className="h-10 w-10 text-brand" />
                 <h2 className="mt-4 text-xl font-semibold">Message sent</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -137,20 +165,27 @@ function ContactPage() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="space-y-4">
+              <form onSubmit={onSubmit} className="mt-6 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field id="name" label="Name" required />
-                  <Field id="business" label="Business name" />
+                  <Field id="name" label="Name" required autoComplete="name" />
+                  <Field id="business" label="Business name" autoComplete="organization" />
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field id="email" label="Email" type="email" required />
-                  <Field id="phone" label="Phone" type="tel" />
+                  <Field id="email" label="Email" type="email" required autoComplete="email" />
+                  <Field id="phone" label="Phone" type="tel" autoComplete="tel" inputMode="tel" />
                 </div>
                 <div>
                   <Label htmlFor="message">
                     Message <span className="text-destructive">*</span>
                   </Label>
-                  <Textarea id="message" name="message" required rows={5} className="mt-1.5" />
+                  <Textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    autoComplete="off"
+                    className="mt-1.5"
+                  />
                 </div>
                 <Button
                   type="submit"
@@ -178,11 +213,15 @@ function Field({
   label,
   type = "text",
   required,
+  autoComplete,
+  inputMode,
 }: {
   id: string;
   label: string;
   type?: string;
   required?: boolean;
+  autoComplete?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
 }) {
   return (
     <div>
@@ -190,7 +229,15 @@ function Field({
         {label}
         {required && <span className="text-destructive"> *</span>}
       </Label>
-      <Input id={id} name={id} type={type} required={required} className="mt-1.5" />
+      <Input
+        id={id}
+        name={id}
+        type={type}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        required={required}
+        className="mt-1.5"
+      />
     </div>
   );
 }

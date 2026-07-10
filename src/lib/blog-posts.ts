@@ -3,8 +3,6 @@ export type BlogPost = {
   title: string;
   category: string;
   readTime: string;
-  publishedAt: string;
-  updatedAt: string;
   intro: string;
   image: string;
   alt: string;
@@ -17,8 +15,6 @@ export const blogPosts: BlogPost[] = [
     title: "Understanding small business funding options",
     category: "Funding basics",
     readTime: "6 min read",
-    publishedAt: "2026-07-10",
-    updatedAt: "2026-07-10",
     intro:
       "The right funding is less about chasing the biggest number and more about choosing a structure your business can comfortably support.",
     image: "/images/stock/financials.jpg",
@@ -51,8 +47,6 @@ export const blogPosts: BlogPost[] = [
     title: "How lenders review business bank statements",
     category: "Applications",
     readTime: "5 min read",
-    publishedAt: "2026-07-10",
-    updatedAt: "2026-07-10",
     intro:
       "Bank statements show the operating rhythm of a business. Here is what a review usually tries to understand from them.",
     image: "/images/stock/retail.jpg",
@@ -85,8 +79,6 @@ export const blogPosts: BlogPost[] = [
     title: "Preparing your business for a funding review",
     category: "Preparation",
     readTime: "4 min read",
-    publishedAt: "2026-07-10",
-    updatedAt: "2026-07-10",
     intro:
       "A few small preparation steps can make an application easier to complete and help a representative understand your business faster.",
     image: "/images/stock/workshop.jpg",

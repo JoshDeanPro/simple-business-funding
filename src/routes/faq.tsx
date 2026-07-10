@@ -17,7 +17,7 @@ export const Route = createFileRoute("/faq")({
         "Answers to common questions about applying for small-business funding, bank statements, review timing, and application support.",
       path: "/faq",
     }),
-    meta: [
+    scripts: [
       toJsonLd(
         webpageSchema({
           title: "Small Business Loan and Funding FAQ",

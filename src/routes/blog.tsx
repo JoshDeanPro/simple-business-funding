@@ -12,7 +12,7 @@ export const Route = createFileRoute("/blog")({
         "Practical guidance on business funding, bank statements, application documents, and reviewing funding terms.",
       path: "/blog",
     }),
-    meta: [
+    scripts: [
       toJsonLd(
         webpageSchema({
           title: "Small Business Funding Resources",
@@ -72,7 +72,6 @@ function BlogPage() {
                 <Clock3 className="h-3.5 w-3.5" />
                 {featured.readTime}
               </span>
-              <span>Updated {formatDate(featured.updatedAt)}</span>
             </div>
             <span className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
               Read article <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -103,9 +102,6 @@ function BlogPage() {
                   <span className="inline-flex items-center gap-1 text-muted-foreground normal-case tracking-normal">
                     <Clock3 className="h-3.5 w-3.5" />
                     {post.readTime}
-                  </span>
-                  <span className="normal-case tracking-normal text-muted-foreground">
-                    Updated {formatDate(post.updatedAt)}
                   </span>
                 </div>
                 <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-tight group-hover:text-brand">

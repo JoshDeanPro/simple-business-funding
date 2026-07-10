@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
 import { CheckCircle2, ChevronLeft, ChevronRight, Info, Upload, X } from "lucide-react";
+import { useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
@@ -16,210 +15,409 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { emailRow, sendLeadEmail } from "@/lib/email.server";
+import { claimSubmission, releaseSubmission } from "@/lib/submission-guard";
+import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
+
+const fieldIds = {
+  legalName: "legal-name",
+  dba: "dba",
+  address: "business-address",
+  city: "business-city",
+  state: "business-state",
+  zip: "business-zip",
+  bizPhone: "business-phone",
+  fax: "business-fax",
+  taxId: "business-tax-id",
+  primaryContact: "primary-contact",
+  email: "business-email",
+  website: "website",
+  dateStarted: "business-started",
+  lengthOwnership: "ownership-length",
+  yearsAtLocation: "years-at-location",
+  numLocations: "num-locations",
+  ownerName: "owner-name",
+  ownerPhone: "owner-phone",
+  ownerAddress: "owner-address",
+  ownerCity: "owner-city",
+  ownerState: "owner-state",
+  ownerZip: "owner-zip",
+  ownerDob: "owner-dob",
+  ownerSsn: "owner-ssn",
+  ownership: "ownership-percent",
+  ownerTitle: "owner-title",
+  ownershipType: "ownership-type",
+  merchantType: "merchant-type",
+  merchantOther: "merchant-other",
+  amountRequested: "amount-requested",
+  avgCardSales: "avg-card-sales",
+  avgGrossSales: "avg-gross-sales",
+  usedAdvance: "used-advance",
+  prevCompany: "previous-company",
+  origBalance: "original-balance",
+  currentBalance: "current-balance",
+  currentPayment: "current-payment",
+  bankStatements: "bank-statements",
+  contract: "funding-contract",
+  supporting: "supporting-documents",
+  signName: "typed-legal-name",
+  signature: "electronic-signature",
+  signDate: "signature-date",
+  consent: "consent",
+} as const;
+
+const steps = ["Business", "Ownership", "Profile", "Funding", "Documents", "Sign & submit"] as const;
+const ACCEPTED = ".pdf,.jpg,.jpeg,.png";
+const MAX_MB = 15;
 
 export const Route = createFileRoute("/apply")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const body = (await request.json()) as {
-          form?: Record<string, unknown>;
-          files?: Record<string, string[]>;
-        };
-        const form = body.form || {};
-        if (!String(form.legalName || "").trim() || !String(form.email || "").trim()) {
-          return Response.json({ error: "Business name and email are required." }, { status: 400 });
-        }
-        try {
-          const fields = [
-            "legalName",
-            "primaryContact",
-            "email",
-            "bizPhone",
-            "amountRequested",
-            "ownershipType",
-            "merchantType",
-            "avgGrossSales",
-            "avgCardSales",
-          ];
-          const rows = fields.map((field) => emailRow(field, form[field]));
-          const files = body.files || {};
-          rows.push(
-            emailRow(
-              "Uploaded files",
-              Object.entries(files)
-                .map(([key, values]) => `${key}: ${values.join(", ") || "none"}`)
-                .join(" | "),
-            ),
+        const formData = await request.formData();
+        const submissionId = String(formData.get("submissionId") ?? "").trim();
+        if (!submissionId) {
+          return Response.json(
+            { error: "Missing submission token." },
+            { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
           );
-          await sendLeadEmail(`New funding application from ${form.legalName}`, rows);
-          return Response.json({ success: true });
+        }
+        if (!claimSubmission(submissionId)) {
+          return Response.json(
+            { error: "This application was already submitted. Please refresh and try again." },
+            { status: 409, headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
+        }
+
+        const text = (name: string) => String(formData.get(name) ?? "").trim();
+        const email = text("email");
+        const legalName = text("legalName");
+        const requiredFields = [
+          "legalName",
+          "address",
+          "city",
+          "state",
+          "zip",
+          "bizPhone",
+          "taxId",
+          "primaryContact",
+          "email",
+          "dateStarted",
+          "ownerName",
+          "ownerPhone",
+          "ownerAddress",
+          "ownerCity",
+          "ownerState",
+          "ownerZip",
+          "ownerDob",
+          "ownerSsn",
+          "ownership",
+          "ownerTitle",
+          "ownershipType",
+          "merchantType",
+          "amountRequested",
+          "avgCardSales",
+          "avgGrossSales",
+          "usedAdvance",
+          "signName",
+          "signature",
+          "signDate",
+        ] as const;
+
+        const missing = requiredFields.filter((field) => !text(field));
+        if (missing.length > 0 || !email || !/^\S+@\S+\.\S+$/.test(email)) {
+          releaseSubmission(submissionId);
+          return Response.json(
+            { error: "Please complete the required application fields." },
+            { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
+        }
+        if (text("ownershipType") === "" || text("merchantType") === "") {
+          releaseSubmission(submissionId);
+          return Response.json(
+            { error: "Please complete the business profile section." },
+            { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
+        }
+        if (text("merchantType") === "Other" && !text("merchantOther")) {
+          releaseSubmission(submissionId);
+          return Response.json(
+            { error: "Please describe the merchant type." },
+            { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
+        }
+        if (!formData.getAll("bankStatements").some((value) => value instanceof File)) {
+          releaseSubmission(submissionId);
+          return Response.json(
+            { error: "Please upload your six months of business bank statements." },
+            { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
+        }
+        if (text("consent") !== "true") {
+          releaseSubmission(submissionId);
+          return Response.json(
+            { error: "Please authorize the submission before continuing." },
+            { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
+        }
+
+        try {
+          const rows = [
+            emailRow("Legal business name", legalName),
+            emailRow("DBA", text("dba")),
+            emailRow("Physical address", text("address")),
+            emailRow("City", text("city")),
+            emailRow("State", text("state")),
+            emailRow("ZIP code", text("zip")),
+            emailRow("Business phone", text("bizPhone")),
+            emailRow("Fax", text("fax")),
+            emailRow("Federal Tax ID", text("taxId")),
+            emailRow("Primary contact", text("primaryContact")),
+            emailRow("Email", email),
+            emailRow("Website", text("website")),
+            emailRow("Date business started", text("dateStarted")),
+            emailRow("Length of ownership", text("lengthOwnership")),
+            emailRow("Years at current location", text("yearsAtLocation")),
+            emailRow("Number of locations", text("numLocations")),
+            emailRow("Owner name", text("ownerName")),
+            emailRow("Owner phone", text("ownerPhone")),
+            emailRow("Owner address", text("ownerAddress")),
+            emailRow("Owner city", text("ownerCity")),
+            emailRow("Owner state", text("ownerState")),
+            emailRow("Owner ZIP code", text("ownerZip")),
+            emailRow("Owner date of birth", text("ownerDob")),
+            emailRow("Owner SSN", text("ownerSsn")),
+            emailRow("Ownership percentage", text("ownership")),
+            emailRow("Owner title", text("ownerTitle")),
+            emailRow("Ownership type", text("ownershipType")),
+            emailRow("Merchant type", text("merchantType")),
+            emailRow("Merchant type details", text("merchantOther")),
+            emailRow("Amount requested", text("amountRequested")),
+            emailRow("Average card sales", text("avgCardSales")),
+            emailRow("Average gross sales", text("avgGrossSales")),
+            emailRow("Used advance before", text("usedAdvance")),
+            emailRow("Previous funding company", text("prevCompany")),
+            emailRow("Original balance", text("origBalance")),
+            emailRow("Current balance", text("currentBalance")),
+            emailRow("Current payment", text("currentPayment")),
+          ];
+
+          const attachments = await collectAttachments(formData);
+          await sendLeadEmail(
+            `New funding application from ${legalName}`,
+            rows,
+            undefined,
+            attachments,
+          );
+          return Response.json(
+            { success: true },
+            { headers: { "X-Robots-Tag": "noindex, nofollow" } },
+          );
         } catch (error) {
+          releaseSubmission(submissionId);
           console.error(error);
           return Response.json(
             { error: "We could not submit your application. Please try again shortly." },
-            { status: 500 },
+            { status: 500, headers: { "X-Robots-Tag": "noindex, nofollow" } },
           );
         }
       },
     },
   },
   head: () => ({
+    ...pageHead({
+      title: "Apply for Small Business Funding | Smallbizloanz",
+      description:
+        "Apply online for small-business funding. The application requests business details, ownership information, and recent business bank statements.",
+      path: "/apply",
+    }),
     meta: [
-      { title: "Apply — Smallbizloanz" },
-      {
-        name: "description",
-        content:
-          "Apply online for small business funding. A short, secure application with minimal paperwork.",
-      },
-      { property: "og:title", content: "Apply — Smallbizloanz" },
-      {
-        property: "og:description",
-        content: "Apply online for small business funding in minutes.",
-      },
+      toJsonLd(
+        webpageSchema({
+          title: "Apply for Small Business Funding",
+          description:
+            "Apply online for small-business funding. The application requests business details, ownership information, and recent business bank statements.",
+          path: "/apply",
+          breadcrumbs: [
+            { name: "Home", path: "/" },
+            { name: "Apply", path: "/apply" },
+          ],
+        }),
+      ),
     ],
   }),
   component: ApplyPage,
 });
 
-const steps = [
-  "Business",
-  "Ownership",
-  "Profile",
-  "Funding",
-  "Documents",
-  "Sign & submit",
-] as const;
+type ValidationResult = {
+  fieldErrors: Record<string, string>;
+  generalError?: string;
+};
 
-const ACCEPTED = ".pdf,.jpg,.jpeg,.png";
-const MAX_MB = 15;
+type FormState = ReturnType<typeof initialForm>;
 
 function ApplyPage() {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [form, setForm] = useState(initialForm());
   const [bankStmts, setBankStmts] = useState<File[]>([]);
   const [contract, setContract] = useState<File[]>([]);
   const [supporting, setSupporting] = useState<File[]>([]);
-
-  const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) =>
-    setForm((f) => ({ ...f, [k]: v }));
+  const submissionId = useRef(crypto.randomUUID());
 
   const progress = useMemo(() => ((step + 1) / steps.length) * 100, [step]);
 
-  function validateStep(): string | null {
+  function setField<K extends keyof FormState>(key: K, value: FormState[K]) {
+    setForm((current) => ({ ...current, [key]: value }));
+    setFieldErrors((current) => {
+      if (!(key as string in current)) return current;
+      const next = { ...current };
+      delete next[key as string];
+      return next;
+    });
+  }
+
+  function setUploadError(key: string, message: string | null) {
+    setFieldErrors((current) => {
+      const next = { ...current };
+      if (message) next[key] = message;
+      else delete next[key];
+      return next;
+    });
+  }
+
+  function validateStep(): ValidationResult {
+    const nextErrors: Record<string, string> = {};
+    const required = (key: string, value: unknown, message: string) => {
+      if (!String(value ?? "").trim()) nextErrors[key] = message;
+    };
+
     if (step === 0) {
-      const req: (keyof typeof form)[] = [
-        "legalName",
-        "address",
-        "city",
-        "state",
-        "zip",
-        "bizPhone",
-        "taxId",
-        "primaryContact",
-        "email",
-        "dateStarted",
-      ];
-      for (const k of req)
-        if (!String(form[k] ?? "").trim()) return "Please complete all required fields.";
-      if (!/^\S+@\S+\.\S+$/.test(form.email)) return "Please enter a valid email address.";
-    }
-    if (step === 1) {
-      const req: (keyof typeof form)[] = [
-        "ownerName",
-        "ownerPhone",
-        "ownerAddress",
-        "ownerCity",
-        "ownerState",
-        "ownerZip",
-        "ownerDob",
-        "ownerSsn",
-        "ownership",
-        "ownerTitle",
-      ];
-      for (const k of req)
-        if (!String(form[k] ?? "").trim()) return "Please complete all required fields.";
-      const pct = Number(form.ownership);
-      if (isNaN(pct) || pct <= 0 || pct > 100) return "Please enter a valid ownership percentage.";
-    }
-    if (step === 2) {
-      if (!form.ownershipType) return "Please select an ownership type.";
-      if (!form.merchantType) return "Please select a merchant type.";
-      if (form.merchantType === "Other" && !form.merchantOther.trim())
-        return "Please describe your merchant type.";
-    }
-    if (step === 3) {
-      if (!form.amountRequested.trim()) return "Please enter the amount requested.";
-      if (!form.avgCardSales.trim() || !form.avgGrossSales.trim())
-        return "Please complete the sales fields.";
-      if (form.usedAdvance === "yes") {
-        if (
-          !form.prevCompany.trim() ||
-          !form.origBalance.trim() ||
-          !form.currentBalance.trim() ||
-          !form.currentPayment.trim()
-        )
-          return "Please complete the previous funding fields.";
+      required(fieldIds.legalName, form.legalName, "Enter the legal business name.");
+      required(fieldIds.address, form.address, "Enter the business address.");
+      required(fieldIds.city, form.city, "Enter the business city.");
+      required(fieldIds.state, form.state, "Enter the business state.");
+      required(fieldIds.zip, form.zip, "Enter the business ZIP code.");
+      required(fieldIds.bizPhone, form.bizPhone, "Enter the business phone number.");
+      required(fieldIds.taxId, form.taxId, "Enter the business tax ID.");
+      required(fieldIds.primaryContact, form.primaryContact, "Enter the primary contact name.");
+      required(fieldIds.email, form.email, "Enter the business email address.");
+      required(fieldIds.dateStarted, form.dateStarted, "Enter the business start date.");
+      if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) {
+        nextErrors[fieldIds.email] = "Enter a valid email address.";
       }
     }
+
+    if (step === 1) {
+      required(fieldIds.ownerName, form.ownerName, "Enter the owner's full name.");
+      required(fieldIds.ownerPhone, form.ownerPhone, "Enter the owner's phone number.");
+      required(fieldIds.ownerAddress, form.ownerAddress, "Enter the owner's home address.");
+      required(fieldIds.ownerCity, form.ownerCity, "Enter the owner's city.");
+      required(fieldIds.ownerState, form.ownerState, "Enter the owner's state.");
+      required(fieldIds.ownerZip, form.ownerZip, "Enter the owner's ZIP code.");
+      required(fieldIds.ownerDob, form.ownerDob, "Enter the owner's date of birth.");
+      required(fieldIds.ownerSsn, form.ownerSsn, "Enter the owner's Social Security number.");
+      required(fieldIds.ownership, form.ownership, "Enter the ownership percentage.");
+      required(fieldIds.ownerTitle, form.ownerTitle, "Enter the owner's title.");
+      const pct = Number(form.ownership);
+      if (form.ownership && (Number.isNaN(pct) || pct <= 0 || pct > 100)) {
+        nextErrors[fieldIds.ownership] = "Enter a valid ownership percentage.";
+      }
+    }
+
+    if (step === 2) {
+      required(fieldIds.ownershipType, form.ownershipType, "Select an ownership type.");
+      required(fieldIds.merchantType, form.merchantType, "Select a merchant type.");
+      if (form.merchantType === "Other") {
+        required(fieldIds.merchantOther, form.merchantOther, "Describe the merchant type.");
+      }
+    }
+
+    if (step === 3) {
+      required(fieldIds.amountRequested, form.amountRequested, "Enter the amount requested.");
+      required(fieldIds.avgCardSales, form.avgCardSales, "Enter average card sales.");
+      required(fieldIds.avgGrossSales, form.avgGrossSales, "Enter average gross monthly sales.");
+      required(fieldIds.usedAdvance, form.usedAdvance, "Tell us whether the business has used a cash advance before.");
+      if (form.usedAdvance === "yes") {
+        required(fieldIds.prevCompany, form.prevCompany, "Enter the previous funding company.");
+        required(fieldIds.origBalance, form.origBalance, "Enter the original balance.");
+        required(fieldIds.currentBalance, form.currentBalance, "Enter the current balance.");
+        required(fieldIds.currentPayment, form.currentPayment, "Enter the current payment or holdback.");
+      }
+    }
+
     if (step === 4) {
-      if (bankStmts.length === 0)
-        return "Please upload your six months of business bank statements.";
+      if (bankStmts.length === 0) {
+        nextErrors[fieldIds.bankStatements] = "Upload six months of recent business bank statements.";
+      }
     }
+
     if (step === 5) {
-      if (!form.signName.trim() || !form.signature.trim() || !form.signDate.trim())
-        return "Please provide your legal name, electronic signature, and date.";
-      if (!form.consent) return "Please check the authorization to submit.";
+      required(fieldIds.signName, form.signName, "Enter the typed legal name.");
+      required(fieldIds.signature, form.signature, "Type the electronic signature.");
+      required(fieldIds.signDate, form.signDate, "Enter the signing date.");
+      if (!form.consent) {
+        nextErrors[fieldIds.consent] = "Check the authorization box.";
+      }
     }
-    return null;
+
+    setFieldErrors(nextErrors);
+    return Object.keys(nextErrors).length > 0
+      ? { fieldErrors: nextErrors, generalError: "Please review the highlighted fields." }
+      : { fieldErrors: {} };
   }
 
   function next() {
-    const err = validateStep();
-    if (err) {
-      setError(err);
+    const result = validateStep();
+    if (result.generalError) {
+      setError(result.generalError);
       return;
     }
     setError(null);
-    setStep((s) => Math.min(s + 1, steps.length - 1));
+    setStep((value) => Math.min(value + 1, steps.length - 1));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
   function back() {
     setError(null);
-    setStep((s) => Math.max(s - 1, 0));
+    setStep((value) => Math.max(value - 1, 0));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function submit() {
-    const err = validateStep();
-    if (err) {
-      setError(err);
+    const result = validateStep();
+    if (result.generalError) {
+      setError(result.generalError);
       return;
     }
     setError(null);
     setSubmitting(true);
     try {
+      const body = new FormData();
+      body.set("submissionId", submissionId.current);
+      for (const [key, value] of Object.entries(form)) {
+        body.set(key, typeof value === "boolean" ? String(value) : value);
+      }
+      bankStmts.forEach((file) => body.append("bankStatements", file));
+      contract.forEach((file) => body.append("contract", file));
+      supporting.forEach((file) => body.append("supporting", file));
+
       const response = await fetch("/apply", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          form,
-          files: {
-            bankStatements: bankStmts.map((file) => file.name),
-            contracts: contract.map((file) => file.name),
-            supporting: supporting.map((file) => file.name),
-          },
-        }),
+        body,
       });
-      if (!response.ok) throw new Error("Application submission failed");
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(payload?.error || "Application submission failed");
+      }
       setSubmitting(false);
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
-    } catch {
+    } catch (submitError) {
       setSubmitting(false);
-      setError("We could not submit your application. Please try again or contact us directly.");
+      setError(submitError instanceof Error ? submitError.message : "We could not submit your application. Please try again or contact us directly.");
     }
   }
 
@@ -230,16 +428,13 @@ function ApplyPage() {
           <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand/15 text-brand">
             <CheckCircle2 className="h-7 w-7" />
           </div>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight">Application Received</h1>
+          <h1 className="mt-6 text-4xl font-bold tracking-tight">Application received</h1>
           <p className="mt-4 text-muted-foreground">
             Thank you. Your application has been submitted successfully. A representative will
             review your information and contact you regarding the next steps.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button
-              asChild
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
-            >
+            <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
               <Link to="/">Back to home</Link>
             </Button>
             <Button asChild variant="outline" className="rounded-full">
@@ -254,29 +449,45 @@ function ApplyPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Business Funding Application
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Step {step + 1} of {steps.length} — {steps[step]}. Fields marked{" "}
-            <span className="text-destructive">*</span> are required.
-          </p>
-          <Link to="/faq" className="mt-2 inline-flex text-sm font-medium text-brand hover:underline">
-            Have questions? Read the FAQ.
-          </Link>
-          <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-muted">
-            <div
-              className="h-full rounded-full bg-brand transition-all"
-              style={{ width: `${progress}%` }}
-            />
+        <div className="mb-8 space-y-4">
+          <div className="rounded-2xl border border-border bg-surface p-5 text-sm leading-6 text-muted-foreground">
+            <p>
+              Complete this application if you want Smallbizloanz to review a small-business
+              funding request. The review may require six months of recent business bank
+              statements and other business or ownership details. Submission does not guarantee
+              approval or funding.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-4 font-medium text-brand">
+              <Link to="/faq" className="hover:underline">
+                Read the FAQ
+              </Link>
+              <Link to="/contact" className="hover:underline">
+                Contact us for help
+              </Link>
+            </div>
           </div>
-          <div className="mt-3 hidden flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground sm:flex">
-            {steps.map((s, i) => (
-              <span key={s} className={i === step ? "font-medium text-foreground" : ""}>
-                {i + 1}. {s}
-              </span>
-            ))}
+
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Business Funding Application
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Step {step + 1} of {steps.length} - {steps[step]}. Fields marked{" "}
+              <span className="text-destructive">*</span> are required.
+            </p>
+            <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-brand transition-all"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="mt-3 hidden flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground sm:flex">
+              {steps.map((s, i) => (
+                <span key={s} className={i === step ? "font-medium text-foreground" : ""}>
+                  {i + 1}. {s}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -285,78 +496,161 @@ function ApplyPage() {
             <div className="space-y-4">
               <SectionTitle>Business information</SectionTitle>
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.legalName}
                   label="Legal / corporate business name"
+                  value={form.legalName}
+                  onChange={(value) => setField("legalName", value)}
+                  autoComplete="organization"
                   required
-                  v={form.legalName}
-                  on={(v) => set("legalName", v)}
+                  error={fieldErrors[fieldIds.legalName]}
                 />
-                <F label="DBA" v={form.dba} on={(v) => set("dba", v)} />
+                <Field
+                  id={fieldIds.dba}
+                  label="DBA"
+                  value={form.dba}
+                  onChange={(value) => setField("dba", value)}
+                  autoComplete="organization"
+                />
               </div>
-              <F label="Physical address" required v={form.address} on={(v) => set("address", v)} />
+              <Field
+                id={fieldIds.address}
+                label="Physical address"
+                value={form.address}
+                onChange={(value) => setField("address", value)}
+                autoComplete="street-address"
+                required
+                error={fieldErrors[fieldIds.address]}
+              />
               <div className="grid gap-4 sm:grid-cols-3">
-                <F label="City" required v={form.city} on={(v) => set("city", v)} />
-                <F label="State" required v={form.state} on={(v) => set("state", v)} />
-                <F label="ZIP code" required v={form.zip} on={(v) => set("zip", v)} />
+                <Field
+                  id={fieldIds.city}
+                  label="City"
+                  value={form.city}
+                  onChange={(value) => setField("city", value)}
+                  autoComplete="address-level2"
+                  required
+                  error={fieldErrors[fieldIds.city]}
+                />
+                <Field
+                  id={fieldIds.state}
+                  label="State"
+                  value={form.state}
+                  onChange={(value) => setField("state", value)}
+                  autoComplete="address-level1"
+                  required
+                  error={fieldErrors[fieldIds.state]}
+                />
+                <Field
+                  id={fieldIds.zip}
+                  label="ZIP code"
+                  value={form.zip}
+                  onChange={(value) => setField("zip", value)}
+                  autoComplete="postal-code"
+                  inputMode="numeric"
+                  required
+                  error={fieldErrors[fieldIds.zip]}
+                />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.bizPhone}
                   label="Business phone"
                   type="tel"
+                  value={form.bizPhone}
+                  onChange={(value) => setField("bizPhone", value)}
+                  autoComplete="tel"
+                  inputMode="tel"
                   required
-                  v={form.bizPhone}
-                  on={(v) => set("bizPhone", v)}
+                  error={fieldErrors[fieldIds.bizPhone]}
                 />
-                <F label="Fax" v={form.fax} on={(v) => set("fax", v)} />
+                <Field
+                  id={fieldIds.fax}
+                  label="Fax"
+                  type="tel"
+                  value={form.fax}
+                  onChange={(value) => setField("fax", value)}
+                  autoComplete="fax"
+                  inputMode="tel"
+                  error={fieldErrors[fieldIds.fax]}
+                />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.taxId}
                   label="Federal Tax ID (EIN)"
+                  value={form.taxId}
+                  onChange={(value) => setField("taxId", value)}
+                  autoComplete="off"
+                  inputMode="numeric"
                   required
-                  v={form.taxId}
-                  on={(v) => set("taxId", v)}
+                  error={fieldErrors[fieldIds.taxId]}
                 />
-                <F
+                <Field
+                  id={fieldIds.primaryContact}
                   label="Primary contact name"
+                  value={form.primaryContact}
+                  onChange={(value) => setField("primaryContact", value)}
+                  autoComplete="name"
                   required
-                  v={form.primaryContact}
-                  on={(v) => set("primaryContact", v)}
+                  error={fieldErrors[fieldIds.primaryContact]}
                 />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.email}
                   label="Email address"
                   type="email"
+                  value={form.email}
+                  onChange={(value) => setField("email", value)}
+                  autoComplete="email"
                   required
-                  v={form.email}
-                  on={(v) => set("email", v)}
+                  error={fieldErrors[fieldIds.email]}
                 />
-                <F label="Website" v={form.website} on={(v) => set("website", v)} />
+                <Field
+                  id={fieldIds.website}
+                  label="Website"
+                  value={form.website}
+                  onChange={(value) => setField("website", value)}
+                  autoComplete="url"
+                  error={fieldErrors[fieldIds.website]}
+                />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.dateStarted}
                   label="Date business started"
                   type="date"
+                  value={form.dateStarted}
+                  onChange={(value) => setField("dateStarted", value)}
                   required
-                  v={form.dateStarted}
-                  on={(v) => set("dateStarted", v)}
+                  error={fieldErrors[fieldIds.dateStarted]}
                 />
-                <F
+                <Field
+                  id={fieldIds.lengthOwnership}
                   label="Length of ownership (years)"
-                  v={form.lengthOwnership}
-                  on={(v) => set("lengthOwnership", v)}
+                  value={form.lengthOwnership}
+                  onChange={(value) => setField("lengthOwnership", value)}
+                  inputMode="decimal"
+                  error={fieldErrors[fieldIds.lengthOwnership]}
                 />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.yearsAtLocation}
                   label="Years at current location"
-                  v={form.yearsAtLocation}
-                  on={(v) => set("yearsAtLocation", v)}
+                  value={form.yearsAtLocation}
+                  onChange={(value) => setField("yearsAtLocation", value)}
+                  inputMode="decimal"
+                  error={fieldErrors[fieldIds.yearsAtLocation]}
                 />
-                <F
+                <Field
+                  id={fieldIds.numLocations}
                   label="Number of locations"
-                  v={form.numLocations}
-                  on={(v) => set("numLocations", v)}
+                  value={form.numLocations}
+                  onChange={(value) => setField("numLocations", value)}
+                  inputMode="numeric"
+                  error={fieldErrors[fieldIds.numLocations]}
                 />
               </div>
             </div>
@@ -369,54 +663,105 @@ function ApplyPage() {
                 The applicant must have at least 67% ownership. If the primary applicant has less
                 than 67% ownership, additional owner information may be required.
               </Note>
-              <F
+              <Field
+                id={fieldIds.ownerName}
                 label="Owner's full name"
+                value={form.ownerName}
+                onChange={(value) => setField("ownerName", value)}
+                autoComplete="name"
                 required
-                v={form.ownerName}
-                on={(v) => set("ownerName", v)}
+                error={fieldErrors[fieldIds.ownerName]}
               />
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.ownerPhone}
                   label="Contact phone number"
                   type="tel"
+                  value={form.ownerPhone}
+                  onChange={(value) => setField("ownerPhone", value)}
+                  autoComplete="tel"
+                  inputMode="tel"
                   required
-                  v={form.ownerPhone}
-                  on={(v) => set("ownerPhone", v)}
+                  error={fieldErrors[fieldIds.ownerPhone]}
                 />
-                <F
+                <Field
+                  id={fieldIds.ownerDob}
                   label="Date of birth"
                   type="date"
+                  value={form.ownerDob}
+                  onChange={(value) => setField("ownerDob", value)}
                   required
-                  v={form.ownerDob}
-                  on={(v) => set("ownerDob", v)}
+                  error={fieldErrors[fieldIds.ownerDob]}
                 />
               </div>
-              <F
+              <Field
+                id={fieldIds.ownerAddress}
                 label="Home address"
+                value={form.ownerAddress}
+                onChange={(value) => setField("ownerAddress", value)}
+                autoComplete="street-address"
                 required
-                v={form.ownerAddress}
-                on={(v) => set("ownerAddress", v)}
+                error={fieldErrors[fieldIds.ownerAddress]}
               />
               <div className="grid gap-4 sm:grid-cols-3">
-                <F label="City" required v={form.ownerCity} on={(v) => set("ownerCity", v)} />
-                <F label="State" required v={form.ownerState} on={(v) => set("ownerState", v)} />
-                <F label="ZIP code" required v={form.ownerZip} on={(v) => set("ownerZip", v)} />
+                <Field
+                  id={fieldIds.ownerCity}
+                  label="City"
+                  value={form.ownerCity}
+                  onChange={(value) => setField("ownerCity", value)}
+                  autoComplete="address-level2"
+                  required
+                  error={fieldErrors[fieldIds.ownerCity]}
+                />
+                <Field
+                  id={fieldIds.ownerState}
+                  label="State"
+                  value={form.ownerState}
+                  onChange={(value) => setField("ownerState", value)}
+                  autoComplete="address-level1"
+                  required
+                  error={fieldErrors[fieldIds.ownerState]}
+                />
+                <Field
+                  id={fieldIds.ownerZip}
+                  label="ZIP code"
+                  value={form.ownerZip}
+                  onChange={(value) => setField("ownerZip", value)}
+                  autoComplete="postal-code"
+                  inputMode="numeric"
+                  required
+                  error={fieldErrors[fieldIds.ownerZip]}
+                />
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
-                <F
+                <Field
+                  id={fieldIds.ownerSsn}
                   label="Social Security number"
+                  value={form.ownerSsn}
+                  onChange={(value) => setField("ownerSsn", value)}
+                  autoComplete="off"
+                  inputMode="numeric"
                   required
-                  v={form.ownerSsn}
-                  on={(v) => set("ownerSsn", v)}
+                  error={fieldErrors[fieldIds.ownerSsn]}
                 />
-                <F
+                <Field
+                  id={fieldIds.ownership}
                   label="Ownership %"
                   type="number"
+                  value={form.ownership}
+                  onChange={(value) => setField("ownership", value)}
+                  inputMode="decimal"
                   required
-                  v={form.ownership}
-                  on={(v) => set("ownership", v)}
+                  error={fieldErrors[fieldIds.ownership]}
                 />
-                <F label="Title" required v={form.ownerTitle} on={(v) => set("ownerTitle", v)} />
+                <Field
+                  id={fieldIds.ownerTitle}
+                  label="Title"
+                  value={form.ownerTitle}
+                  onChange={(value) => setField("ownerTitle", value)}
+                  required
+                  error={fieldErrors[fieldIds.ownerTitle]}
+                />
               </div>
             </div>
           )}
@@ -430,25 +775,28 @@ function ApplyPage() {
                 </Label>
                 <RadioGroup
                   value={form.ownershipType}
-                  onValueChange={(v) => set("ownershipType", v)}
+                  onValueChange={(value) => setField("ownershipType", value)}
                   className="grid gap-2 sm:grid-cols-2"
                 >
-                  {["Sole proprietorship", "Corporation", "Partnership", "LLC"].map((o) => (
+                  {["Sole proprietorship", "Corporation", "Partnership", "LLC"].map((option) => (
                     <label
-                      key={o}
+                      key={option}
                       className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm hover:border-brand has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/5"
                     >
-                      <RadioGroupItem value={o} /> {o}
+                      <RadioGroupItem value={option} /> {option}
                     </label>
                   ))}
                 </RadioGroup>
+                {fieldErrors[fieldIds.ownershipType] && (
+                  <p className="mt-2 text-sm text-destructive">{fieldErrors[fieldIds.ownershipType]}</p>
+                )}
               </div>
               <div>
-                <Label className="mb-2 block">
+                <Label htmlFor={fieldIds.merchantType} className="mb-2 block">
                   Merchant type <span className="text-destructive">*</span>
                 </Label>
-                <Select value={form.merchantType} onValueChange={(v) => set("merchantType", v)}>
-                  <SelectTrigger>
+                <Select value={form.merchantType} onValueChange={(value) => setField("merchantType", value)}>
+                  <SelectTrigger id={fieldIds.merchantType}>
                     <SelectValue placeholder="Select…" />
                   </SelectTrigger>
                   <SelectContent>
@@ -461,20 +809,25 @@ function ApplyPage() {
                       "Home-based",
                       "Automotive",
                       "Other",
-                    ].map((o) => (
-                      <SelectItem key={o} value={o}>
-                        {o}
+                    ].map((option) => (
+                      <SelectItem key={option} value={option}>
+                        {option}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                {fieldErrors[fieldIds.merchantType] && (
+                  <p className="mt-2 text-sm text-destructive">{fieldErrors[fieldIds.merchantType]}</p>
+                )}
                 {form.merchantType === "Other" && (
                   <div className="mt-3">
-                    <F
+                    <Field
+                      id={fieldIds.merchantOther}
                       label="Please describe"
+                      value={form.merchantOther}
+                      onChange={(value) => setField("merchantOther", value)}
                       required
-                      v={form.merchantOther}
-                      on={(v) => set("merchantOther", v)}
+                      error={fieldErrors[fieldIds.merchantOther]}
                     />
                   </div>
                 )}
@@ -486,30 +839,39 @@ function ApplyPage() {
             <div className="space-y-4">
               <SectionTitle>Funding questions</SectionTitle>
               <Note>
-                Funding may be available up to approximately two times the company's gross monthly
-                bank revenue, subject to review and approval.
+                The review focuses on the information you provide here, the bank statements, and
+                the overall business profile. Funding is subject to review and approval.
               </Note>
-              <F
+              <Field
+                id={fieldIds.amountRequested}
                 label="Amount requested (USD)"
                 type="number"
+                value={form.amountRequested}
+                onChange={(value) => setField("amountRequested", value)}
+                inputMode="decimal"
                 required
-                v={form.amountRequested}
-                on={(v) => set("amountRequested", v)}
+                error={fieldErrors[fieldIds.amountRequested]}
               />
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.avgCardSales}
                   label="Average monthly Visa & Mastercard sales"
                   type="number"
+                  value={form.avgCardSales}
+                  onChange={(value) => setField("avgCardSales", value)}
+                  inputMode="decimal"
                   required
-                  v={form.avgCardSales}
-                  on={(v) => set("avgCardSales", v)}
+                  error={fieldErrors[fieldIds.avgCardSales]}
                 />
-                <F
+                <Field
+                  id={fieldIds.avgGrossSales}
                   label="Average gross monthly sales"
                   type="number"
+                  value={form.avgGrossSales}
+                  onChange={(value) => setField("avgGrossSales", value)}
+                  inputMode="decimal"
                   required
-                  v={form.avgGrossSales}
-                  on={(v) => set("avgGrossSales", v)}
+                  error={fieldErrors[fieldIds.avgGrossSales]}
                 />
               </div>
               <div>
@@ -519,51 +881,64 @@ function ApplyPage() {
                 </Label>
                 <RadioGroup
                   value={form.usedAdvance}
-                  onValueChange={(v) => set("usedAdvance", v)}
+                  onValueChange={(value) => setField("usedAdvance", value)}
                   className="grid gap-2 sm:grid-cols-2"
                 >
                   {[
                     ["yes", "Yes"],
                     ["no", "No"],
-                  ].map(([val, lab]) => (
+                  ].map(([value, label]) => (
                     <label
-                      key={val}
+                      key={value}
                       className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm hover:border-brand has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/5"
                     >
-                      <RadioGroupItem value={val} /> {lab}
+                      <RadioGroupItem value={value} /> {label}
                     </label>
                   ))}
                 </RadioGroup>
+                {fieldErrors[fieldIds.usedAdvance] && (
+                  <p className="mt-2 text-sm text-destructive">{fieldErrors[fieldIds.usedAdvance]}</p>
+                )}
               </div>
               {form.usedAdvance === "yes" && (
                 <div className="space-y-4 rounded-xl border border-dashed border-border bg-surface p-4">
-                  <F
+                  <Field
+                    id={fieldIds.prevCompany}
                     label="Previous funding company"
+                    value={form.prevCompany}
+                    onChange={(value) => setField("prevCompany", value)}
                     required
-                    v={form.prevCompany}
-                    on={(v) => set("prevCompany", v)}
+                    error={fieldErrors[fieldIds.prevCompany]}
                   />
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <F
+                    <Field
+                      id={fieldIds.origBalance}
                       label="Original balance"
                       type="number"
+                      value={form.origBalance}
+                      onChange={(value) => setField("origBalance", value)}
+                      inputMode="decimal"
                       required
-                      v={form.origBalance}
-                      on={(v) => set("origBalance", v)}
+                      error={fieldErrors[fieldIds.origBalance]}
                     />
-                    <F
+                    <Field
+                      id={fieldIds.currentBalance}
                       label="Current balance"
                       type="number"
+                      value={form.currentBalance}
+                      onChange={(value) => setField("currentBalance", value)}
+                      inputMode="decimal"
                       required
-                      v={form.currentBalance}
-                      on={(v) => set("currentBalance", v)}
+                      error={fieldErrors[fieldIds.currentBalance]}
                     />
                   </div>
-                  <F
+                  <Field
+                    id={fieldIds.currentPayment}
                     label="Current payment or daily holdback %"
+                    value={form.currentPayment}
+                    onChange={(value) => setField("currentPayment", value)}
                     required
-                    v={form.currentPayment}
-                    on={(v) => set("currentPayment", v)}
+                    error={fieldErrors[fieldIds.currentPayment]}
                   />
                 </div>
               )}
@@ -574,27 +949,33 @@ function ApplyPage() {
             <div className="space-y-6">
               <SectionTitle>Documents</SectionTitle>
               <FileField
+                id={fieldIds.bankStatements}
                 label="Six months of recent business bank statements"
                 required
                 files={bankStmts}
                 setFiles={setBankStmts}
                 multiple
-                hint="PDF, JPG, JPEG, PNG — up to 15MB per file"
-                setError={setError}
+                hint="PDF, JPG, JPEG, PNG - up to 15MB per file"
+                error={fieldErrors[fieldIds.bankStatements]}
+                setError={(message) => setUploadError(fieldIds.bankStatements, message)}
               />
               <FileField
+                id={fieldIds.contract}
                 label="Original funding contract (if you have an existing cash advance or funding balance)"
                 files={contract}
                 setFiles={setContract}
                 multiple
-                setError={setError}
+                error={fieldErrors[fieldIds.contract]}
+                setError={(message) => setUploadError(fieldIds.contract, message)}
               />
               <FileField
+                id={fieldIds.supporting}
                 label="Optional supporting documents"
                 files={supporting}
                 setFiles={setSupporting}
                 multiple
-                setError={setError}
+                error={fieldErrors[fieldIds.supporting]}
+                setError={(message) => setUploadError(fieldIds.supporting, message)}
               />
             </div>
           )}
@@ -617,40 +998,49 @@ function ApplyPage() {
                 </ul>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <F
+                <Field
+                  id={fieldIds.signName}
                   label="Typed legal name"
+                  value={form.signName}
+                  onChange={(value) => setField("signName", value)}
+                  autoComplete="name"
                   required
-                  v={form.signName}
-                  on={(v) => set("signName", v)}
+                  error={fieldErrors[fieldIds.signName]}
                 />
-                <F
+                <Field
+                  id={fieldIds.signDate}
                   label="Date"
                   type="date"
+                  value={form.signDate}
+                  onChange={(value) => setField("signDate", value)}
                   required
-                  v={form.signDate}
-                  on={(v) => set("signDate", v)}
+                  error={fieldErrors[fieldIds.signDate]}
                 />
               </div>
               <div>
-                <Label htmlFor="signature">
+                <Label htmlFor={fieldIds.signature}>
                   Electronic signature <span className="text-destructive">*</span>
                 </Label>
                 <Input
-                  id="signature"
+                  id={fieldIds.signature}
+                  name={fieldIds.signature}
                   className="mt-1.5 font-signature"
                   style={{
                     fontFamily: "'Segoe Script', 'Brush Script MT', cursive",
                     fontSize: "1.25rem",
                   }}
                   value={form.signature}
-                  onChange={(e) => set("signature", e.target.value)}
+                  onChange={(event) => setField("signature", event.target.value)}
                   placeholder="Type your signature"
                 />
+                {fieldErrors[fieldIds.signature] && (
+                  <p className="mt-1 text-sm text-destructive">{fieldErrors[fieldIds.signature]}</p>
+                )}
               </div>
               <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-background p-4">
                 <Checkbox
                   checked={form.consent}
-                  onCheckedChange={(v) => set("consent", !!v)}
+                  onCheckedChange={(value) => setField("consent", !!value)}
                   className="mt-0.5"
                 />
                 <span className="text-sm">
@@ -658,7 +1048,18 @@ function ApplyPage() {
                   submitted, and I certify the statements above.
                 </span>
               </label>
-              {/* Simple spam trap */}
+              {fieldErrors[fieldIds.consent] && (
+                <p className="text-sm text-destructive">{fieldErrors[fieldIds.consent]}</p>
+              )}
+              <input
+                type="text"
+                name="submissionId"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                value={submissionId.current}
+                readOnly
+              />
               <input
                 type="text"
                 name="website_url"
@@ -666,13 +1067,13 @@ function ApplyPage() {
                 autoComplete="off"
                 className="hidden"
                 value={form.honeypot}
-                onChange={(e) => set("honeypot", e.target.value)}
+                onChange={(event) => setField("honeypot", event.target.value)}
               />
             </div>
           )}
 
           {error && (
-            <div className="mt-6 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+            <div className="mt-6 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive" role="alert">
               {error}
             </div>
           )}
@@ -682,7 +1083,7 @@ function ApplyPage() {
               type="button"
               variant="outline"
               onClick={back}
-              disabled={step === 0}
+              disabled={step === 0 || submitting}
               className="rounded-full"
             >
               <ChevronLeft className="mr-1 h-4 w-4" /> Back
@@ -691,6 +1092,7 @@ function ApplyPage() {
               <Button
                 type="button"
                 onClick={next}
+                disabled={submitting}
                 className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
               >
                 Continue <ChevronRight className="ml-1 h-4 w-4" />
@@ -730,20 +1132,27 @@ function Note({ children }: { children: React.ReactNode }) {
   );
 }
 
-function F({
+function Field({
+  id,
   label,
-  v,
-  on,
+  value,
+  onChange,
   required,
   type = "text",
+  autoComplete,
+  inputMode,
+  error,
 }: {
+  id: string;
   label: string;
-  v: string;
-  on: (v: string) => void;
+  value: string;
+  onChange: (value: string) => void;
   required?: boolean;
   type?: string;
+  autoComplete?: string;
+  inputMode?: ChangeEvent<HTMLInputElement>["target"]["inputMode"];
+  error?: string;
 }) {
-  const id = label.replace(/\s+/g, "-").toLowerCase();
   return (
     <div>
       <Label htmlFor={id}>
@@ -752,52 +1161,69 @@ function F({
       </Label>
       <Input
         id={id}
+        name={id}
         type={type}
-        value={v}
-        onChange={(e) => on(e.target.value)}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
         className="mt-1.5"
         required={required}
       />
+      {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
     </div>
   );
 }
 
 function FileField({
+  id,
   label,
   required,
   files,
   setFiles,
   multiple,
   hint,
+  error,
   setError,
 }: {
+  id: string;
   label: string;
   required?: boolean;
   files: File[];
-  setFiles: (f: File[]) => void;
+  setFiles: (files: File[]) => void;
   multiple?: boolean;
   hint?: string;
-  setError: (v: string | null) => void;
+  error?: string;
+  setError: (message: string | null) => void;
 }) {
-  const id = label.replace(/\s+/g, "-").toLowerCase();
-  function onSelect(e: React.ChangeEvent<HTMLInputElement>) {
-    const picked = Array.from(e.target.files ?? []);
+  function onSelect(event: ChangeEvent<HTMLInputElement>) {
+    const picked = Array.from(event.target.files ?? []);
     const ok: File[] = [];
-    for (const f of picked) {
-      if (f.size > MAX_MB * 1024 * 1024) {
-        setError(`${f.name} is larger than ${MAX_MB}MB.`);
+    let message: string | null = null;
+
+    for (const file of picked) {
+      if (file.size > MAX_MB * 1024 * 1024) {
+        message = `${file.name} is larger than ${MAX_MB}MB.`;
         continue;
       }
-      const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
+      const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
       if (!["pdf", "jpg", "jpeg", "png"].includes(ext)) {
-        setError(`${f.name} is not a supported file type.`);
+        message = `${file.name} is not a supported file type.`;
         continue;
       }
-      ok.push(f);
+      ok.push(file);
     }
-    setFiles(multiple ? [...files, ...ok] : ok.slice(0, 1));
-    e.target.value = "";
+
+    if (ok.length > 0) {
+      setFiles(multiple ? [...files, ...ok] : ok.slice(0, 1));
+      setError(null);
+    } else if (message) {
+      setError(message);
+    }
+
+    event.target.value = "";
   }
+
   return (
     <div>
       <Label htmlFor={id}>
@@ -812,9 +1238,12 @@ function FileField({
         <span className="text-sm font-medium">
           Click to upload{multiple ? " files" : " a file"}
         </span>
-        <span className="text-xs text-muted-foreground">{hint ?? "PDF, JPG, JPEG, PNG"}</span>
+        <span className="text-xs text-muted-foreground">
+          {hint ?? "PDF, JPG, JPEG, PNG"}
+        </span>
         <input
           id={id}
+          name={id}
           type="file"
           accept={ACCEPTED}
           multiple={multiple}
@@ -822,22 +1251,23 @@ function FileField({
           className="sr-only"
         />
       </label>
+      {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
       {files.length > 0 && (
         <ul className="mt-3 space-y-2">
-          {files.map((f, i) => (
+          {files.map((file, index) => (
             <li
-              key={`${f.name}-${i}`}
+              key={`${file.name}-${index}`}
               className="flex items-center justify-between rounded-lg border border-border bg-surface px-3 py-2 text-sm"
             >
               <span className="truncate pr-3">
-                {f.name}{" "}
+                {file.name}{" "}
                 <span className="text-muted-foreground">
-                  · {(f.size / 1024 / 1024).toFixed(2)} MB
+                  - {(file.size / 1024 / 1024).toFixed(2)} MB
                 </span>
               </span>
               <button
                 type="button"
-                onClick={() => setFiles(files.filter((_, j) => j !== i))}
+                onClick={() => setFiles(files.filter((_, current) => current !== index))}
                 className="grid h-7 w-7 shrink-0 place-items-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
                 aria-label="Remove file"
               >
@@ -851,9 +1281,31 @@ function FileField({
   );
 }
 
+async function collectAttachments(formData: FormData) {
+  const attachments: Array<{ filename: string; content: string; contentType?: string }> = [];
+  const include = (key: string) => {
+    for (const value of formData.getAll(key)) {
+      if (!(value instanceof File) || value.size === 0) continue;
+      attachments.push({
+        filename: value.name,
+        content: Buffer.from(awaitFile(value)).toString("base64"),
+        contentType: value.type || "application/octet-stream",
+      });
+    }
+  };
+
+  await include("bankStatements");
+  await include("contract");
+  await include("supporting");
+  return attachments;
+}
+
+async function awaitFile(file: File) {
+  return await file.arrayBuffer();
+}
+
 function initialForm() {
   return {
-    // business
     legalName: "",
     dba: "",
     address: "",
@@ -870,7 +1322,6 @@ function initialForm() {
     lengthOwnership: "",
     yearsAtLocation: "",
     numLocations: "",
-    // owner
     ownerName: "",
     ownerPhone: "",
     ownerAddress: "",
@@ -881,11 +1332,9 @@ function initialForm() {
     ownerSsn: "",
     ownership: "",
     ownerTitle: "",
-    // profile
     ownershipType: "",
     merchantType: "",
     merchantOther: "",
-    // funding
     amountRequested: "",
     avgCardSales: "",
     avgGrossSales: "",
@@ -894,7 +1343,6 @@ function initialForm() {
     origBalance: "",
     currentBalance: "",
     currentPayment: "",
-    // sign
     signName: "",
     signature: "",
     signDate: "",
