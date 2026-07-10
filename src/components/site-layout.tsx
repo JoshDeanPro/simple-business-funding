@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Landmark, Menu, X } from "lucide-react";
+import { Building2, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const nav = [
@@ -187,7 +187,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 function BrandIcon() {
   return (
     <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-brand-foreground shadow-sm">
-      <Landmark className="h-4.5 w-4.5" aria-hidden="true" />
+      <Building2 className="h-4.5 w-4.5" aria-hidden="true" />
     </span>
   );
 }
