@@ -94,7 +94,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="mt-24 border-t border-border/70 bg-surface">
+      <footer className="mt-24 border-t border-border/70 bg-foreground text-background">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-10 md:grid-cols-3">
             <div>
@@ -102,47 +102,47 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 <BrandIcon />
                 <span className="text-lg">SmallBizLoans</span>
               </div>
-              <p className="mt-4 text-sm text-muted-foreground">
+              <p className="mt-4 text-sm text-background/70">
                 Business funding information, application guidance, and a straightforward way to
                 contact our team.
               </p>
               <Link
                 to="/apply"
-                className="mt-5 inline-flex text-sm font-semibold text-brand hover:underline"
+                className="mt-5 inline-flex text-sm font-semibold text-primary hover:underline"
               >
                 Apply for business funding
               </Link>
             </div>
             <div>
               <h4 className="text-sm font-semibold">Site</h4>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+              <ul className="mt-3 space-y-2 text-sm text-background/70">
                 <li>
-                  <Link to="/apply" className="hover:text-foreground">
+                  <Link to="/apply" className="hover:text-primary">
                     Apply for business funding
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog" className="hover:text-foreground">
+                  <Link to="/blog" className="hover:text-primary">
                     Business funding resources
                   </Link>
                 </li>
                 <li>
-                  <Link to="/faq" className="hover:text-foreground">
+                  <Link to="/faq" className="hover:text-primary">
                     FAQ
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="hover:text-foreground">
+                  <Link to="/contact" className="hover:text-primary">
                     Contact SmallBizLoans
                   </Link>
                 </li>
                 <li>
-                  <Link to="/privacy" className="hover:text-foreground">
+                  <Link to="/privacy" className="hover:text-primary">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/terms" className="hover:text-foreground">
+                  <Link to="/terms" className="hover:text-primary">
                     Terms of Use
                   </Link>
                 </li>
@@ -150,24 +150,24 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </div>
             <div>
               <h4 className="text-sm font-semibold">Contact</h4>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+              <ul className="mt-3 space-y-2 text-sm text-background/70">
                 <li>
                   <a
                     href="mailto:lizzy.alemayehu@smallbizloanz.com"
-                    className="hover:text-foreground"
+                    className="hover:text-primary"
                   >
                     lizzy.alemayehu@smallbizloanz.com
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+17209001921" className="hover:text-foreground">
+                  <a href="tel:+17209001921" className="hover:text-primary">
                     (720) 900-1921
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="mt-10 border-t border-border/70 pt-6 text-xs leading-relaxed text-muted-foreground">
+          <div className="mt-10 border-t border-background/20 pt-6 text-xs leading-relaxed text-background/65">
             <p>
               SmallBizLoans.com does not guarantee approval, funding, rates, terms, or funding
               amounts. Submitting an application does not constitute an offer of credit or funding.

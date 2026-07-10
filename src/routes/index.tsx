@@ -158,7 +158,7 @@ function Index() {
               key={title}
               className="bg-transparent p-2 transition-colors hover:bg-surface"
             >
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand text-white">
+              <div className="grid h-10 w-10 place-items-center rounded-lg bg-muted text-foreground">
                 <Icon className="h-5 w-5" />
               </div>
               <h3 className="mt-4 text-base font-semibold">{title}</h3>
@@ -179,7 +179,7 @@ function Index() {
           <ol className="mt-10 grid gap-6 md:grid-cols-3">
             {steps.map((s) => (
               <li key={s.n} className="rounded-2xl border border-border bg-card p-6">
-                <span className="text-sm font-semibold text-brand">{s.n}</span>
+                <span className="text-sm font-semibold text-foreground">{s.n}</span>
                 <h3 className="mt-2 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
               </li>
@@ -216,7 +216,7 @@ function Index() {
                 "A clear way to contact your business if we have questions",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
                   <span>{t}</span>
                 </li>
               ))}
@@ -227,7 +227,7 @@ function Index() {
             </p>
           </div>
           <div className="rounded-2xl border border-border bg-surface p-8 text-foreground md:p-10">
-            <PhoneCall className="h-6 w-6 text-brand" />
+            <PhoneCall className="h-6 w-6 text-foreground" />
             <h3 className="mt-4 text-2xl font-semibold">Prefer to talk it through?</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Call or email and a representative will walk you through the process.

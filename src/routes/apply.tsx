@@ -1129,7 +1129,7 @@ function SectionTitle({ children }: { children: ReactNode }) {
 function Note({ children }: { children: ReactNode }) {
   return (
     <div className="flex items-start gap-2 rounded-lg bg-accent p-3 text-sm text-foreground">
-      <Info className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+      <Info className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />
       <p>{children}</p>
     </div>
   );

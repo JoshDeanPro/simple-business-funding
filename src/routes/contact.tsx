@@ -149,7 +149,7 @@ function ContactPage() {
                 href="mailto:lizzy.alemayehu@smallbizloanz.com"
                 className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-white">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
@@ -165,7 +165,7 @@ function ContactPage() {
                 href="tel:+17209001921"
                 className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-white">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
                   <Phone className="h-5 w-5" />
                 </span>
                 <div>
@@ -185,7 +185,7 @@ function ContactPage() {
             </p>
             {status === "sent" ? (
               <div className="mt-6 flex flex-col items-center text-center">
-                <CheckCircle2 className="h-10 w-10 text-brand" />
+                <CheckCircle2 className="h-10 w-10 text-foreground" />
                 <h2 className="mt-4 text-xl font-semibold">Message sent</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Thanks for reaching out. A representative will get back to you shortly.
