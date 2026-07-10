@@ -156,7 +156,7 @@ function Index() {
           {benefits.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="bg-transparent p-2 transition-colors hover:bg-surface"
+              className="rounded-2xl border border-border bg-card p-6 transition-colors hover:bg-surface"
             >
               <div className="grid h-10 w-10 place-items-center rounded-lg bg-muted text-foreground">
                 <Icon className="h-5 w-5" />

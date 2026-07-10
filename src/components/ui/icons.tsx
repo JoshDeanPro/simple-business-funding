@@ -4,6 +4,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faBars,
+  faBriefcase,
   faBuilding,
   faCheck,
   faChevronDown,
@@ -42,7 +43,7 @@ function makeIcon(icon: IconDefinition) {
 export const ArrowLeft = makeIcon(faArrowLeft);
 export const ArrowRight = makeIcon(faArrowRight);
 export const Building2 = makeIcon(faBuilding);
-export const BriefcaseBusiness = Building2;
+export const BriefcaseBusiness = makeIcon(faBriefcase);
 export const Check = makeIcon(faCheck);
 export const CheckCircle2 = makeIcon(faCircleCheck);
 export const ChevronDown = makeIcon(faChevronDown);
