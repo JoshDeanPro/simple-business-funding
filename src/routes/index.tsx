@@ -10,13 +10,7 @@ import {
 } from "@/components/ui/icons";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
-import {
-  organizationSchema,
-  pageHead,
-  toJsonLd,
-  webpageSchema,
-  websiteSchema,
-} from "@/lib/seo";
+import { organizationSchema, pageHead, toJsonLd, webpageSchema, websiteSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -96,11 +90,11 @@ function Index() {
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12 lg:py-20">
           <div className="relative z-10 flex flex-col justify-center">
             <h1 className="max-w-xl text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-              Funding to help your business keep moving
+              Business funding for what comes next
             </h1>
             <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg">
-              Business funding may help with everyday expenses, inventory, equipment, new
-              opportunities, or a short-term business need.
+              Handle an immediate business need, prepare for a new opportunity, or create more room
+              to keep moving forward. Start with one straightforward application.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Button
@@ -109,7 +103,7 @@ function Index() {
                 className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand-hover sm:w-auto"
               >
                 <Link to="/apply">
-                  Apply Now <ArrowRight className="ml-1 h-4 w-4" />
+                  Start your application <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full rounded-full sm:w-auto">
@@ -117,9 +111,19 @@ function Index() {
               </Button>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              One application. Six months of recent business bank statements. Personal help when
-              you need it.
+              One application. Recent business bank statements. Personal help when you need it.
             </p>
+            <div className="mt-6 rounded-2xl border border-border bg-card p-5 text-sm leading-6 text-foreground">
+              <p className="font-semibold text-foreground">
+                A straightforward connection to business funding
+              </p>
+              <p className="mt-2 text-muted-foreground">
+                SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
+                Business Funding. We are an independent representative, not a bank. Mom &amp; Pop
+                Business Funding reviews submitted applications and determines whether funding
+                options are available.
+              </p>
+            </div>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface shadow-lg shadow-foreground/10 sm:aspect-[16/10]">
             <img
@@ -137,19 +141,22 @@ function Index() {
             Funding that fits real business needs
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Whether you are keeping the business moving or preparing for what comes next, the
-            first step is understanding what your business needs and what information is available.
+            The goal is not pressure. It is making the request relevant, manageable, and clear
+            enough that a busy business owner can decide whether to move forward.
           </p>
         </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map(({ icon: Icon, title, desc }) => (
+        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {benefits.map(({ icon: Icon, title, desc }, index) => (
             <div
               key={title}
-              className="rounded-2xl border border-border bg-card p-6 transition-colors hover:bg-surface"
+              className={`rounded-2xl border border-border p-6 transition-colors ${
+                index === 0 ? "bg-surface md:col-span-2 xl:col-span-1" : "bg-card"
+              }`}
             >
               <div className="grid h-10 w-10 place-items-center rounded-lg bg-muted text-foreground">
                 <Icon className="h-5 w-5" />
               </div>
+              {index === 0 && <div className="mt-5 h-1 w-12 rounded-full bg-brand" />}
               <h3 className="mt-4 text-base font-semibold">{title}</h3>
               <p className="mt-1.5 text-sm text-muted-foreground">{desc}</p>
             </div>
@@ -189,7 +196,10 @@ function Index() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div id="what-youll-need" className="grid gap-10 rounded-3xl border border-border bg-card p-8 md:grid-cols-2 md:p-12">
+        <div
+          id="what-youll-need"
+          className="grid gap-10 rounded-3xl border border-border bg-card p-8 md:grid-cols-2 md:p-12"
+        >
           <div>
             <h2 className="text-3xl font-bold tracking-tight">What you&rsquo;ll need to apply</h2>
             <p className="mt-3 text-muted-foreground">
@@ -211,8 +221,8 @@ function Index() {
               ))}
             </ul>
             <p className="mt-6 text-sm text-muted-foreground">
-              If you need help before you start, use the contact options below or read the FAQ
-              page for a quick overview of the process.
+              If you need help before you start, use the contact options below or read the FAQ page
+              for a quick overview of the process.
             </p>
           </div>
           <div className="rounded-2xl border border-border bg-surface p-8 text-foreground md:p-10">
@@ -233,6 +243,46 @@ function Index() {
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+        <div className="rounded-3xl bg-foreground px-8 py-10 text-background sm:px-10">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+              Ready when you are
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              Your business deserves room to move forward
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-background/75 sm:text-base">
+              When the right opportunity or expense cannot wait, a funding application can be the
+              first step toward understanding the options available to your business.
+            </p>
+          </div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+            >
+              <Link to="/apply">
+                Start your application <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-full border-background/30 bg-transparent text-background hover:bg-background/10"
+            >
+              <a href="#what-youll-need">See what you&rsquo;ll need</a>
+            </Button>
+          </div>
+          <p className="mt-5 text-xs leading-6 text-background/65">
+            Submitting an application does not guarantee approval, funding, rates, terms, or funding
+            amounts.
+          </p>
         </div>
       </section>
     </SiteLayout>

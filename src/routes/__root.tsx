@@ -29,7 +29,7 @@ function NotFoundComponent() {
           </Link>
           <Link
             to="/apply"
-            className="inline-flex items-center justify-center rounded-full border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-full border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
             Apply
           </Link>
@@ -64,7 +64,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
             Go home
           </a>
@@ -80,9 +80,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "SmallBizLoans" },
-      { name: "description", content: "Small-business funding information and application access." },
+      {
+        name: "description",
+        content: "Small-business funding information and application access.",
+      },
       { property: "og:title", content: "SmallBizLoans" },
-      { property: "og:description", content: "Small-business funding information and application access." },
+      {
+        property: "og:description",
+        content: "Small-business funding information and application access.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "SmallBizLoans" },
       { name: "twitter:card", content: "summary_large_image" },

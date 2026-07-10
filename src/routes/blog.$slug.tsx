@@ -74,7 +74,7 @@ function BlogArticlePage() {
             </Link>
             <Link
               to="/apply"
-              className="inline-flex items-center gap-2 rounded-full border border-input bg-background px-4 py-2 text-sm font-semibold text-foreground hover:bg-accent"
+              className="inline-flex items-center gap-2 rounded-full border border-input bg-background px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted"
             >
               Apply
             </Link>
@@ -143,7 +143,7 @@ function BlogArticlePage() {
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center rounded-full border border-input bg-surface px-5 py-2.5 text-sm font-semibold hover:bg-accent"
+                className="inline-flex items-center rounded-full border border-input bg-surface px-5 py-2.5 text-sm font-semibold hover:bg-muted"
               >
                 Contact us
               </Link>
@@ -168,7 +168,8 @@ function BlogArticlePage() {
                   </h3>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.intro}</p>
                   <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
-                    Read article <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    Read article{" "}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
               ))}

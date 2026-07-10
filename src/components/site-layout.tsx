@@ -30,7 +30,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-3 font-extrabold tracking-[-0.03em]">
             <BrandIcon />
-                <span className="text-lg sm:text-xl">SmallBizLoans</span>
+            <span className="text-lg sm:text-xl">SmallBizLoans</span>
           </Link>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
             {nav.map((n) => (
@@ -55,7 +55,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-md md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-md transition-colors hover:bg-muted md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-controls="mobile-navigation"
             aria-expanded={open}
@@ -117,6 +117,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <h4 className="text-sm font-semibold">Site</h4>
               <ul className="mt-3 space-y-2 text-sm text-background/70">
                 <li>
+                  <Link to="/" className="hover:text-primary">
+                    Home
+                  </Link>
+                </li>
+                <li>
                   <Link to="/apply" className="hover:text-primary">
                     Apply for business funding
                   </Link>
@@ -152,10 +157,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <h4 className="text-sm font-semibold">Contact</h4>
               <ul className="mt-3 space-y-2 text-sm text-background/70">
                 <li>
-                  <a
-                    href="mailto:lizzy.alemayehu@smallbizloanz.com"
-                    className="hover:text-primary"
-                  >
+                  <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="hover:text-primary">
                     lizzy.alemayehu@smallbizloanz.com
                   </a>
                 </li>
@@ -187,7 +189,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 function BrandIcon() {
   return (
     <span className="grid h-9 w-9 place-items-center text-brand">
-      <BriefcaseBusiness className="h-7 w-7" fill="currentColor" stroke="#000000" aria-hidden="true" />
+      <BriefcaseBusiness className="h-7 w-7" fill="currentColor" aria-hidden="true" />
     </span>
   );
 }

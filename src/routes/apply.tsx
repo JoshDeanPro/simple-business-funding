@@ -65,7 +65,14 @@ const fieldIds = {
   consent: "consent",
 } as const;
 
-const steps = ["Business", "Ownership", "Profile", "Funding", "Documents", "Sign & submit"] as const;
+const steps = [
+  "Business",
+  "Ownership",
+  "Profile",
+  "Funding",
+  "Documents",
+  "Sign & submit",
+] as const;
 const ACCEPTED = ".pdf,.jpg,.jpeg,.png";
 const MAX_MB = 5;
 
@@ -275,7 +282,7 @@ function ApplyPage() {
   function setField<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
     setFieldErrors((current) => {
-      if (!(key as string in current)) return current;
+      if (!((key as string) in current)) return current;
       const next = { ...current };
       delete next[key as string];
       return next;
@@ -342,18 +349,27 @@ function ApplyPage() {
       required(fieldIds.amountRequested, form.amountRequested, "Enter the amount requested.");
       required(fieldIds.avgCardSales, form.avgCardSales, "Enter average card sales.");
       required(fieldIds.avgGrossSales, form.avgGrossSales, "Enter average gross monthly sales.");
-      required(fieldIds.usedAdvance, form.usedAdvance, "Tell us whether the business has used a cash advance before.");
+      required(
+        fieldIds.usedAdvance,
+        form.usedAdvance,
+        "Tell us whether the business has used a cash advance before.",
+      );
       if (form.usedAdvance === "yes") {
         required(fieldIds.prevCompany, form.prevCompany, "Enter the previous funding company.");
         required(fieldIds.origBalance, form.origBalance, "Enter the original balance.");
         required(fieldIds.currentBalance, form.currentBalance, "Enter the current balance.");
-        required(fieldIds.currentPayment, form.currentPayment, "Enter the current payment or holdback.");
+        required(
+          fieldIds.currentPayment,
+          form.currentPayment,
+          "Enter the current payment or holdback.",
+        );
       }
     }
 
     if (step === 4) {
       if (bankStmts.length === 0) {
-        nextErrors[fieldIds.bankStatements] = "Upload six months of recent business bank statements.";
+        nextErrors[fieldIds.bankStatements] =
+          "Upload six months of recent business bank statements.";
       }
     }
 
@@ -420,7 +436,11 @@ function ApplyPage() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (submitError) {
       setSubmitting(false);
-      setError(submitError instanceof Error ? submitError.message : "We could not submit your application. Please try again or contact us directly.");
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "We could not submit your application. Please try again or contact us directly.",
+      );
     }
   }
 
@@ -437,7 +457,10 @@ function ApplyPage() {
             review your information and contact you regarding the next steps.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover">
+            <Button
+              asChild
+              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+            >
               <Link to="/">Back to home</Link>
             </Button>
             <Button asChild variant="outline" className="rounded-full">
@@ -452,29 +475,74 @@ function ApplyPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
-        <div className="mb-8 space-y-4">
-          <div className="rounded-2xl border border-border bg-surface p-5 text-sm leading-6 text-muted-foreground">
-            <p>
-              Complete this application if you want SmallBizLoans to review a small-business
-              funding request. The review may require six months of recent business bank
-              statements and other business or ownership details. Submission does not guarantee
-              approval or funding.
-            </p>
-            <div className="mt-3 flex flex-wrap gap-4 font-medium text-brand">
-              <Link to="/faq" className="hover:underline">
-                Read the FAQ
-              </Link>
-              <Link to="/contact" className="hover:underline">
-                Contact us for help
-              </Link>
+        <div className="mb-10 rounded-3xl border border-border bg-card p-6 sm:p-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">
+            Application prep
+          </p>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            Business funding application
+          </h1>
+          <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
+            SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
+            Business Funding. We are an independent representative, not a bank. Mom &amp; Pop
+            Business Funding reviews submitted applications and determines whether funding options
+            are available.
+          </p>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl bg-surface p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
+                What you&rsquo;ll need
+              </h2>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <li>Basic business and ownership information</li>
+                <li>Recent business bank statements</li>
+                <li>A few uninterrupted minutes to complete the form</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-surface p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
+                What happens next
+              </h2>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <li>We review the submission and supporting documents</li>
+                <li>A representative may follow up for more information</li>
+                <li>Submitting an application does not guarantee approval</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-surface p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
+                Need help?
+              </h2>
+              <div className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <p>
+                  <a
+                    href="tel:+17209001921"
+                    className="font-medium text-foreground hover:underline"
+                  >
+                    (720) 900-1921
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href="mailto:lizzy.alemayehu@smallbizloanz.com"
+                    className="break-all font-medium text-foreground hover:underline"
+                  >
+                    lizzy.alemayehu@smallbizloanz.com
+                  </a>
+                </p>
+                <p>
+                  <Link to="/faq" className="font-medium text-foreground hover:underline">
+                    Read the FAQ
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
+        </div>
 
+        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Business Funding Application
-            </h1>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Step {step + 1} of {steps.length} - {steps[step]}. Fields marked{" "}
               <span className="text-destructive">*</span> are required.
             </p>
@@ -492,12 +560,14 @@ function ApplyPage() {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
           {step === 0 && (
-            <div className="space-y-4">
+            <div className="mt-8 space-y-4">
               <SectionTitle>Business information</SectionTitle>
+              <Note>
+                Why we ask: Ownership and identity information may be needed to review the
+                application and obtain relevant credit or business information, as described in the
+                authorization below.
+              </Note>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field
                   id={fieldIds.legalName}
@@ -660,7 +730,7 @@ function ApplyPage() {
           )}
 
           {step === 1 && (
-            <div className="space-y-4">
+            <div className="mt-8 space-y-4">
               <SectionTitle>Ownership information</SectionTitle>
               <Note>
                 The applicant must have at least 67% ownership. If the primary applicant has less
@@ -770,7 +840,7 @@ function ApplyPage() {
           )}
 
           {step === 2 && (
-            <div className="space-y-6">
+            <div className="mt-8 space-y-6">
               <SectionTitle>Business profile</SectionTitle>
               <div>
                 <Label className="mb-2 block">
@@ -784,21 +854,26 @@ function ApplyPage() {
                   {["Sole proprietorship", "Corporation", "Partnership", "LLC"].map((option) => (
                     <label
                       key={option}
-                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-accent has-[[data-state=checked]]:bg-accent"
+                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-muted has-[[data-state=checked]]:bg-muted"
                     >
                       <RadioGroupItem value={option} /> {option}
                     </label>
                   ))}
                 </RadioGroup>
                 {fieldErrors[fieldIds.ownershipType] && (
-                  <p className="mt-2 text-sm text-destructive">{fieldErrors[fieldIds.ownershipType]}</p>
+                  <p className="mt-2 text-sm text-destructive">
+                    {fieldErrors[fieldIds.ownershipType]}
+                  </p>
                 )}
               </div>
               <div>
                 <Label htmlFor={fieldIds.merchantType} className="mb-2 block">
                   Merchant type <span className="text-destructive">*</span>
                 </Label>
-                <Select value={form.merchantType} onValueChange={(value) => setField("merchantType", value)}>
+                <Select
+                  value={form.merchantType}
+                  onValueChange={(value) => setField("merchantType", value)}
+                >
                   <SelectTrigger id={fieldIds.merchantType}>
                     <SelectValue placeholder="Select…" />
                   </SelectTrigger>
@@ -820,7 +895,9 @@ function ApplyPage() {
                   </SelectContent>
                 </Select>
                 {fieldErrors[fieldIds.merchantType] && (
-                  <p className="mt-2 text-sm text-destructive">{fieldErrors[fieldIds.merchantType]}</p>
+                  <p className="mt-2 text-sm text-destructive">
+                    {fieldErrors[fieldIds.merchantType]}
+                  </p>
                 )}
                 {form.merchantType === "Other" && (
                   <div className="mt-3">
@@ -839,11 +916,11 @@ function ApplyPage() {
           )}
 
           {step === 3 && (
-            <div className="space-y-4">
+            <div className="mt-8 space-y-4">
               <SectionTitle>Funding questions</SectionTitle>
               <Note>
-                The review focuses on the information you provide here, the bank statements, and
-                the overall business profile. Funding is subject to review and approval.
+                The review focuses on the information you provide here, the bank statements, and the
+                overall business profile. Funding is subject to review and approval.
               </Note>
               <Field
                 id={fieldIds.amountRequested}
@@ -893,14 +970,16 @@ function ApplyPage() {
                   ].map(([value, label]) => (
                     <label
                       key={value}
-                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-accent has-[[data-state=checked]]:bg-accent"
+                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-muted has-[[data-state=checked]]:bg-muted"
                     >
                       <RadioGroupItem value={value} /> {label}
                     </label>
                   ))}
                 </RadioGroup>
                 {fieldErrors[fieldIds.usedAdvance] && (
-                  <p className="mt-2 text-sm text-destructive">{fieldErrors[fieldIds.usedAdvance]}</p>
+                  <p className="mt-2 text-sm text-destructive">
+                    {fieldErrors[fieldIds.usedAdvance]}
+                  </p>
                 )}
               </div>
               {form.usedAdvance === "yes" && (
@@ -949,7 +1028,7 @@ function ApplyPage() {
           )}
 
           {step === 4 && (
-            <div className="space-y-6">
+            <div className="mt-8 space-y-6">
               <SectionTitle>Documents</SectionTitle>
               <FileField
                 id={fieldIds.bankStatements}
@@ -984,7 +1063,7 @@ function ApplyPage() {
           )}
 
           {step === 5 && (
-            <div className="space-y-5">
+            <div className="mt-8 space-y-5">
               <SectionTitle>Signature and authorization</SectionTitle>
               <div className="rounded-xl border border-border bg-surface p-4 text-sm text-muted-foreground">
                 <p>By signing below, the applicant certifies that:</p>
@@ -1076,7 +1155,10 @@ function ApplyPage() {
           )}
 
           {error && (
-            <div className="mt-6 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive" role="alert">
+            <div
+              className="mt-6 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive"
+              role="alert"
+            >
               {error}
             </div>
           )}
@@ -1128,7 +1210,7 @@ function SectionTitle({ children }: { children: ReactNode }) {
 
 function Note({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-start gap-2 rounded-lg bg-accent p-3 text-sm text-foreground">
+    <div className="flex items-start gap-2 rounded-lg bg-surface p-3 text-sm text-foreground">
       <Info className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />
       <p>{children}</p>
     </div>
@@ -1235,15 +1317,13 @@ function FileField({
       </Label>
       <label
         htmlFor={id}
-        className="mt-1.5 flex cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-border bg-surface px-4 py-6 text-center transition-colors hover:bg-accent"
+        className="mt-1.5 flex cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-border bg-surface px-4 py-6 text-center transition-colors hover:bg-muted"
       >
         <Upload className="h-5 w-5 text-muted-foreground" />
         <span className="text-sm font-medium">
           Click to upload{multiple ? " files" : " a file"}
         </span>
-        <span className="text-xs text-muted-foreground">
-          {hint ?? "PDF, JPG, JPEG, PNG"}
-        </span>
+        <span className="text-xs text-muted-foreground">{hint ?? "PDF, JPG, JPEG, PNG"}</span>
         <input
           id={id}
           name={id}

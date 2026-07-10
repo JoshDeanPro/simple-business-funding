@@ -120,7 +120,10 @@ function ContactPage() {
       const response = await fetch("/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...Object.fromEntries(form.entries()), submissionId: submissionId.current }),
+        body: JSON.stringify({
+          ...Object.fromEntries(form.entries()),
+          submissionId: submissionId.current,
+        }),
       });
       if (!response.ok) throw new Error("Contact form submission failed");
       setStatus("sent");
@@ -141,13 +144,15 @@ function ContactPage() {
               Get help with your business funding application.
             </h1>
             <p className="mt-4 text-muted-foreground">
-              Use the contact options below if you need help before you start the application or
-              if you have questions about the review process.
+              Use the contact options below if you need help before you start the application or if
+              you have questions about the review process. SmallBizLoans helps business owners
+              submit funding applications to Mom &amp; Pop Business Funding and can help explain
+              what information is requested.
             </p>
             <div className="mt-8 space-y-4">
               <a
                 href="mailto:lizzy.alemayehu@smallbizloanz.com"
-                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
+                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-muted"
               >
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
                   <Mail className="h-5 w-5" />
@@ -163,7 +168,7 @@ function ContactPage() {
               </a>
               <a
                 href="tel:+17209001921"
-                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-accent"
+                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-muted"
               >
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
                   <Phone className="h-5 w-5" />
