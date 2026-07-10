@@ -73,15 +73,12 @@ function Index() {
     <SiteLayout>
       {/* Hero */}
       <section className="relative overflow-hidden bg-surface">
-        <div className="mx-auto grid max-w-6xl overflow-hidden px-4 py-8 sm:px-6 sm:py-12 lg:grid-cols-[0.9fr_1.1fr] lg:rounded-[2rem] lg:bg-primary lg:p-0">
-          <div className="relative z-10 flex flex-col justify-center py-12 lg:px-12 lg:py-20">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Now accepting applications
-            </span>
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-primary-foreground">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:py-24">
+          <div className="relative z-10 flex flex-col justify-center">
+            <h1 className="max-w-xl text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
               Small Business Loans <span className="text-brand">Made Simple</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg text-muted-foreground lg:text-primary-foreground/75">
+            <p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">
               Access business funding through a straightforward application process with minimal
               paperwork.
             </p>
@@ -99,17 +96,17 @@ function Index() {
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
-            <p className="mt-6 text-xs text-muted-foreground lg:text-primary-foreground/60">
+            <p className="mt-5 text-xs text-muted-foreground">
               Six months of recent business bank statements required.
             </p>
           </div>
-          <div className="relative min-h-[22rem] overflow-hidden sm:min-h-[28rem] lg:min-h-[38rem]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-primary shadow-2xl shadow-primary/10 sm:aspect-[16/10]">
             <img
               src="/images/hero-business-funding.png"
               alt="Small-business owner reviewing plans with a funding advisor in a bakery"
-              className="absolute inset-0 h-full w-full object-cover object-center"
+              className="absolute inset-0 h-full w-full object-cover object-right"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent lg:from-primary/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/25 via-transparent to-transparent" />
           </div>
         </div>
       </section>
