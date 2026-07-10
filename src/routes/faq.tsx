@@ -104,52 +104,119 @@ const groups = [
 function FaqPage() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-4xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
-          Frequently asked questions
-        </p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-          Small business funding FAQ
-        </h1>
-        <p className="mt-4 max-w-2xl text-muted-foreground">
-          Plain-English answers about applying, what you need to prepare, who reviews the request,
-          and what happens next.
-        </p>
-
-        <div className="mt-10 space-y-10">
-          {groups.map((group) => (
-            <section key={group.title}>
-              <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{group.title}</h2>
-              <Accordion type="single" collapsible className="mt-4 border-y border-border">
-                {group.items.map((f, i) => (
-                  <AccordionItem
-                    key={f.q}
-                    value={`${group.title}-${i}`}
-                    className="border-b border-border last:border-b-0"
-                  >
-                    <AccordionTrigger className="px-0 text-left text-base font-medium hover:no-underline">
-                      {f.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="px-0 text-sm text-muted-foreground">
-                      {f.a}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </section>
-          ))}
+      <section className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
+        {/* Help Center Header */}
+        <div className="mb-10 pb-6 border-b border-neutral-border/50">
+          <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Help Center & FAQ
+          </h1>
+          <p className="mt-2 text-sm text-muted-text max-w-2xl">
+            Plain-English answers about the application process, bank statement requirements, coordinator review timing, and coordinate files with Mom & Pop Business Funding.
+          </p>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button
-            asChild
-            className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
-          >
-            <Link to="/apply">Apply for business funding</Link>
-          </Button>
-          <Button asChild variant="outline" className="rounded-full">
-            <Link to="/contact">Contact us</Link>
-          </Button>
+        <div className="grid gap-8 lg:grid-cols-[200px_1fr] items-start">
+          {/* Sticky left navigation rail */}
+          <aside className="space-y-6 lg:sticky lg:top-24">
+            <div className="hidden lg:block border border-neutral-border bg-white p-4 rounded text-xs">
+              <h3 className="font-bold text-ink uppercase tracking-wider mb-3 border-b border-neutral-border/50 pb-2">
+                Help Categories
+              </h3>
+              <ul className="space-y-2.5">
+                {groups.map((group) => {
+                  const id = group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                  return (
+                    <li key={group.title}>
+                      <a
+                        href={`#${id}`}
+                        className="text-muted-text font-semibold hover:text-evergreen hover:underline transition-colors block"
+                      >
+                        {group.title}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            {/* Support Desk Card */}
+            <div className="border border-neutral-border bg-white p-4 rounded text-xs">
+              <h4 className="font-bold text-ink uppercase tracking-wider mb-2">Still need help?</h4>
+              <p className="text-muted-text leading-relaxed">
+                Connect directly with our file representative desk for assistance.
+              </p>
+              <div className="mt-4 space-y-2.5 bg-paper p-3 rounded border border-neutral-border/40">
+                <div>
+                  <span className="block text-[9px] uppercase font-bold text-muted-text">Call Support</span>
+                  <a href="tel:+17209001921" className="text-ink font-bold hover:underline block mt-0.5">
+                    (720) 900-1921
+                  </a>
+                </div>
+                <div>
+                  <span className="block text-[9px] uppercase font-bold text-muted-text">Support Email</span>
+                  <a
+                    href="mailto:lizzy.alemayehu@smallbizloanz.com"
+                    className="text-ink font-bold break-all hover:underline block mt-0.5"
+                  >
+                    lizzy.alemayehu@smallbizloanz.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* FAQ Sections */}
+          <div className="space-y-8">
+            {groups.map((group) => {
+              const id = group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+              return (
+                <section key={group.title} id={id} className="scroll-mt-20 bg-white border border-neutral-border rounded p-6">
+                  <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">
+                    {group.title}
+                  </h2>
+                  <Accordion type="single" collapsible className="space-y-2">
+                    {group.items.map((f, i) => (
+                      <AccordionItem
+                        key={f.q}
+                        value={`${group.title}-${i}`}
+                        className="border border-neutral-border/40 rounded bg-paper/20 px-4 last:border-b-0"
+                      >
+                        <AccordionTrigger className="text-left text-sm font-semibold hover:no-underline py-3 text-ink">
+                          {f.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-xs text-muted-text leading-relaxed pb-3">
+                          {f.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </section>
+              );
+            })}
+
+            {/* Small help action panel */}
+            <div className="border-t border-neutral-border/50 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h3 className="text-sm font-bold text-ink">Ready to begin?</h3>
+                <p className="text-xs text-muted-text">Completing the initial online application takes about 5 minutes.</p>
+              </div>
+              <div className="flex gap-3">
+                <Button
+                  asChild
+                  className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-4 font-semibold text-xs h-8"
+                >
+                  <Link to="/apply">Start Application</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="rounded border-neutral-border hover:bg-paper text-ink px-4 text-xs h-8"
+                >
+                  <Link to="/contact">Contact us</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </SiteLayout>

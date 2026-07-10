@@ -28,17 +28,25 @@ export const Route = createFileRoute("/terms")({
   },
   component: () => (
     <SiteLayout>
-      <article className="mx-auto max-w-3xl px-4 pb-20 pt-16 sm:px-6 sm:pt-20">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Terms of Use</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight">Terms of Use</h1>
-        <p className="mt-4 text-muted-foreground">
-          By using SmallBizLoans.com you agree that all information you submit is accurate and
-          complete to the best of your knowledge. SmallBizLoans.com does not guarantee approval,
-          funding, rates, terms, or funding amounts. Submitting an application does not constitute
-          an offer of credit or funding. Final eligibility and terms depend on review of the
-          applicant&apos;s information and supporting documents.
-        </p>
-      </article>
+      <section className="mx-auto max-w-4xl px-4 pb-24 pt-8 sm:px-6">
+        <div className="mb-8 pb-4 border-b border-neutral-border/50">
+          <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Terms of Use
+          </h1>
+          <p className="mt-2 text-xs text-muted-text">
+            Last Updated: July 2026
+          </p>
+        </div>
+        
+        <div className="max-w-2xl text-sm leading-relaxed text-muted-text space-y-4">
+          <p>
+            By using SmallBizLoans.com, you agree that all information and documents you submit through this website are accurate, complete, and represent the true operational status of your business to the best of your knowledge.
+          </p>
+          <p>
+            SmallBizLoans.com is an independent representative coordinating application files with Mom &amp; Pop Business Funding. SmallBizLoans.com does not make underwriting reviews, credit decisions, or guarantee approval, funding, rates, terms, or final funding amounts. Submitting an application or contact form does not constitute an offer of credit or funding. Final eligibility depends entirely on review and verification of applicant information by Mom &amp; Pop Business Funding.
+          </p>
+        </div>
+      </section>
     </SiteLayout>
   ),
 });

@@ -59,24 +59,24 @@ function BlogArticlePage() {
   if (!post) {
     return (
       <SiteLayout>
-        <section className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6">
-          <p className="text-sm font-semibold text-brand">Article not found</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight">That article is not available.</h1>
-          <p className="mt-4 text-muted-foreground">
-            Try the resources page or go back to the home page.
+        <section className="mx-auto max-w-xl px-4 py-24 text-center sm:px-6 bg-white border border-neutral-border rounded mt-12 mb-24">
+          <p className="text-sm font-semibold text-evergreen uppercase tracking-wider">Article not found</p>
+          <h1 className="mt-4 text-2xl font-bold tracking-tight text-ink">That article is not available.</h1>
+          <p className="mt-2 text-sm text-muted-text">
+            Try looking through our resources library or return to the homepage.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               to="/blog"
-              className="inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:bg-brand-hover"
+              className="inline-flex items-center gap-2 rounded bg-evergreen text-white hover:bg-evergreen/90 px-4 py-2 text-sm font-semibold"
             >
               <ArrowLeft className="h-4 w-4" /> Back to resources
             </Link>
             <Link
-              to="/apply"
-              className="inline-flex items-center gap-2 rounded-full border border-input bg-background px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted"
+              to="/"
+              className="inline-flex items-center gap-2 rounded border border-neutral-border bg-white hover:bg-paper px-4 py-2 text-sm font-semibold text-ink"
             >
-              Apply
+              Go home
             </Link>
           </div>
         </section>
@@ -88,88 +88,92 @@ function BlogArticlePage() {
 
   return (
     <SiteLayout>
-      <article className="mx-auto max-w-6xl px-4 pb-24 pt-12 sm:px-6 sm:pt-20">
+      <article className="mx-auto max-w-4xl px-4 pb-24 pt-8 sm:px-6">
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-evergreen hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> All resources
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to all resources
         </Link>
-        <div className="mt-10 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-16">
+        
+        <div className="mt-8 grid gap-8 md:grid-cols-[1.2fr_0.8fr] items-center border-b border-neutral-border/50 pb-8 mb-10">
           <div>
-            <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-brand">
-              <span>{post.category}</span>
-              <span className="h-1 w-1 rounded-full bg-border" />
-              <span className="inline-flex items-center gap-1 text-muted-foreground normal-case tracking-normal">
-                <Clock3 className="h-3.5 w-3.5" />
-                {post.readTime}
-              </span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-evergreen">
+              <span className="uppercase tracking-wider">{post.category}</span>
+              <span className="h-1 w-1 rounded-full bg-neutral-border" />
+              <span className="text-muted-text">{post.readTime}</span>
             </div>
-            <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl lg:text-5xl">
               {post.title}
             </h1>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">{post.intro}</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-text">{post.intro}</p>
           </div>
-          <img
-            src={post.image}
-            alt={post.alt}
-            className="aspect-[4/3] w-full rounded-[2rem] object-cover"
-          />
+          <div className="border border-neutral-border bg-paper p-1 rounded overflow-hidden">
+            <img
+              src={post.image}
+              alt={post.alt}
+              className="w-full h-48 object-cover rounded-sm"
+            />
+          </div>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl">
+
+        <div className="mx-auto max-w-2xl">
           {post.sections.map((section) => (
-            <section key={section.heading} className="mb-12">
-              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            <section key={section.heading} className="mb-10">
+              <h2 className="text-xl font-bold tracking-tight text-ink sm:text-2xl border-l-2 border-evergreen pl-3 mb-4">
                 {section.heading}
               </h2>
               {section.paragraphs.map((paragraph) => (
-                <p key={paragraph} className="mt-4 text-base leading-8 text-muted-foreground">
+                <p key={paragraph} className="mt-3 text-sm leading-relaxed text-muted-text">
                   {paragraph}
                 </p>
               ))}
             </section>
           ))}
-          <div className="mt-14 rounded-2xl border border-border bg-surface p-7 text-foreground sm:p-9">
-            <h2 className="text-2xl font-semibold">Ready to talk through your next step?</h2>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Start with a short application or contact our team with a question.
+
+          {/* Talk card */}
+          <div className="mt-14 rounded border border-neutral-border bg-white p-6 sm:p-8 text-ink">
+            <h2 className="text-lg font-bold text-ink">Ready to explore financing options?</h2>
+            <p className="mt-2 text-xs leading-relaxed text-muted-text">
+              Completing the secure online application takes about 5 minutes. You can also contact our team if you have questions.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/apply"
-                className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground hover:bg-brand-hover"
+                className="inline-flex items-center gap-2 rounded bg-evergreen px-4 py-2 text-xs font-semibold text-white hover:bg-evergreen/90"
               >
-                Apply now <ArrowRight className="h-4 w-4" />
+                Apply now <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center rounded-full border border-input bg-surface px-5 py-2.5 text-sm font-semibold hover:bg-muted"
+                className="inline-flex items-center rounded border border-neutral-border bg-white px-4 py-2 text-xs font-semibold text-ink hover:bg-paper"
               >
                 Contact us
               </Link>
             </div>
           </div>
 
-          <div className="mt-12 border-t border-border pt-10">
-            <h2 className="text-2xl font-semibold tracking-tight">Related resources</h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          {/* Related Resources */}
+          <div className="mt-14 border-t border-neutral-border/50 pt-10">
+            <h2 className="text-base font-bold text-ink uppercase tracking-wider mb-6">Related resources</h2>
+            <div className="grid gap-6 sm:grid-cols-2">
               {related.map((item) => (
                 <Link
                   key={item.slug}
                   to="/blog/$slug"
                   params={{ slug: item.slug }}
-                  className="group rounded-2xl border border-border bg-card p-5 transition-shadow hover:shadow-sm"
+                  className="group rounded border border-neutral-border bg-white p-5 hover:border-evergreen transition-colors"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-evergreen">
                     {item.category}
                   </p>
-                  <h3 className="mt-3 text-xl font-semibold leading-tight group-hover:text-brand">
+                  <h3 className="mt-2.5 text-sm font-bold text-ink group-hover:text-evergreen transition-colors leading-snug">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.intro}</p>
-                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <p className="mt-2 text-xs leading-relaxed text-muted-text line-clamp-2">{item.intro}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-evergreen hover:underline">
                     Read article{" "}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </span>
                 </Link>
               ))}

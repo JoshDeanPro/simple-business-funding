@@ -134,70 +134,66 @@ function ContactPage() {
 
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-6xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
-        <div className="grid gap-12 md:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
-              Contact SmallBizLoans
-            </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-              Get help with your business funding application.
-            </h1>
-            <p className="mt-4 text-muted-foreground">
-              Use the contact options below if you need help before you start the application or if
-              you have questions about the review process. SmallBizLoans helps business owners
-              submit funding applications to Mom &amp; Pop Business Funding and can help explain
-              what information is requested.
-            </p>
-            <div className="mt-8 space-y-4">
-              <a
-                href="mailto:lizzy.alemayehu@smallbizloanz.com"
-                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-muted"
-              >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
-                  <Mail className="h-5 w-5" />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    Email
-                  </div>
-                  <div className="mt-0.5 break-all text-sm font-medium">
-                    lizzy.alemayehu@smallbizloanz.com
-                  </div>
-                </div>
-              </a>
-              <a
-                href="tel:+17209001921"
-                className="flex items-start gap-3 rounded-xl bg-card p-4 hover:bg-muted"
-              >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
-                  <Phone className="h-5 w-5" />
-                </span>
-                <div>
-                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    Phone
-                  </div>
-                  <div className="mt-0.5 text-sm font-medium">(720) 900-1921</div>
-                </div>
-              </a>
+      <section className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
+        {/* Header */}
+        <div className="mb-10 pb-6 border-b border-neutral-border/50">
+          <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Contact & Support
+          </h1>
+          <p className="mt-2 text-sm text-muted-text max-w-xl">
+            Reach out with questions about requirements, application status, or how we represent Mom & Pop Business Funding.
+          </p>
+        </div>
+
+        <div className="grid gap-12 md:grid-cols-2 items-start">
+          {/* Expectations and contact methods */}
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-base font-bold text-ink">What to expect</h2>
+              <p className="mt-2 text-sm text-muted-text leading-relaxed">
+                When you submit a contact request or call our support desk, a coordinator will respond to your query. If you have an active application, please include your business name so we can locate your file quickly.
+              </p>
+            </div>
+            
+            <div className="space-y-4 pt-4 border-t border-neutral-border/50">
+              <div>
+                <span className="block text-[10px] uppercase font-bold text-muted-text">Direct Line</span>
+                <a href="tel:+17209001921" className="text-lg font-bold text-ink hover:underline">
+                  (720) 900-1921
+                </a>
+                <span className="block text-xs text-muted-text mt-0.5">Available during normal business hours.</span>
+              </div>
+              <div>
+                <span className="block text-[10px] uppercase font-bold text-muted-text">Coordinator Email</span>
+                <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="text-base font-bold text-ink break-all hover:underline">
+                  lizzy.alemayehu@smallbizloanz.com
+                </a>
+                <span className="block text-xs text-muted-text mt-0.5">Typically responds within one business day.</span>
+              </div>
+            </div>
+            
+            <div className="pt-4 border-t border-neutral-border/50 text-xs text-muted-text leading-relaxed">
+              <p>
+                SmallBizLoans helps small business owners coordinate files and submit requests to Mom & Pop Business Funding. We do not make credit decisions or function as a direct lender.
+              </p>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-            <p className="text-sm text-muted-foreground">
-              Tell us what you need help with. Include your business name if the question is about
-              an application or a funding request.
-            </p>
+          {/* Simple Contact Form */}
+          <div className="rounded border border-neutral-border bg-white p-6 sm:p-8">
+            <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">Send a Message</h2>
             {status === "sent" ? (
-              <div className="mt-6 flex flex-col items-center text-center">
-                <CheckCircle2 className="h-10 w-10 text-foreground" />
-                <h2 className="mt-4 text-xl font-semibold">Message sent</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Thanks for reaching out. A representative will get back to you shortly.
+              <div className="py-8 flex flex-col items-center text-center">
+                <div className="flex h-10 w-10 items-center justify-center rounded bg-sage/40 text-evergreen border border-evergreen">
+                  <CheckCircle2 className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-ink">Message sent</h3>
+                <p className="mt-2 text-xs text-muted-text max-w-xs leading-relaxed">
+                  Thanks for reaching out. A coordinator will get back to you shortly.
                 </p>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="mt-6 space-y-4">
+              <form onSubmit={onSubmit} className="space-y-4">
                 <input type="hidden" name="submissionId" value={submissionId.current} readOnly />
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field id="name" label="Name" required autoComplete="name" />
@@ -215,7 +211,7 @@ function ContactPage() {
                     id="message"
                     name="message"
                     required
-                    rows={5}
+                    rows={4}
                     autoComplete="off"
                     className="mt-1.5"
                   />
@@ -223,12 +219,12 @@ function ContactPage() {
                 <Button
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+                  className="w-full rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
                 >
                   {status === "sending" ? "Sending…" : "Send message"}
                 </Button>
                 {status === "error" && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-xs text-destructive mt-2 text-center">
                     Something went wrong. Please try again or email us directly.
                   </p>
                 )}

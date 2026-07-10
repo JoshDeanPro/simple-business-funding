@@ -103,315 +103,326 @@ const focusChoices = [
 ] as const;
 
 function Index() {
+  const [goal, setGoal] = useState<(typeof goalChoices)[number] | "">("");
+  const [focus, setFocus] = useState<(typeof focusChoices)[number] | "">("");
+
   return (
     <SiteLayout>
-      <section className="relative overflow-hidden bg-surface">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12 lg:py-20">
-          <div className="relative z-10 flex flex-col justify-center">
-            <h1 className="max-w-xl text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-              Business funding for what comes next
+      {/* Editorial Hero */}
+      <section className="bg-paper border-b border-neutral-border/50">
+        <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+          <div className="text-left">
+            <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl">
+              Straightforward business funding for what comes next
             </h1>
-            <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg">
-              Handle an immediate business need, prepare for a new opportunity, or create more room
-              to keep moving forward. Start with one straightforward application.
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-text sm:text-lg">
+              Manage an immediate operational need, purchase inventory, or create breathing room to keep your business moving forward. We represent Mom & Pop Business Funding to help you submit your application efficiently.
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <Button
                 asChild
-                size="lg"
-                className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand-hover sm:w-auto"
+                className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
               >
                 <Link to="/apply">
-                  Start My Application <ArrowRight className="ml-1 h-4 w-4" />
+                  Start My Application <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="w-full rounded-full sm:w-auto">
-                <a href="#what-youll-need">See what you&rsquo;ll need</a>
-              </Button>
-            </div>
-            <p className="mt-4 text-sm text-muted-foreground">
-              One application. Recent business bank statements. Personal help when you need it.
-            </p>
-            <div className="mt-6 rounded-2xl border border-border bg-card p-5 text-sm leading-6 text-foreground">
-              <p className="font-semibold text-foreground">
-                A straightforward connection to business funding
-              </p>
-              <p className="mt-2 text-muted-foreground">
-                SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
-                Business Funding. We are an independent representative, not a bank. Mom &amp; Pop
-                Business Funding reviews submitted applications and determines whether funding
-                options are available.
-              </p>
+              <a
+                href="#what-youll-need"
+                className="text-sm font-semibold text-evergreen hover:text-evergreen/95 hover:underline"
+              >
+                See what you&rsquo;ll need to prepare
+              </a>
             </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface shadow-lg shadow-foreground/10 sm:aspect-[16/10]">
+
+          {/* Goal selection module directly under the hero text */}
+          <div className="mt-12 border border-neutral-border bg-white p-6 rounded">
+            <div className="border-b border-neutral-border/50 pb-4 mb-4">
+              <h2 className="text-base font-bold text-ink">Guided Planning Worksheet</h2>
+              <p className="text-xs text-muted-text mt-0.5">
+                Understand how business funding might fit your goals. This reflection tool is local and is not stored or shared.
+              </p>
+            </div>
+            
+            <div className="grid gap-6 md:grid-cols-2">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-evergreen">1. Identify your business need</span>
+                <p className="text-xs text-muted-text mt-0.5">What keeps getting delayed or requires immediate capital?</p>
+                <div className="mt-3 grid gap-1.5 sm:grid-cols-1">
+                  {goalChoices.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setGoal(option)}
+                      className={`w-full rounded border px-3 py-2 text-left text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-evergreen ${
+                        goal === option
+                          ? "border-evergreen bg-sage/30 text-evergreen"
+                          : "border-neutral-border bg-white text-ink hover:bg-paper"
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-evergreen">2. Select your priority focus</span>
+                <p className="text-xs text-muted-text mt-0.5">What would handling that allow you to concentrate on?</p>
+                <div className="mt-3 grid gap-1.5">
+                  {focusChoices.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setFocus(option)}
+                      className={`w-full rounded border px-3 py-2 text-left text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-evergreen ${
+                        focus === option
+                          ? "border-evergreen bg-sage/30 text-evergreen"
+                          : "border-neutral-border bg-white text-ink hover:bg-paper"
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-6 border-t border-neutral-border/50 pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex-1">
+                <span className="text-xs font-bold text-muted-text uppercase tracking-wider">Your Reflection Summary</span>
+                <p className="text-sm font-semibold text-ink mt-1">
+                  {goal && focus ? (
+                    <span>
+                      If funding helps with <span className="text-evergreen">{goal.toLowerCase()}</span>, it may create more room to focus on <span className="text-evergreen">{focus.toLowerCase()}</span>.
+                    </span>
+                  ) : (
+                    <span className="text-muted-text italic">Select options in Step 1 and Step 2 to generate your reflection summary.</span>
+                  )}
+                </p>
+              </div>
+              <div className="shrink-0 flex items-center gap-3.5">
+                <Button asChild size="sm" className="rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold">
+                  <Link to="/apply">Start Application</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Documentary Image strip below the decision module */}
+          <div className="mt-8 border border-neutral-border bg-white p-1.5 rounded">
             <img
               src="/images/stock/hero.jpg"
-              alt="Small-business owner reviewing plans with a funding advisor in a bakery"
-              className="absolute inset-0 h-full w-full object-cover object-center"
+              alt="Small-business owner reviewing operations in a local shop"
+              className="w-full h-auto max-h-[380px] object-cover rounded-sm"
             />
           </div>
-        </div>
-      </section>
 
-      <GoalReflection />
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Practical ways funding may support the business
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            The goal is not pressure. It is making the request relevant, manageable, and clear
-            enough that a busy business owner can decide whether to move forward.
-          </p>
-        </div>
-        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {benefits.map(({ icon: Icon, title, desc }, index) => (
-            <div
-              key={title}
-              className={`rounded-2xl border border-border p-6 transition-colors ${
-                index === 0 ? "bg-surface md:col-span-2 xl:col-span-1" : "bg-card"
-              }`}
-            >
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-muted text-foreground">
-                <Icon className="h-5 w-5" />
-              </div>
-              {index === 0 && <div className="mt-5 h-1 w-12 rounded-full bg-brand" />}
-              <h3 className="mt-4 text-base font-semibold">{title}</h3>
-              <p className="mt-1.5 text-sm text-muted-foreground">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-surface">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Simple application process
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              A straightforward path from your first form to a conversation with a representative.
+          <div className="mt-6 border border-neutral-border bg-white p-5 rounded text-xs leading-relaxed text-ink">
+            <p className="font-bold">Representing Mom & Pop Business Funding</p>
+            <p className="mt-1.5 text-muted-text">
+              SmallBizLoans assists small business owners in submitting applications directly to Mom & Pop Business Funding. We function as an independent representative. Mom & Pop Business Funding reviews all application files to determine eligibility and funding terms. We are not a direct lender or bank.
             </p>
           </div>
-          <ol className="mt-10 grid gap-6 md:grid-cols-3">
-            {steps.map((s) => (
-              <li key={s.n} className="rounded-2xl border border-border bg-card p-6">
-                <span className="text-sm font-semibold text-foreground">{s.n}</span>
-                <h3 className="mt-2 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-10">
+        </div>
+      </section>
+
+      {/* Editorial Funding Uses */}
+      <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+        <div className="max-w-2xl border-l-2 border-evergreen pl-4">
+          <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+            Practical applications for business capital
+          </h2>
+          <p className="mt-2 text-sm text-muted-text leading-relaxed">
+            Financing should resolve specific business challenges. Here is how small business owners commonly apply their working capital.
+          </p>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-3 mt-10">
+          <div className="lg:col-span-2 bg-white border border-neutral-border p-6 rounded">
+            <span className="text-xs font-bold uppercase tracking-wider text-evergreen">Primary Application</span>
+            <h3 className="mt-2 text-lg font-bold text-ink">Managing operations & inventory</h3>
+            <p className="mt-3 text-sm text-muted-text leading-relaxed">
+              Day-to-day operations should remain continuous. Small business owners utilize funding to handle seasonal inventory purchases, manage payroll cycles, pay vendor accounts, or manage unexpected equipment issues. Maintaining constant operations ensures you don't lose momentum.
+            </p>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="bg-white border border-neutral-border p-5 rounded">
+              <h4 className="font-bold text-ink text-sm">Purchase business equipment</h4>
+              <p className="mt-1 text-xs text-muted-text">Acquire machinery, vehicles, computer hardware, or restaurant equipment to expand business capacity.</p>
+            </div>
+            <div className="bg-white border border-neutral-border p-5 rounded">
+              <h4 className="font-bold text-ink text-sm">Create financial flexibility</h4>
+              <p className="mt-1 text-xs text-muted-text">Secure breathing room during slower months or prepare for unexpected business needs.</p>
+            </div>
+            <div className="bg-white border border-neutral-border p-5 rounded">
+              <h4 className="font-bold text-ink text-sm">Invest in client growth</h4>
+              <p className="mt-1 text-xs text-muted-text">Finance marketing efforts, hire seasonal staff, or secure raw materials for larger contracts.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Connected Process Flow */}
+      <section className="bg-white border-t border-b border-neutral-border/50">
+        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+          <div className="max-w-2xl border-l-2 border-evergreen pl-4 mb-12">
+            <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+              Application process
+            </h2>
+            <p className="mt-2 text-sm text-muted-text leading-relaxed">
+              A structured path from your initial online submission to receiving a final decision.
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Horizontal connecting line for desktop */}
+            <div className="absolute top-6 left-4 right-4 hidden h-[1px] bg-neutral-border md:block" />
+            
+            <div className="grid gap-8 md:grid-cols-3 relative">
+              <div className="relative">
+                <div className="flex items-center gap-3 md:flex-col md:items-start">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-evergreen bg-paper text-evergreen font-bold text-sm relative z-10">
+                    01
+                    <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-signal-green border border-white" />
+                  </div>
+                  <div className="md:mt-4">
+                    <h3 className="font-bold text-ink text-base">Complete the online form</h3>
+                    <p className="mt-1.5 text-xs text-muted-text leading-relaxed">Submit core details about your business operations, requesting amount, and owner contact information.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="flex items-center gap-3 md:flex-col md:items-start">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-neutral-border bg-white text-muted-text font-bold text-sm relative z-10">
+                    02
+                  </div>
+                  <div className="md:mt-4">
+                    <h3 className="font-bold text-ink text-base">Provide business bank statements</h3>
+                    <p className="mt-1.5 text-xs text-muted-text leading-relaxed">Upload or email six months of recent business bank statements to complete your files.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="flex items-center gap-3 md:flex-col md:items-start">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-neutral-border bg-white text-muted-text font-bold text-sm relative z-10">
+                    03
+                  </div>
+                  <div className="md:mt-4">
+                    <h3 className="font-bold text-ink text-base">Discuss with a representative</h3>
+                    <p className="mt-1.5 text-xs text-muted-text leading-relaxed">A coordinator will contact you to confirm details and coordinate the review of your file.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 flex justify-start">
             <Button
               asChild
-              size="lg"
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
             >
               <Link to="/apply">
-                Start My Application <ArrowRight className="ml-1 h-4 w-4" />
+                Start My Application <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div
-          id="what-youll-need"
-          className="grid gap-10 rounded-3xl border border-border bg-card p-8 md:grid-cols-2 md:p-12"
-        >
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">What you&rsquo;ll need to apply</h2>
-            <p className="mt-3 text-muted-foreground">
-              Have the basics ready before you begin. The application asks about your business,
-              ownership, contact information, and how the funding may support the business.
+      {/* Requirements and Contactsplit layout */}
+      <section id="what-youll-need" className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div className="bg-white border border-neutral-border p-6 rounded">
+            <h2 className="text-xl font-bold tracking-tight text-ink">What is required to apply</h2>
+            <p className="mt-2 text-xs text-muted-text leading-relaxed">
+              To expedite the review process, prepare the following items prior to starting the application form.
             </p>
-            <ul className="mt-6 space-y-3 text-sm">
+            <ul className="mt-6 space-y-4 text-xs">
               {[
-                "Basic business and ownership information",
-                "Six months of recent business bank statements",
-                "Original funding contract (only if you have an existing balance)",
-                "Any optional supporting documents you'd like to include",
-                "A clear way to contact your business if we have questions",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
-                  <span>{t}</span>
+                "Basic corporate and ownership details",
+                "Six months of consecutive recent business bank statements",
+                "Active business phone number and email address",
+                "Original funding contract (only if you carry an existing balance)",
+                "Optional supporting documents showing steady business revenue",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded bg-sage/40 text-evergreen">✓</span>
+                  <span className="text-ink font-medium">{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-sm text-muted-foreground">
-              If you need help before you start, use the contact options below or read the FAQ page
-              for a quick overview of the process.
-            </p>
           </div>
-          <div className="rounded-2xl border border-border bg-surface p-8 text-foreground md:p-10">
-            <PhoneCall className="h-6 w-6 text-foreground" />
-            <h3 className="mt-4 text-2xl font-semibold">Prefer to talk it through?</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Call or email and a representative will walk you through the process.
-            </p>
-            <div className="mt-6 space-y-2 text-sm">
-              <a href="tel:+17209001921" className="block font-medium hover:underline">
-                (720) 900-1921
-              </a>
-              <a
-                href="mailto:lizzy.alemayehu@smallbizloanz.com"
-                className="block font-medium break-all hover:underline"
-              >
-                lizzy.alemayehu@smallbizloanz.com
-              </a>
+          
+          <div className="bg-blue-soft/50 border border-neutral-border p-6 rounded flex flex-col justify-between">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded bg-white border border-neutral-border text-evergreen">
+                <PhoneCall className="h-5 w-5" />
+              </div>
+              <h3 className="mt-4 text-lg font-bold text-ink">Need assistance preparing?</h3>
+              <p className="mt-2 text-xs text-muted-text leading-relaxed">
+                If you have questions about the application or requirements, our support team can guide you.
+              </p>
+              <div className="mt-6 space-y-3.5 text-xs">
+                <div>
+                  <span className="block text-[10px] uppercase font-bold text-muted-text">Direct Phone</span>
+                  <a href="tel:+17209001921" className="text-ink font-bold hover:underline mt-0.5 block">
+                    (720) 900-1921
+                  </a>
+                </div>
+                <div>
+                  <span className="block text-[10px] uppercase font-bold text-muted-text">Support Email</span>
+                  <a
+                    href="mailto:lizzy.alemayehu@smallbizloanz.com"
+                    className="text-ink font-bold break-all hover:underline mt-0.5 block"
+                  >
+                    lizzy.alemayehu@smallbizloanz.com
+                  </a>
+                </div>
+              </div>
             </div>
+            <p className="mt-6 text-[10px] text-muted-text leading-relaxed">
+              We operate during standard business hours to assist small business owners.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
-        <div className="rounded-3xl bg-foreground px-8 py-10 text-background sm:px-10">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-              Ready when you are
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-              Your business deserves room to move forward
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-background/75 sm:text-base">
-              When the right opportunity or expense cannot wait, a funding application can be the
-              first step toward understanding the options available to your business.
-            </p>
-          </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+      {/* Clear, Corporate Closing Action */}
+      <section className="border-t border-neutral-border/50 bg-white">
+        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
+          <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+            A structured path to business financing
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-text">
+            When you require working capital to navigate operational demands or purchase inventory, our REPRESENTATIVES can coordinate file reviews with Mom & Pop Business Funding.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3.5 sm:flex-row">
             <Button
               asChild
-              size="lg"
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
             >
               <Link to="/apply">
-                Start My Application <ArrowRight className="ml-1 h-4 w-4" />
+                Start My Application <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
             <Button
               asChild
-              size="lg"
               variant="outline"
-              className="rounded-full border-background/30 bg-transparent text-background hover:bg-background/10"
+              className="rounded border-neutral-border hover:bg-paper text-ink"
             >
-              <a href="#what-youll-need">See what you&rsquo;ll need</a>
+              <a href="#what-youll-need">Review Requirements</a>
             </Button>
           </div>
-          <p className="mt-5 text-xs leading-6 text-background/65">
-            Submitting an application does not guarantee approval, funding, rates, terms, or funding
-            amounts.
+          <p className="mt-6 text-[10px] text-muted-text">
+            SmallBizLoans does not guarantee approval, rates, terms, or funding amounts. All files are reviewed by Mom & Pop Business Funding.
           </p>
         </div>
       </section>
     </SiteLayout>
-  );
-}
-
-function GoalReflection() {
-  const [goal, setGoal] = useState<(typeof goalChoices)[number] | "">("");
-  const [focus, setFocus] = useState<(typeof focusChoices)[number] | "">("");
-
-  const reflection =
-    goal && focus
-      ? `If funding helps with ${goal.toLowerCase()}, it may create more room to focus on ${focus.toLowerCase()}.`
-      : "Choose two options to see a short reflection.";
-
-  return (
-    <section className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
-      <div className="grid gap-6 rounded-3xl border border-border bg-card p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">
-            Optional reflection
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-            What would funding help you move forward on?
-          </h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            This is only for you. It stays on the page and helps frame the next step without
-            suggesting eligibility or tracking your answers.
-          </p>
-
-          <div className="mt-6 grid gap-2 sm:grid-cols-2">
-            {goalChoices.map((option) => (
-              <ChoiceButton key={option} selected={goal === option} onClick={() => setGoal(option)}>
-                {option}
-              </ChoiceButton>
-            ))}
-          </div>
-
-          <h3 className="mt-8 text-xl font-semibold tracking-tight">
-            What would handling that allow you to focus on?
-          </h3>
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">
-            {focusChoices.map((option) => (
-              <ChoiceButton
-                key={option}
-                selected={focus === option}
-                onClick={() => setFocus(option)}
-              >
-                {option}
-              </ChoiceButton>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col justify-between rounded-2xl bg-surface p-6">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
-              Your reflection
-            </p>
-            <p className="mt-4 text-2xl font-semibold leading-tight text-foreground">
-              {reflection}
-            </p>
-            <p className="mt-4 text-sm leading-6 text-muted-foreground">
-              What keeps getting delayed while this need remains unresolved?
-            </p>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
-            >
-              <Link to="/apply">Start My Application</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full">
-              <a href="#what-youll-need">See what you&rsquo;ll need</a>
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ChoiceButton({
-  selected,
-  onClick,
-  children,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  children: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`rounded-2xl border px-4 py-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-        selected
-          ? "border-brand bg-brand text-brand-foreground"
-          : "border-border bg-background text-foreground hover:bg-muted"
-      }`}
-      aria-pressed={selected}
-    >
-      {children}
-    </button>
   );
 }

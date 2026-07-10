@@ -436,23 +436,23 @@ function ApplyPage() {
   if (submitted) {
     return (
       <SiteLayout>
-        <section className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6">
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-white">
-            <CheckCircle2 className="h-7 w-7" />
+        <section className="mx-auto max-w-xl px-4 py-16 text-center sm:px-6 bg-white border border-neutral-border rounded mt-12 mb-24">
+          <div className="mx-auto grid h-12 w-12 place-items-center rounded bg-sage/40 text-evergreen border border-evergreen">
+            <CheckCircle2 className="h-6 w-6" />
           </div>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight">Application received</h1>
-          <p className="mt-4 text-muted-foreground">
+          <h1 className="mt-6 text-2xl font-bold tracking-tight text-ink">Application received</h1>
+          <p className="mt-3 text-sm text-muted-text leading-relaxed">
             Thank you. Your application has been submitted successfully. A representative will
             review your information and contact you regarding the next steps.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button
               asChild
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-6 font-semibold"
             >
               <Link to="/">Back to home</Link>
             </Button>
-            <Button asChild variant="outline" className="rounded-full">
+            <Button asChild variant="outline" className="rounded border-neutral-border hover:bg-paper text-ink">
               <Link to="/contact">Contact us</Link>
             </Button>
           </div>
@@ -463,93 +463,121 @@ function ApplyPage() {
 
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-3xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
-        <div className="mb-10 rounded-3xl border border-border bg-card p-6 sm:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">
-            Application prep
-          </p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+      <section className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
             Business funding application
           </h1>
-          <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
-            SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
-            Business Funding. We are an independent representative, not a bank. Mom &amp; Pop
-            Business Funding reviews submitted applications and determines whether funding options
-            are available.
+          <p className="mt-2 text-sm text-muted-text">
+            Complete the secure multi-step form below to request a review of your business file.
           </p>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-surface p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
-                What you&rsquo;ll need
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>Basic business and ownership information</li>
-                <li>Recent business bank statements may be requested during follow-up</li>
-                <li>A few uninterrupted minutes to complete the form</li>
-              </ul>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[240px_1fr] items-start">
+          {/* Compact Sticky Rail */}
+          <aside className="space-y-6 lg:sticky lg:top-24">
+            {/* Desktop stepper */}
+            <div className="hidden lg:block border border-neutral-border bg-white p-5 rounded">
+              <h3 className="text-xs font-bold text-ink uppercase tracking-wider mb-4 border-b border-neutral-border/50 pb-2">
+                Progress
+              </h3>
+              <ol className="space-y-4">
+                {steps.map((s, i) => {
+                  const isActive = i === step;
+                  const isDone = i < step;
+                  return (
+                    <li key={s} className="flex items-center gap-3">
+                      <span
+                        className={`flex h-6 w-6 shrink-0 items-center justify-center text-xs font-bold rounded ${
+                          isActive
+                            ? "bg-evergreen text-white"
+                            : isDone
+                              ? "bg-sage/40 text-evergreen border border-evergreen"
+                              : "bg-paper text-muted-text border border-neutral-border"
+                        }`}
+                      >
+                        {isDone ? "✓" : i + 1}
+                      </span>
+                      <span
+                        className={`text-xs font-semibold ${
+                          isActive ? "text-evergreen font-bold" : "text-muted-text"
+                        }`}
+                      >
+                        {s}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
-            <div className="rounded-2xl bg-surface p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
-                What happens next
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>We review the submission and supporting documents</li>
-                <li>A representative may follow up for more information</li>
-                <li>Submitting an application does not guarantee approval</li>
-              </ul>
-            </div>
-            <div className="rounded-2xl bg-surface p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
-                Need help?
-              </h2>
-              <div className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <p>
-                  <a
-                    href="tel:+17209001921"
-                    className="font-medium text-foreground hover:underline"
-                  >
+
+            {/* Support info */}
+            <div className="border border-neutral-border bg-white p-5 rounded text-xs space-y-4">
+              <h4 className="font-bold text-ink border-b border-neutral-border/50 pb-2 uppercase tracking-wider">
+                Support & Contact
+              </h4>
+              <p className="text-muted-text leading-relaxed">
+                Need help before you submit? Speak directly with a representative.
+              </p>
+              <div className="space-y-3">
+                <div>
+                  <span className="block text-[9px] uppercase font-bold text-muted-text">Phone Support</span>
+                  <a href="tel:+17209001921" className="text-ink font-bold hover:underline block mt-0.5">
                     (720) 900-1921
                   </a>
-                </p>
-                <p>
+                </div>
+                <div>
+                  <span className="block text-[9px] uppercase font-bold text-muted-text">Email Address</span>
                   <a
                     href="mailto:lizzy.alemayehu@smallbizloanz.com"
-                    className="break-all font-medium text-foreground hover:underline"
+                    className="text-ink font-bold break-all hover:underline block mt-0.5"
                   >
                     lizzy.alemayehu@smallbizloanz.com
                   </a>
-                </p>
-                <p>
-                  <Link to="/faq" className="font-medium text-foreground hover:underline">
-                    Read the FAQ
-                  </Link>
-                </p>
+                </div>
+              </div>
+              <div className="pt-2 border-t border-neutral-border/50">
+                <Link to="/faq" className="text-evergreen font-semibold hover:underline block">
+                  Read FAQ
+                </Link>
               </div>
             </div>
-          </div>
-        </div>
+          </aside>
 
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+          {/* Main workspace */}
           <div>
-            <p className="text-sm text-muted-foreground">
-              Step {step + 1} of {steps.length} - {steps[step]}. Fields marked{" "}
-              <span className="text-destructive">*</span> are required.
-            </p>
-            <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-muted">
-              <div
-                className="h-full rounded-full bg-brand transition-all"
-                style={{ width: `${progress}%` }}
-              />
+            {/* Before you begin disclosure */}
+            <div className="border border-neutral-border bg-white p-5 rounded text-xs leading-relaxed text-ink mb-6">
+              <p className="font-bold text-ink">Application disclosure</p>
+              <p className="mt-1.5 text-muted-text">
+                SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
+                Business Funding. We are an independent representative, not a bank. Mom &amp; Pop
+                Business Funding reviews submitted applications and determines whether funding options
+                are available.
+              </p>
+              <p className="mt-2 text-muted-text">
+                Completing the online form takes approximately 5 minutes. Six months of recent business
+                bank statements will be requested to complete the review.
+              </p>
             </div>
-            <div className="mt-3 hidden flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground sm:flex">
-              {steps.map((s, i) => (
-                <span key={s} className={i === step ? "font-medium text-foreground" : ""}>
-                  {i + 1}. {s}
-                </span>
-              ))}
-            </div>
-          </div>
-          {step === 0 && (
+
+            {/* Workspace Card wrapper */}
+            <div className="border border-neutral-border bg-white p-6 sm:p-8 rounded">
+              <div className="border-b border-neutral-border/50 pb-4 mb-6">
+                <p className="text-xs text-muted-text flex items-center justify-between">
+                  <span>
+                    Step {step + 1} of {steps.length}: <span className="font-bold text-ink">{steps[step]}</span>
+                  </span>
+                  <span>Fields marked * are required</span>
+                </p>
+                <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-paper relative">
+                  <div
+                    className="absolute top-0 left-0 h-full bg-signal-green transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+              {step === 0 && (
             <div className="mt-8 space-y-4">
               <SectionTitle>Business information</SectionTitle>
               <Note>
@@ -1193,7 +1221,7 @@ function ApplyPage() {
               variant="outline"
               onClick={back}
               disabled={step === 0 || submitting}
-              className="rounded-full"
+              className="rounded border border-neutral-border hover:bg-paper text-ink"
             >
               <ChevronLeft className="mr-1 h-4 w-4" /> Back
             </Button>
@@ -1202,7 +1230,7 @@ function ApplyPage() {
                 type="button"
                 onClick={next}
                 disabled={submitting}
-                className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+                className="rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
               >
                 Continue <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
@@ -1211,15 +1239,17 @@ function ApplyPage() {
                 type="button"
                 onClick={submit}
                 disabled={submitting}
-                className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+                className="rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
               >
                 {submitting ? "Submitting…" : "Submit application"}
               </Button>
             )}
           </div>
         </div>
+      </div>
+    </div>
 
-        <p className="mt-6 text-center text-xs text-muted-foreground">
+        <p className="mt-6 text-center text-xs text-muted-text">
           Your information is submitted securely. SmallBizLoans.com does not guarantee approval,
           funding, rates, terms, or funding amounts.
         </p>

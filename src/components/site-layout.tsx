@@ -25,20 +25,20 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   }, [open]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
+    <div className="flex min-h-screen flex-col bg-paper text-ink selection:bg-sage">
+      <header className="sticky top-0 z-40 border-b border-neutral-border/50 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-3 font-extrabold tracking-[-0.03em]">
+          <Link to="/" className="flex items-center gap-2.5 font-bold tracking-tight text-ink transition-opacity hover:opacity-90">
             <BrandIcon />
-            <span className="text-lg sm:text-xl">SmallBizLoans</span>
+            <span className="text-lg">SmallBizLoans</span>
           </Link>
-          <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                activeProps={{ className: "text-brand" }}
+                className="text-sm font-medium text-muted-text transition-colors hover:text-ink"
+                activeProps={{ className: "text-evergreen font-semibold" }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {n.label}
@@ -48,14 +48,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div className="hidden md:block">
             <Button
               asChild
-              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+              className="rounded bg-evergreen text-white hover:bg-evergreen/90 px-5 font-semibold text-sm h-9"
             >
               <Link to="/apply">Apply Now</Link>
             </Button>
           </div>
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-md transition-colors hover:bg-muted md:hidden"
+            className="grid h-10 w-10 place-items-center rounded transition-colors hover:bg-sage/40 md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-controls="mobile-navigation"
             aria-expanded={open}
@@ -65,15 +65,15 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </button>
         </div>
         {open && (
-          <div id="mobile-navigation" className="border-t border-border/70 bg-background md:hidden">
+          <div id="mobile-navigation" className="border-t border-neutral-border/50 bg-white md:hidden">
             <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
               {nav.map((n) => (
                 <Link
                   key={n.to}
                   to={n.to}
                   onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-                  activeProps={{ className: "bg-muted text-foreground" }}
+                  className="rounded px-3 py-2.5 text-sm font-medium text-muted-text hover:bg-sage/20 hover:text-ink"
+                  activeProps={{ className: "bg-sage/30 text-evergreen font-semibold" }}
                   activeOptions={{ exact: n.to === "/" }}
                 >
                   {n.label}
@@ -81,7 +81,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               ))}
               <Button
                 asChild
-                className="mt-2 rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+                className="mt-2 rounded bg-evergreen text-white hover:bg-evergreen/90 font-semibold"
               >
                 <Link to="/apply" onClick={() => setOpen(false)}>
                   Apply Now
@@ -94,82 +94,83 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="mt-24 border-t border-border/70 bg-foreground text-background">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-          <div className="grid gap-10 md:grid-cols-3">
+      <footer className="mt-20 border-t border-neutral-border bg-ink text-white">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="grid gap-12 md:grid-cols-3">
             <div>
-              <div className="flex items-center gap-3 font-extrabold tracking-[-0.03em]">
+              <div className="flex items-center gap-2.5 font-bold tracking-tight text-white">
                 <BrandIcon />
                 <span className="text-lg">SmallBizLoans</span>
               </div>
-              <p className="mt-4 text-sm text-background/70">
-                Business funding information, application guidance, and a straightforward way to
-                contact our team.
+              <p className="mt-4 text-sm leading-relaxed text-sage/75">
+                Providing structured, dependable business funding information and clear application paths for owner-operated small businesses.
               </p>
               <Link
                 to="/apply"
-                className="mt-5 inline-flex text-sm font-semibold text-primary hover:underline"
+                className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-signal-green hover:underline"
               >
-                Apply for business funding
+                Start your application
               </Link>
             </div>
             <div>
-              <h4 className="text-sm font-semibold">Site</h4>
-              <ul className="mt-3 space-y-2 text-sm text-background/70">
+              <h4 className="text-sm font-semibold uppercase tracking-wider text-sage/50">Navigation</h4>
+              <ul className="mt-4 space-y-2.5 text-sm text-sage/80">
                 <li>
-                  <Link to="/" className="hover:text-primary">
+                  <Link to="/" className="hover:text-white transition-colors">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/apply" className="hover:text-primary">
-                    Apply for business funding
+                  <Link to="/apply" className="hover:text-white transition-colors">
+                    Apply for Funding
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog" className="hover:text-primary">
-                    Business funding resources
+                  <Link to="/blog" className="hover:text-white transition-colors">
+                    Resources & Guides
                   </Link>
                 </li>
                 <li>
-                  <Link to="/faq" className="hover:text-primary">
+                  <Link to="/faq" className="hover:text-white transition-colors">
                     FAQ
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="hover:text-primary">
-                    Contact SmallBizLoans
+                  <Link to="/contact" className="hover:text-white transition-colors">
+                    Contact Us
                   </Link>
                 </li>
                 <li>
-                  <Link to="/privacy" className="hover:text-primary">
+                  <Link to="/privacy" className="hover:text-white transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/terms" className="hover:text-primary">
+                  <Link to="/terms" className="hover:text-white transition-colors">
                     Terms of Use
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="text-sm font-semibold">Contact</h4>
-              <ul className="mt-3 space-y-2 text-sm text-background/70">
+              <h4 className="text-sm font-semibold uppercase tracking-wider text-sage/50">Contact info</h4>
+              <ul className="mt-4 space-y-3 text-sm text-sage/80">
                 <li>
-                  <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="hover:text-primary">
+                  <span className="block text-xs text-sage/40">Email assistance</span>
+                  <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="font-medium hover:text-white break-all">
                     lizzy.alemayehu@smallbizloanz.com
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+17209001921" className="hover:text-primary">
+                  <span className="block text-xs text-sage/40">Phone support</span>
+                  <a href="tel:+17209001921" className="font-medium hover:text-white">
                     (720) 900-1921
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="mt-10 border-t border-background/20 pt-6 text-xs leading-relaxed text-background/65">
+          <div className="mt-12 border-t border-white/10 pt-8 text-xs leading-relaxed text-sage/60">
             <p>
               SmallBizLoans.com does not guarantee approval, funding, rates, terms, or funding
               amounts. Submitting an application does not constitute an offer of credit or funding.
@@ -188,8 +189,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function BrandIcon() {
   return (
-    <span className="grid h-9 w-9 place-items-center text-brand">
-      <BriefcaseBusiness className="h-7 w-7" fill="currentColor" aria-hidden="true" />
+    <span className="grid h-8 w-8 place-items-center text-evergreen bg-sage/30 rounded">
+      <BriefcaseBusiness className="h-5 w-5" fill="currentColor" aria-hidden="true" />
     </span>
   );
 }

@@ -28,24 +28,32 @@ export const Route = createFileRoute("/privacy")({
   },
   component: () => (
     <SiteLayout>
-      <article className="prose mx-auto max-w-3xl px-4 pb-20 pt-16 sm:px-6 sm:pt-20">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Privacy Policy</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight">Privacy Policy</h1>
-        <p className="mt-4 text-muted-foreground">
-          SmallBizLoans.com respects your privacy. We collect the information you provide through
-          our application and contact forms to review your funding request, verify submitted
-          details with permitted third parties, and communicate with you about your application.
-          We do not sell your personal information. For questions about how we handle your
-          information, contact us at{" "}
-          <a
-            className="text-brand hover:underline"
-            href="mailto:lizzy.alemayehu@smallbizloanz.com"
-          >
-            lizzy.alemayehu@smallbizloanz.com
-          </a>
-          .
-        </p>
-      </article>
+      <section className="mx-auto max-w-4xl px-4 pb-24 pt-8 sm:px-6">
+        <div className="mb-8 pb-4 border-b border-neutral-border/50">
+          <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Privacy Policy
+          </h1>
+          <p className="mt-2 text-xs text-muted-text">
+            Last Updated: July 2026
+          </p>
+        </div>
+        
+        <div className="max-w-2xl text-sm leading-relaxed text-muted-text space-y-4">
+          <p>
+            SmallBizLoans.com respects your privacy and is committed to protecting your personal and operational information. We collect the information you provide through our application and contact forms to evaluate and review your business funding request, coordinate with Mom &amp; Pop Business Funding, verify details with permitted third-party sources, and communicate with you regarding the status of your file.
+          </p>
+          <p>
+            We do not sell, rent, or distribute your personal or business information to third-party marketers. All information is managed securely. For questions about how we handle, collect, or share your information, please contact our coordinator desk at{" "}
+            <a
+              className="text-evergreen font-semibold hover:underline"
+              href="mailto:lizzy.alemayehu@smallbizloanz.com"
+            >
+              lizzy.alemayehu@smallbizloanz.com
+            </a>
+            .
+          </p>
+        </div>
+      </section>
     </SiteLayout>
   ),
 });
