@@ -89,3 +89,15 @@
   [class*="border-destructive"] { border-color: transparent !important; }
   .shadow, .shadow-sm, .shadow-lg, .shadow-xl, [class*="shadow-"] { box-shadow: none !important; }
 }
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  main { animation: page-enter 240ms ease-out both; }
+  button:not(:disabled) { transition: transform 160ms ease, background-color 160ms ease, color 160ms ease; }
+  button:not(:disabled):hover { transform: translateY(-1px); }
+  button:not(:disabled):active { transform: translateY(0); }
+}
