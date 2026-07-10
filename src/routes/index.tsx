@@ -5,8 +5,6 @@ import {
   CheckCircle2,
   ClipboardCheck,
   Clock,
-  FileText,
-  Landmark,
   Layers,
   PhoneCall,
 } from "@/components/ui/icons";
@@ -23,7 +21,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => {
     const seo = pageHead({
-      title: "Small Business Loans and Business Funding | SmallBizLoans",
+      title: "Small Business Funding | SmallBizLoans",
       description:
         "Apply online for small-business funding with a clear review process, six months of recent business bank statements, and straightforward contact options.",
       path: "/",
@@ -37,7 +35,7 @@ export const Route = createFileRoute("/")({
         toJsonLd(websiteSchema()),
         toJsonLd(
           webpageSchema({
-            title: "Small Business Loans and Business Funding",
+            title: "Small Business Funding",
             description:
               "Apply online for small-business funding with a clear review process and straightforward contact options.",
             path: "/",
@@ -52,34 +50,24 @@ export const Route = createFileRoute("/")({
 
 const benefits = [
   {
-    icon: ClipboardCheck,
-    title: "Simple application",
-    desc: "A short online form with clear steps and no in-person visit required.",
-  },
-  {
-    icon: FileText,
-    title: "Focused documentation",
-    desc: "Six months of recent business bank statements is generally the main upload request.",
-  },
-  {
-    icon: Layers,
-    title: "Flexible funding options",
-    desc: "Options structured around your revenue and how your business operates.",
-  },
-  {
     icon: Clock,
-    title: "Clear review process",
-    desc: "Applications are reviewed based on the information and documents you submit.",
+    title: "Keep operations moving",
+    desc: "Funding may help with everyday business needs, payroll timing, inventory, or an unexpected expense.",
   },
   {
     icon: Building2,
-    title: "Traditional & nontraditional",
-    desc: "We work with retail, restaurants, service businesses, home-based businesses, and more.",
+    title: "Invest in what comes next",
+    desc: "Owners may use funding toward equipment, inventory, a new opportunity, or preparing for growth.",
   },
   {
-    icon: Landmark,
-    title: "Bank statement based",
-    desc: "Funding decisions consider real cash flow, not just credit history.",
+    icon: Layers,
+    title: "Create breathing room",
+    desc: "Additional working room may make it easier to manage a short-term business need without losing focus.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Stay focused on the work",
+    desc: "The right support may create more room to focus on customers, employees, family, and the business you built.",
   },
 ];
 
@@ -108,11 +96,11 @@ function Index() {
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12 lg:py-20">
           <div className="relative z-10 flex flex-col justify-center">
             <h1 className="max-w-xl text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-              Small Business Loans and Business Funding
+              Funding to help your business keep moving
             </h1>
             <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg">
-              Apply online for small-business funding. We review submitted business information,
-              and six months of recent business bank statements may be required.
+              Business funding may help with everyday expenses, inventory, equipment, new
+              opportunities, or a short-term business need.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Button
@@ -125,11 +113,12 @@ function Index() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full rounded-full sm:w-auto">
-                <Link to="/contact">Contact Us</Link>
+                <a href="#what-youll-need">See what you&rsquo;ll need</a>
               </Button>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              Business funding for eligible small businesses. No guarantee of approval or funding.
+              One application. Six months of recent business bank statements. Personal help when
+              you need it.
             </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface shadow-lg shadow-foreground/10 sm:aspect-[16/10]">
@@ -145,11 +134,11 @@ function Index() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Business funding for eligible small businesses
+            Funding that fits real business needs
           </h2>
           <p className="mt-3 text-muted-foreground">
-            We keep the process straightforward so business owners can understand what is
-            requested, what will be reviewed, and what happens next.
+            Whether you are keeping the business moving or preparing for what comes next, the
+            first step is understanding what your business needs and what information is available.
           </p>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -173,7 +162,7 @@ function Index() {
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">How it works</h2>
             <p className="mt-3 text-muted-foreground">
-              Three simple steps from online application to a conversation with a representative.
+              A straightforward path from your first form to a conversation with a representative.
             </p>
           </div>
           <ol className="mt-10 grid gap-6 md:grid-cols-3">
@@ -200,12 +189,12 @@ function Index() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="grid gap-10 rounded-3xl border border-border bg-card p-8 md:grid-cols-2 md:p-12">
+        <div id="what-youll-need" className="grid gap-10 rounded-3xl border border-border bg-card p-8 md:grid-cols-2 md:p-12">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">What you'll need</h2>
+            <h2 className="text-3xl font-bold tracking-tight">What you&rsquo;ll need to apply</h2>
             <p className="mt-3 text-muted-foreground">
-              We keep documentation focused on the information that helps us review the request.
-              The application itself takes most applicants under 15 minutes.
+              Have the basics ready before you begin. The application asks about your business,
+              ownership, contact information, and how the funding may support the business.
             </p>
             <ul className="mt-6 space-y-3 text-sm">
               {[

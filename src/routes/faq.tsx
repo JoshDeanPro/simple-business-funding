@@ -12,7 +12,7 @@ import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 export const Route = createFileRoute("/faq")({
   head: () => {
     const seo = pageHead({
-      title: "Small Business Loan and Funding FAQ | SmallBizLoans",
+      title: "Small Business Funding FAQ | SmallBizLoans",
       description:
         "Answers to common questions about applying for small-business funding, bank statements, review timing, and application support.",
       path: "/faq",
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/faq")({
       scripts: [
         toJsonLd(
           webpageSchema({
-            title: "Small Business Loan and Funding FAQ",
+            title: "Small Business Funding FAQ",
             description:
               "Answers to common questions about applying for small-business funding, bank statements, review timing, and application support.",
             path: "/faq",
