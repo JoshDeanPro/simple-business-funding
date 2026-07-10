@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { BriefcaseBusiness, Menu, X } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,9 @@ const nav = [
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     if (!open) return;
@@ -24,27 +27,60 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 20);
+    }
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initial check
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const headerClass = scrolled
+    ? "sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-border/50 shadow-sm transition-all duration-200"
+    : "sticky top-0 z-40 bg-transparent border-b border-transparent transition-all duration-200";
+
+  const logoTextClass = (!scrolled && isHome)
+    ? "flex items-center gap-2.5 font-bold tracking-tight text-white transition-opacity hover:opacity-90"
+    : "flex items-center gap-2.5 font-bold tracking-tight text-ink transition-opacity hover:opacity-90";
+
+  const brandIconColor = (!scrolled && isHome) ? "text-white" : "text-cobalt";
+
+  const navLinkClass = (!scrolled && isHome)
+    ? "text-sm font-semibold text-cloud/80 transition-colors hover:text-white py-1 border-b-2 border-transparent"
+    : "text-sm font-semibold text-muted-text transition-colors hover:text-ink py-1 border-b-2 border-transparent";
+
+  const activeLinkClass = (!scrolled && isHome)
+    ? "text-white font-bold border-white"
+    : "text-cobalt font-bold border-cobalt";
+
+  const menuButtonClass = (!scrolled && isHome)
+    ? "grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/10 text-white md:hidden"
+    : "grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-cloud text-ink md:hidden";
+
   return (
     <div className="flex min-h-screen flex-col bg-warm-white text-ink selection:bg-soft-aqua">
-      <header className="sticky top-0 z-40 border-b border-neutral-border/50 bg-white/95 backdrop-blur-md">
+      <header className={headerClass}>
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-2.5 font-bold tracking-tight text-ink transition-opacity hover:opacity-90">
-            <BrandIcon />
+          <Link to="/" className={logoTextClass}>
+            <BrandIcon customColor={brandIconColor} />
             <span className="text-lg font-display font-extrabold tracking-tight">SmallBizLoans</span>
           </Link>
+          
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-sm font-semibold text-muted-text transition-colors hover:text-ink py-1 border-b-2 border-transparent"
-                activeProps={{ className: "text-cobalt font-bold border-cobalt" }}
+                className={navLinkClass}
+                activeProps={{ className: activeLinkClass }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {n.label}
               </Link>
             ))}
           </nav>
+
           <div className="hidden md:block">
             <Button
               asChild
@@ -53,9 +89,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link to="/apply">Apply Now</Link>
             </Button>
           </div>
+          
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-cloud md:hidden"
+            className={menuButtonClass}
             onClick={() => setOpen((v) => !v)}
             aria-controls="mobile-navigation"
             aria-expanded={open}
@@ -64,6 +101,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
+        
         {open && (
           <div id="mobile-navigation" className="border-t border-neutral-border/50 bg-white md:hidden">
             <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
@@ -99,7 +137,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div className="grid gap-12 md:grid-cols-3">
             <div>
               <div className="flex items-center gap-2.5 font-bold tracking-tight text-white">
-                <BrandIcon />
+                <BrandIcon customColor="text-white" />
                 <span className="text-lg font-display font-extrabold tracking-tight">SmallBizLoans</span>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-cloud/70">
@@ -184,9 +222,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   );
 }
 
-function BrandIcon() {
+function BrandIcon({ customColor = "text-cobalt" }: { customColor?: string }) {
   return (
-    <svg className="h-5 w-5 text-cobalt shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg className={`h-5 w-5 ${customColor} shrink-0`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
       <polyline points="16 7 22 7 22 13" />
     </svg>
