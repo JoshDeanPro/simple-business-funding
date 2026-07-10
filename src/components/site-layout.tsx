@@ -29,9 +29,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground text-sm">
-              S
-            </span>
+            <BrandIcon />
             <span className="text-lg">Smallbizloanz</span>
           </Link>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
@@ -101,9 +99,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div className="grid gap-10 md:grid-cols-3">
             <div>
               <div className="flex items-center gap-2 font-bold">
-                <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground text-sm">
-                  S
-                </span>
+                <BrandIcon />
                 <span>Smallbizloanz</span>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
@@ -185,5 +181,29 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         </div>
       </footer>
     </div>
+  );
+}
+
+function BrandIcon() {
+  return (
+    <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+      <svg
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 16.5V19" />
+        <path d="M10 12.5V19" />
+        <path d="M15 8.5V19" />
+        <path d="M4.5 6.5 9 11l4-4 6.5 6.5" />
+        <path d="M18.5 13.5V17h-3.5" />
+      </svg>
+    </span>
   );
 }

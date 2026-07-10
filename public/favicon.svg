@@ -1,4 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Smallbizloanz">
-  <rect width="64" height="64" rx="14" fill="#0f766e"/>
-  <path d="M18 20h28v8H27v5h16v8H27v11h-9V20Z" fill="#fff"/>
+  <rect width="64" height="64" rx="16" fill="#0F172A"/>
+  <path d="M14 40.5V49" stroke="#F8FBFD" stroke-width="4" stroke-linecap="round"/>
+  <path d="M24 31.5V49" stroke="#F8FBFD" stroke-width="4" stroke-linecap="round"/>
+  <path d="M34 22.5V49" stroke="#F8FBFD" stroke-width="4" stroke-linecap="round"/>
+  <path d="M13 23.5 22 32l8-8 13 13" stroke="#5DB8B3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M45 31v6h-6" stroke="#5DB8B3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>
