@@ -53,7 +53,7 @@ function BlogPage() {
         <Link
           to="/blog/$slug"
           params={{ slug: featured.slug }}
-          className="group mt-12 grid overflow-hidden rounded-[2rem] border border-border bg-card transition-shadow hover:shadow-xl hover:shadow-primary/5 md:grid-cols-[1.05fr_0.95fr]"
+          className="group mt-12 grid overflow-hidden rounded-[2rem] border border-border bg-card transition-shadow hover:shadow-xl hover:shadow-foreground/5 md:grid-cols-[1.05fr_0.95fr]"
         >
           <img
             src={featured.image}

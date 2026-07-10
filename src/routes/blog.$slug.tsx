@@ -129,9 +129,9 @@ function BlogArticlePage() {
               ))}
             </section>
           ))}
-          <div className="mt-14 rounded-2xl bg-primary p-7 text-primary-foreground sm:p-9">
+          <div className="mt-14 rounded-2xl border border-border bg-surface p-7 text-foreground sm:p-9">
             <h2 className="text-2xl font-semibold">Ready to talk through your next step?</h2>
-            <p className="mt-2 text-sm leading-6 text-primary-foreground/75">
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
               Start with a short application or contact our team with a question.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -143,7 +143,7 @@ function BlogArticlePage() {
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center rounded-full border border-primary-foreground/25 px-5 py-2.5 text-sm font-semibold hover:bg-primary-foreground/10"
+                className="inline-flex items-center rounded-full border border-input px-5 py-2.5 text-sm font-semibold hover:border-brand hover:bg-accent"
               >
                 Contact us
               </Link>

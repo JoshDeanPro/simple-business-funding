@@ -132,7 +132,7 @@ function Index() {
               Business funding for eligible small businesses. No guarantee of approval or funding.
             </p>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-primary shadow-lg shadow-primary/10 sm:aspect-[16/10]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface shadow-lg shadow-foreground/10 sm:aspect-[16/10]">
             <img
               src="/images/stock/hero.jpg"
               alt="Small-business owner reviewing plans with a funding advisor in a bakery"
@@ -226,10 +226,10 @@ function Index() {
               page for a quick overview of the process.
             </p>
           </div>
-          <div className="rounded-2xl bg-primary p-8 text-primary-foreground md:p-10">
-            <PhoneCall className="h-6 w-6 opacity-80" />
+          <div className="rounded-2xl border border-border bg-surface p-8 text-foreground md:p-10">
+            <PhoneCall className="h-6 w-6 text-brand" />
             <h3 className="mt-4 text-2xl font-semibold">Prefer to talk it through?</h3>
-            <p className="mt-2 text-sm text-primary-foreground/80">
+            <p className="mt-2 text-sm text-muted-foreground">
               Call or email and a representative will walk you through the process.
             </p>
             <div className="mt-6 space-y-2 text-sm">

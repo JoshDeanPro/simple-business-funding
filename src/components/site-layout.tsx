@@ -38,7 +38,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 key={n.to}
                 to={n.to}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                activeProps={{ className: "text-foreground" }}
+                activeProps={{ className: "text-brand" }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {n.label}
