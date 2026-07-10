@@ -43,8 +43,6 @@ export const Route = createFileRoute("/blog/$slug")({
             description: post.intro,
             path: `/blog/${post.slug}`,
             image: post.image,
-            updatedAt: post.updatedAt,
-            publishedAt: post.publishedAt,
             section: post.category,
           }),
         ),
