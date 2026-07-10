@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Clock3 } from "@/components/ui/icons";
 import { SiteLayout } from "@/components/site-layout";
+import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/blog-posts";
 import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
@@ -59,7 +60,8 @@ function BlogPage() {
             Resources & Guides
           </h1>
           <p className="mt-2 text-sm text-muted-text max-w-2xl">
-            Practical, plain-English guidance to help you prepare your business files, understand cash flow reviews, and navigate funding processes.
+            Practical, plain-English guidance to help you prepare your business files, understand
+            cash flow reviews, and navigate funding processes.
           </p>
         </div>
 
@@ -82,9 +84,7 @@ function BlogPage() {
                     {featured.title}
                   </Link>
                 </h2>
-                <p className="mt-4 text-sm text-muted-text leading-relaxed">
-                  {featured.intro}
-                </p>
+                <p className="mt-4 text-sm text-muted-text leading-relaxed">{featured.intro}</p>
                 <div className="mt-6">
                   <Button
                     asChild

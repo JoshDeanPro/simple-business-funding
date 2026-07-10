@@ -60,8 +60,12 @@ function BlogArticlePage() {
     return (
       <SiteLayout>
         <section className="mx-auto max-w-xl px-4 py-24 text-center sm:px-6 card-premium rounded mt-12 mb-24">
-          <p className="text-sm font-semibold text-cobalt uppercase tracking-wider">Article not found</p>
-          <h1 className="mt-4 text-2xl font-bold tracking-tight text-ink">That article is not available.</h1>
+          <p className="text-sm font-semibold text-cobalt uppercase tracking-wider">
+            Article not found
+          </p>
+          <h1 className="mt-4 text-2xl font-bold tracking-tight text-ink">
+            That article is not available.
+          </h1>
           <p className="mt-2 text-sm text-muted-text">
             Try looking through our resources library or return to the homepage.
           </p>
@@ -95,7 +99,7 @@ function BlogArticlePage() {
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to all resources
         </Link>
-        
+
         <div className="mt-8 grid gap-8 md:grid-cols-[1.2fr_0.8fr] items-center border-b border-neutral-border/50 pb-8 mb-10">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-cobalt">
@@ -109,11 +113,7 @@ function BlogArticlePage() {
             <p className="mt-4 text-sm leading-relaxed text-muted-text">{post.intro}</p>
           </div>
           <div className="card-premium bg-cloud p-1 rounded-2xl overflow-hidden">
-            <img
-              src={post.image}
-              alt={post.alt}
-              className="w-full h-48 object-cover rounded-sm"
-            />
+            <img src={post.image} alt={post.alt} className="w-full h-48 object-cover rounded-sm" />
           </div>
         </div>
 
@@ -135,7 +135,8 @@ function BlogArticlePage() {
           <div className="mt-14 card-premium p-6 sm:p-8 text-ink rounded-2xl">
             <h2 className="text-lg font-bold text-ink">Ready to explore financing options?</h2>
             <p className="mt-2 text-xs leading-relaxed text-muted-text">
-              Completing the secure online application takes about 5 minutes. You can also contact our team if you have questions.
+              Completing the secure online application takes about 5 minutes. You can also contact
+              our team if you have questions.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
@@ -164,13 +165,13 @@ function BlogArticlePage() {
                   params={{ slug: item.slug }}
                   className="group card-premium p-5 rounded-xl hover:border-cobalt transition-colors"
                 >
-                  <p className="text-xs font-semibold text-cobalt">
-                    {item.category}
-                  </p>
+                  <p className="text-xs font-semibold text-cobalt">{item.category}</p>
                   <h3 className="mt-2.5 text-sm font-bold text-ink group-hover:text-cobalt transition-colors leading-snug">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-text line-clamp-2">{item.intro}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-text line-clamp-2">
+                    {item.intro}
+                  </p>
                   <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-cobalt hover:underline">
                     Read article{" "}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />

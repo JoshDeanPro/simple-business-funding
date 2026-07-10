@@ -141,7 +141,8 @@ function ContactPage() {
             Contact & Support
           </h1>
           <p className="mt-2 text-sm text-muted-text max-w-xl">
-            Reach out with questions about requirements, application status, or how we represent Mom & Pop Business Funding.
+            Reach out with questions about requirements, application status, or how we represent Mom
+            & Pop Business Funding.
           </p>
         </div>
 
@@ -151,37 +152,52 @@ function ContactPage() {
             <div>
               <h2 className="text-base font-bold text-ink">What to expect</h2>
               <p className="mt-2 text-sm text-muted-text leading-relaxed">
-                When you submit a contact request or call our support desk, a coordinator will respond to your query. If you have an active application, please include your business name so we can locate your file quickly.
+                When you submit a contact request or call our support desk, a coordinator will
+                respond to your query. If you have an active application, please include your
+                business name so we can locate your file quickly.
               </p>
             </div>
-            
+
             <div className="space-y-4 pt-4 border-t border-neutral-border/50">
               <div>
                 <span className="block text-xs font-bold text-muted-text mb-1">Direct Line</span>
                 <a href="tel:+17209001921" className="text-lg font-bold text-ink hover:underline">
                   (720) 900-1921
                 </a>
-                <span className="block text-xs text-muted-text mt-0.5">Available during normal business hours.</span>
+                <span className="block text-xs text-muted-text mt-0.5">
+                  Available during normal business hours.
+                </span>
               </div>
               <div>
-                <span className="block text-xs font-bold text-muted-text mb-1">Coordinator Email</span>
-                <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="text-base font-bold text-ink break-all hover:underline">
+                <span className="block text-xs font-bold text-muted-text mb-1">
+                  Coordinator Email
+                </span>
+                <a
+                  href="mailto:lizzy.alemayehu@smallbizloanz.com"
+                  className="text-base font-bold text-ink break-all hover:underline"
+                >
                   lizzy.alemayehu@smallbizloanz.com
                 </a>
-                <span className="block text-xs text-muted-text mt-0.5">Typically responds within one business day.</span>
+                <span className="block text-xs text-muted-text mt-0.5">
+                  Typically responds within one business day.
+                </span>
               </div>
             </div>
-            
+
             <div className="pt-4 border-t border-neutral-border/50 text-xs text-muted-text leading-relaxed">
               <p>
-                SmallBizLoans helps small business owners coordinate files and submit requests to Mom & Pop Business Funding. We do not make credit decisions or function as a direct lender.
+                SmallBizLoans helps small business owners coordinate files and submit requests to
+                Mom & Pop Business Funding. We do not make credit decisions or function as a direct
+                lender.
               </p>
             </div>
           </div>
 
           {/* Simple Contact Form */}
           <div className="card-premium p-6 sm:p-8 rounded-2xl">
-            <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">Send a Message</h2>
+            <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">
+              Send a Message
+            </h2>
             {status === "sent" ? (
               <div className="py-8 flex flex-col items-center text-center">
                 <div className="flex h-10 w-10 items-center justify-center rounded bg-soft-aqua text-cobalt border border-cobalt">

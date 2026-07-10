@@ -1,9 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  ArrowRight,
-  PhoneCall,
-} from "@/components/ui/icons";
+import { ArrowRight, PhoneCall } from "@/components/ui/icons";
 import {
   Accordion,
   AccordionContent,
@@ -48,27 +45,32 @@ const launcherOptions = [
   {
     id: "expense",
     title: "Immediate expense",
-    message: "Handle immediate bills, supplier cycles, or unexpected equipment updates. We package your file for reviewer review.",
+    message:
+      "Handle immediate bills, supplier cycles, or unexpected equipment updates. We package your file for reviewer review.",
   },
   {
     id: "inventory",
     title: "Inventory or equipment",
-    message: "Secure seasonal stock at bulk discounts or acquire machinery. Submit six months of statements to start.",
+    message:
+      "Secure seasonal stock at bulk discounts or acquire machinery. Submit six months of statements to start.",
   },
   {
     id: "growth",
     title: "Growth opportunity",
-    message: "Expand to new operating spaces, secure commercial contracts, or fund client expansion operations.",
+    message:
+      "Expand to new operating spaces, secure commercial contracts, or fund client expansion operations.",
   },
   {
     id: "capacity",
     title: "Hiring or capacity",
-    message: "Add support technicians, seasonal operators, or increase capability to handle larger orders.",
+    message:
+      "Add support technicians, seasonal operators, or increase capability to handle larger orders.",
   },
   {
     id: "breathing",
     title: "More breathing room",
-    message: "Build operational reserves or navigate historically slower months with flexible working capital.",
+    message:
+      "Build operational reserves or navigate historically slower months with flexible working capital.",
   },
 ] as const;
 
@@ -84,7 +86,7 @@ function Index() {
           <div className="absolute -top-32 left-[15%] h-[450px] w-[450px] rounded-full bg-glow-radial blur-3xl opacity-50" />
           <div className="absolute top-[30%] -right-32 h-[500px] w-[500px] rounded-full bg-glow-radial blur-3xl opacity-30" />
         </div>
-        
+
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-12 lg:grid-cols-12 items-center">
             {/* Left Column (Copy and actions) */}
@@ -93,9 +95,11 @@ function Index() {
                 Business funding for <span className="text-signal-lime">what comes next.</span>
               </h1>
               <p className="max-w-xl text-base leading-relaxed text-cloud/80 sm:text-lg">
-                Handle an immediate expense, purchase inventory or equipment, prepare for an opportunity, or create more room to operate. We help you complete and submit your application to Mom &amp; Pop Business Funding.
+                Handle an immediate expense, purchase inventory or equipment, prepare for an
+                opportunity, or create more room to operate. We help you complete and submit your
+                application to Mom &amp; Pop Business Funding.
               </p>
-              
+
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Button
                   asChild
@@ -112,7 +116,7 @@ function Index() {
                   See What You&rsquo;ll Need
                 </a>
               </div>
-              
+
               {/* Process reassurance bullet */}
               <div className="pt-6 border-t border-white/10 text-xs text-cloud/70 flex flex-wrap items-center gap-x-6 gap-y-2">
                 <span className="flex items-center gap-2">
@@ -149,7 +153,7 @@ function Index() {
             <h3 className="text-center font-bold text-ink text-sm sm:text-base tracking-tight mb-6">
               What would you like your business to move forward on?
             </h3>
-            
+
             <div className="grid gap-2.5 grid-cols-2 sm:grid-cols-5">
               {launcherOptions.map((opt) => {
                 const isSelected = need === opt.id;
@@ -169,7 +173,7 @@ function Index() {
                 );
               })}
             </div>
-            
+
             {need && (
               <div className="mt-6 p-4 bg-cloud border border-neutral-border/50 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <p className="text-xs sm:text-sm text-ink leading-relaxed max-w-xl font-medium">
@@ -195,7 +199,8 @@ function Index() {
               Dependable capital support for operational priorities
             </h2>
             <p className="mt-2 text-sm text-muted-text leading-relaxed">
-              Business funding is structured to help address short-term operating needs, purchase inventory, or manage cash flow.
+              Business funding is structured to help address short-term operating needs, purchase
+              inventory, or manage cash flow.
             </p>
           </div>
 
@@ -203,13 +208,19 @@ function Index() {
             {/* Featured Outcome card */}
             <div className="card-premium p-6 sm:p-8 rounded-2xl flex flex-col justify-between">
               <div>
-                <h3 className="text-lg sm:text-xl font-bold text-ink mb-3">Managing inventory and operations</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-ink mb-3">
+                  Managing inventory and operations
+                </h3>
                 <p className="text-sm text-muted-text leading-relaxed">
-                  Keeping day-to-day operations moving is critical. Business owners utilize funding to purchase stock at bulk discounts, manage employee payroll cycles, cover supplier invoices, or handle unexpected machinery repairs. Maintaining operational rhythm prevents lost momentum.
+                  Keeping day-to-day operations moving is critical. Business owners utilize funding
+                  to purchase stock at bulk discounts, manage employee payroll cycles, cover
+                  supplier invoices, or handle unexpected machinery repairs. Maintaining operational
+                  rhythm prevents lost momentum.
                 </p>
               </div>
               <div className="mt-6 pt-6 border-t border-neutral-border/30 text-xs text-muted-text">
-                Outcome priorities focus on supporting employees and planning operations instead of reacting to immediate hurdles.
+                Outcome priorities focus on supporting employees and planning operations instead of
+                reacting to immediate hurdles.
               </div>
             </div>
 
@@ -218,19 +229,22 @@ function Index() {
               <div className="card-premium p-5 rounded-2xl flex-1 flex flex-col justify-center">
                 <h4 className="font-bold text-ink text-sm">Purchase required equipment</h4>
                 <p className="mt-1 text-xs text-muted-text leading-relaxed">
-                  Acquire restaurant equipment, repair machinery, commercial vehicles, or IT hardware to increase operational capacity.
+                  Acquire restaurant equipment, repair machinery, commercial vehicles, or IT
+                  hardware to increase operational capacity.
                 </p>
               </div>
               <div className="card-premium p-5 rounded-2xl flex-1 flex flex-col justify-center">
                 <h4 className="font-bold text-ink text-sm">Create financial flexibility</h4>
                 <p className="mt-1 text-xs text-muted-text leading-relaxed">
-                  Secure breathing room to cover rent, taxes, or utilities during historical slow months or off-season periods.
+                  Secure breathing room to cover rent, taxes, or utilities during historical slow
+                  months or off-season periods.
                 </p>
               </div>
               <div className="card-premium p-5 rounded-2xl flex-1 flex flex-col justify-center">
                 <h4 className="font-bold text-ink text-sm">Invest in client expansion</h4>
                 <p className="mt-1 text-xs text-muted-text leading-relaxed">
-                  Finance initial raw materials, hire short-term contractors, or expand capacity to fulfill larger corporate orders.
+                  Finance initial raw materials, hire short-term contractors, or expand capacity to
+                  fulfill larger corporate orders.
                 </p>
               </div>
             </div>
@@ -246,14 +260,15 @@ function Index() {
               Three steps to complete your file
             </h2>
             <p className="mt-2 text-sm text-cloud/70 leading-relaxed">
-              We help you move your file from initial application to final review with clear, representative coordination.
+              We help you move your file from initial application to final review with clear,
+              representative coordination.
             </p>
           </div>
 
           <div className="relative">
             {/* Desktop connecting track line */}
             <div className="absolute top-6 left-6 right-6 hidden h-[1px] bg-white/10 md:block" />
-            
+
             <div className="grid gap-8 md:grid-cols-3 relative">
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
@@ -264,7 +279,8 @@ function Index() {
                 <div>
                   <h3 className="font-bold text-white text-base">Complete the form</h3>
                   <p className="mt-1.5 text-xs text-cloud/70 leading-relaxed">
-                    Submit basic business details, owner contact information, and requested funding parameters via our secure form.
+                    Submit basic business details, owner contact information, and requested funding
+                    parameters via our secure form.
                   </p>
                 </div>
               </div>
@@ -278,7 +294,8 @@ function Index() {
                 <div>
                   <h3 className="font-bold text-white text-base">Provide bank statements</h3>
                   <p className="mt-1.5 text-xs text-cloud/70 leading-relaxed">
-                    Provide six months of recent business bank statements. These are required to evaluate cash flow and verify business activity.
+                    Provide six months of recent business bank statements. These are required to
+                    evaluate cash flow and verify business activity.
                   </p>
                 </div>
               </div>
@@ -292,7 +309,8 @@ function Index() {
                 <div>
                   <h3 className="font-bold text-white text-base">Review with coordinator</h3>
                   <p className="mt-1.5 text-xs text-cloud/70 leading-relaxed">
-                    A representative will contact you directly to discuss the file details, coordinate with the funder, and explain options.
+                    A representative will contact you directly to discuss the file details,
+                    coordinate with the funder, and explain options.
                   </p>
                 </div>
               </div>
@@ -306,9 +324,12 @@ function Index() {
         <div className="grid gap-10 md:grid-cols-2">
           {/* Preparation Checklist */}
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-ink mb-2">What you need to prepare</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-ink mb-2">
+              What you need to prepare
+            </h2>
             <p className="text-xs text-muted-text leading-relaxed">
-              Having the following files and details ready will help complete the coordinator review faster.
+              Having the following files and details ready will help complete the coordinator review
+              faster.
             </p>
             <ul className="mt-6 space-y-4 text-xs">
               {[
@@ -319,7 +340,9 @@ function Index() {
                 "Original funding agreement (only if you carry an existing balance)",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded bg-soft-aqua text-cobalt font-bold">✓</span>
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded bg-soft-aqua text-cobalt font-bold">
+                    ✓
+                  </span>
                   <span className="text-ink font-medium leading-relaxed">{item}</span>
                 </li>
               ))}
@@ -330,7 +353,9 @@ function Index() {
           <div className="flex flex-col justify-center bg-cloud/35 p-6 rounded-2xl border border-neutral-border/30">
             <span className="text-xs font-bold text-cobalt mb-2">Approval notice</span>
             <p className="text-xs text-muted-text leading-relaxed">
-              SmallBizLoans.com is an independent representative and does not make credit decisions. Approval, terms, and final offers depend entirely on the underwriting review of your statements and files conducted by Mom &amp; Pop Business Funding.
+              SmallBizLoans.com is an independent representative and does not make credit decisions.
+              Approval, terms, and final offers depend entirely on the underwriting review of your
+              statements and files conducted by Mom &amp; Pop Business Funding.
             </p>
           </div>
         </div>
@@ -344,7 +369,10 @@ function Index() {
               How SmallBizLoans helps
             </h2>
             <p className="text-sm text-muted-text leading-relaxed">
-              SmallBizLoans helps business owners prepare and submit applications to Mom &amp; Pop Business Funding. We are an independent representative, not a bank. Mom &amp; Pop Business Funding reviews submitted applications and determines whether funding options are available.
+              SmallBizLoans helps business owners prepare and submit applications to Mom &amp; Pop
+              Business Funding. We are an independent representative, not a bank. Mom &amp; Pop
+              Business Funding reviews submitted applications and determines whether funding options
+              are available.
             </p>
           </div>
         </div>
@@ -356,19 +384,27 @@ function Index() {
           <div className="space-y-2 max-w-xl">
             <h3 className="text-lg font-bold text-ink">Need assistance preparing your file?</h3>
             <p className="text-xs text-muted-text leading-relaxed">
-              If you have questions about the requested statements or how the coordinator process operates, speak directly with our team during business hours.
+              If you have questions about the requested statements or how the coordinator process
+              operates, speak directly with our team during business hours.
             </p>
           </div>
-          
+
           <div className="flex flex-wrap gap-6 text-xs shrink-0 w-full sm:w-auto">
             <div>
-              <span className="block text-[11px] font-bold text-muted-text mb-0.5">Direct Line</span>
-              <a href="tel:+17209001921" className="text-ink font-bold hover:underline text-sm sm:text-base block">
+              <span className="block text-[11px] font-bold text-muted-text mb-0.5">
+                Direct Line
+              </span>
+              <a
+                href="tel:+17209001921"
+                className="text-ink font-bold hover:underline text-sm sm:text-base block"
+              >
                 (720) 900-1921
               </a>
             </div>
             <div>
-              <span className="block text-[11px] font-bold text-muted-text mb-0.5">Email Support</span>
+              <span className="block text-[11px] font-bold text-muted-text mb-0.5">
+                Email Support
+              </span>
               <a
                 href="mailto:lizzy.alemayehu@smallbizloanz.com"
                 className="text-ink font-bold break-all hover:underline block"
@@ -388,7 +424,7 @@ function Index() {
               Common application questions
             </h2>
           </div>
-          
+
           <div className="card-premium bg-white p-6 rounded-2xl">
             <Accordion type="single" collapsible className="space-y-2">
               <AccordionItem value="item-1" className="border-b border-neutral-border/40 pb-2">
@@ -396,7 +432,8 @@ function Index() {
                   How many months of statements are required?
                 </AccordionTrigger>
                 <AccordionContent className="text-xs text-muted-text leading-relaxed pt-1">
-                  Six months of consecutive recent business bank statements are requested so the review can be conducted against actual operating history and cash flow.
+                  Six months of consecutive recent business bank statements are requested so the
+                  review can be conducted against actual operating history and cash flow.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2" className="border-b border-neutral-border/40 pb-2">
@@ -404,7 +441,9 @@ function Index() {
                   Is approval guaranteed by SmallBizLoans?
                 </AccordionTrigger>
                 <AccordionContent className="text-xs text-muted-text leading-relaxed pt-1">
-                  No. SmallBizLoans coordinates files but does not make credit decisions. Approval, terms, and offers are determined exclusively by Mom &amp; Pop Business Funding after review.
+                  No. SmallBizLoans coordinates files but does not make credit decisions. Approval,
+                  terms, and offers are determined exclusively by Mom &amp; Pop Business Funding
+                  after review.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3" className="border-b-0 pb-0">
@@ -412,12 +451,13 @@ function Index() {
                   Is SmallBizLoans a bank?
                 </AccordionTrigger>
                 <AccordionContent className="text-xs text-muted-text leading-relaxed pt-1">
-                  No, we are an independent representative working to assist small business owners. We help package files and submit them to direct funding providers.
+                  No, we are an independent representative working to assist small business owners.
+                  We help package files and submit them to direct funding providers.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
-          
+
           <div className="text-center mt-6">
             <Link to="/faq" className="text-xs font-bold text-cobalt hover:underline">
               View all frequently asked questions &rarr;
@@ -433,9 +473,10 @@ function Index() {
             Start coordinating your application file
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-text">
-            Submit your core business information online. The initial coordinator intake form takes approximately 5 minutes.
+            Submit your core business information online. The initial coordinator intake form takes
+            approximately 5 minutes.
           </p>
-          
+
           <div className="mt-8 flex flex-col justify-center gap-3.5 sm:flex-row">
             <Button
               asChild

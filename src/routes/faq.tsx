@@ -111,7 +111,8 @@ function FaqPage() {
             Help Center & FAQ
           </h1>
           <p className="mt-2 text-sm text-muted-text max-w-2xl">
-            Plain-English answers about the application process, bank statement requirements, coordinator review timing, and coordinate files with Mom & Pop Business Funding.
+            Plain-English answers about the application process, bank statement requirements,
+            coordinator review timing, and coordinate files with Mom & Pop Business Funding.
           </p>
         </div>
 
@@ -148,7 +149,10 @@ function FaqPage() {
               <div className="mt-4 space-y-2.5 bg-cloud p-3 rounded border border-neutral-border/40">
                 <div>
                   <span className="block text-[11px] font-bold text-muted-text">Call Support</span>
-                  <a href="tel:+17209001921" className="text-ink font-bold hover:underline block mt-0.5">
+                  <a
+                    href="tel:+17209001921"
+                    className="text-ink font-bold hover:underline block mt-0.5"
+                  >
                     (720) 900-1921
                   </a>
                 </div>
@@ -170,7 +174,11 @@ function FaqPage() {
             {groups.map((group) => {
               const id = group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
               return (
-                <section key={group.title} id={id} className="scroll-mt-20 card-premium rounded p-6">
+                <section
+                  key={group.title}
+                  id={id}
+                  className="scroll-mt-20 card-premium rounded p-6"
+                >
                   <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">
                     {group.title}
                   </h2>
@@ -198,7 +206,9 @@ function FaqPage() {
             <div className="border-t border-neutral-border/50 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h3 className="text-sm font-bold text-ink">Ready to begin?</h3>
-                <p className="text-xs text-muted-text">Completing the initial online application takes about 5 minutes.</p>
+                <p className="text-xs text-muted-text">
+                  Completing the initial online application takes about 5 minutes.
+                </p>
               </div>
               <div className="flex gap-3">
                 <Button

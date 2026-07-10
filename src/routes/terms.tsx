@@ -33,17 +33,22 @@ export const Route = createFileRoute("/terms")({
           <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
             Terms of Use
           </h1>
-          <p className="mt-2 text-xs text-muted-text">
-            Last Updated: July 2026
-          </p>
+          <p className="mt-2 text-xs text-muted-text">Last Updated: July 2026</p>
         </div>
-        
+
         <div className="max-w-2xl text-sm leading-relaxed text-muted-text space-y-4">
           <p>
-            By using SmallBizLoans.com, you agree that all information and documents you submit through this website are accurate, complete, and represent the true operational status of your business to the best of your knowledge.
+            By using SmallBizLoans.com, you agree that all information and documents you submit
+            through this website are accurate, complete, and represent the true operational status
+            of your business to the best of your knowledge.
           </p>
           <p>
-            SmallBizLoans.com is an independent representative coordinating application files with Mom &amp; Pop Business Funding. SmallBizLoans.com does not make underwriting reviews, credit decisions, or guarantee approval, funding, rates, terms, or final funding amounts. Submitting an application or contact form does not constitute an offer of credit or funding. Final eligibility depends entirely on review and verification of applicant information by Mom &amp; Pop Business Funding.
+            SmallBizLoans.com is an independent representative coordinating application files with
+            Mom &amp; Pop Business Funding. SmallBizLoans.com does not make underwriting reviews,
+            credit decisions, or guarantee approval, funding, rates, terms, or final funding
+            amounts. Submitting an application or contact form does not constitute an offer of
+            credit or funding. Final eligibility depends entirely on review and verification of
+            applicant information by Mom &amp; Pop Business Funding.
           </p>
         </div>
       </section>

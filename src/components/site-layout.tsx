@@ -40,23 +40,27 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     ? "sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-border/50 shadow-sm transition-all duration-200"
     : "sticky top-0 z-40 bg-transparent border-b border-transparent transition-all duration-200";
 
-  const logoTextClass = (!scrolled && isHome)
-    ? "flex items-center gap-2.5 font-bold tracking-tight text-white transition-opacity hover:opacity-90"
-    : "flex items-center gap-2.5 font-bold tracking-tight text-ink transition-opacity hover:opacity-90";
+  const logoTextClass =
+    !scrolled && isHome
+      ? "flex items-center gap-2.5 font-bold tracking-tight text-white transition-opacity hover:opacity-90"
+      : "flex items-center gap-2.5 font-bold tracking-tight text-ink transition-opacity hover:opacity-90";
 
-  const brandIconColor = (!scrolled && isHome) ? "text-white" : "text-cobalt";
+  const brandIconColor = !scrolled && isHome ? "text-white" : "text-cobalt";
 
-  const navLinkClass = (!scrolled && isHome)
-    ? "text-sm font-semibold text-cloud/80 transition-colors hover:text-white py-1 border-b-2 border-transparent"
-    : "text-sm font-semibold text-muted-text transition-colors hover:text-ink py-1 border-b-2 border-transparent";
+  const navLinkClass =
+    !scrolled && isHome
+      ? "text-sm font-semibold text-cloud/80 transition-colors hover:text-white py-1 border-b-2 border-transparent"
+      : "text-sm font-semibold text-muted-text transition-colors hover:text-ink py-1 border-b-2 border-transparent";
 
-  const activeLinkClass = (!scrolled && isHome)
-    ? "text-white font-bold border-white"
-    : "text-cobalt font-bold border-cobalt";
+  const activeLinkClass =
+    !scrolled && isHome
+      ? "text-white font-bold border-white"
+      : "text-cobalt font-bold border-cobalt";
 
-  const menuButtonClass = (!scrolled && isHome)
-    ? "grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/10 text-white md:hidden"
-    : "grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-cloud text-ink md:hidden";
+  const menuButtonClass =
+    !scrolled && isHome
+      ? "grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/10 text-white md:hidden"
+      : "grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-cloud text-ink md:hidden";
 
   return (
     <div className="flex min-h-screen flex-col bg-warm-white text-ink selection:bg-soft-aqua">
@@ -64,9 +68,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className={logoTextClass}>
             <BrandIcon customColor={brandIconColor} />
-            <span className="text-lg font-display font-extrabold tracking-tight">SmallBizLoans</span>
+            <span className="text-lg font-display font-extrabold tracking-tight">
+              SmallBizLoans
+            </span>
           </Link>
-          
+
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
             {nav.map((n) => (
               <Link
@@ -89,7 +95,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link to="/apply">Apply Now</Link>
             </Button>
           </div>
-          
+
           <button
             type="button"
             className={menuButtonClass}
@@ -101,9 +107,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-        
+
         {open && (
-          <div id="mobile-navigation" className="border-t border-neutral-border/50 bg-white md:hidden">
+          <div
+            id="mobile-navigation"
+            className="border-t border-neutral-border/50 bg-white md:hidden"
+          >
             <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
               {nav.map((n) => (
                 <Link
@@ -117,10 +126,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   {n.label}
                 </Link>
               ))}
-              <Button
-                asChild
-                className="mt-2 rounded-full btn-premium-cobalt font-semibold w-full"
-              >
+              <Button asChild className="mt-2 rounded-full btn-premium-cobalt font-semibold w-full">
                 <Link to="/apply" onClick={() => setOpen(false)}>
                   Apply Now
                 </Link>
@@ -138,10 +144,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <div>
               <div className="flex items-center gap-2.5 font-bold tracking-tight text-white">
                 <BrandIcon customColor="text-white" />
-                <span className="text-lg font-display font-extrabold tracking-tight">SmallBizLoans</span>
+                <span className="text-lg font-display font-extrabold tracking-tight">
+                  SmallBizLoans
+                </span>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-cloud/70">
-                Providing structured, dependable business funding information and clear application paths for owner-operated small businesses.
+                Providing structured, dependable business funding information and clear application
+                paths for owner-operated small businesses.
               </p>
               <Link
                 to="/apply"
@@ -151,7 +160,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </Link>
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-cloud/40">Navigation</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-cloud/40">
+                Navigation
+              </h4>
               <ul className="mt-4 space-y-2.5 text-sm text-cloud/80">
                 <li>
                   <Link to="/" className="hover:text-white transition-colors">
@@ -191,17 +202,29 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </ul>
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-cloud/40">Contact info</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-cloud/40">
+                Contact info
+              </h4>
               <ul className="mt-4 space-y-3.5 text-sm text-cloud/85">
                 <li>
-                  <span className="block text-xs text-cloud/40 font-bold uppercase tracking-wider mb-1">Email assistance</span>
-                  <a href="mailto:lizzy.alemayehu@smallbizloanz.com" className="font-semibold hover:text-white break-all hover:underline">
+                  <span className="block text-xs text-cloud/40 font-bold uppercase tracking-wider mb-1">
+                    Email assistance
+                  </span>
+                  <a
+                    href="mailto:lizzy.alemayehu@smallbizloanz.com"
+                    className="font-semibold hover:text-white break-all hover:underline"
+                  >
                     lizzy.alemayehu@smallbizloanz.com
                   </a>
                 </li>
                 <li>
-                  <span className="block text-xs text-cloud/40 font-bold uppercase tracking-wider mb-1">Phone support</span>
-                  <a href="tel:+17209001921" className="font-semibold hover:text-white hover:underline text-base">
+                  <span className="block text-xs text-cloud/40 font-bold uppercase tracking-wider mb-1">
+                    Phone support
+                  </span>
+                  <a
+                    href="tel:+17209001921"
+                    className="font-semibold hover:text-white hover:underline text-base"
+                  >
                     (720) 900-1921
                   </a>
                 </li>
@@ -210,7 +233,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
           <div className="mt-12 border-t border-white/10 pt-8 text-xs leading-relaxed text-cloud/50">
             <p>
-              SmallBizLoans.com is an independent representative coordinating application files with Mom &amp; Pop Business Funding. SmallBizLoans.com does not make underwriting reviews, credit decisions, or guarantee approval, funding, rates, terms, or final funding amounts. Submitting an application or contact form does not constitute an offer of credit or funding. Final eligibility depends entirely on review and verification of applicant information by Mom &amp; Pop Business Funding.
+              SmallBizLoans.com is an independent representative coordinating application files with
+              Mom &amp; Pop Business Funding. SmallBizLoans.com does not make underwriting reviews,
+              credit decisions, or guarantee approval, funding, rates, terms, or final funding
+              amounts. Submitting an application or contact form does not constitute an offer of
+              credit or funding. Final eligibility depends entirely on review and verification of
+              applicant information by Mom &amp; Pop Business Funding.
             </p>
             <p className="mt-4 font-semibold">
               &copy; {new Date().getFullYear()} SmallBizLoans. All rights reserved.
@@ -224,7 +252,16 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function BrandIcon({ customColor = "text-cobalt" }: { customColor?: string }) {
   return (
-    <svg className={`h-5 w-5 ${customColor} shrink-0`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      className={`h-5 w-5 ${customColor} shrink-0`}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
       <polyline points="16 7 22 7 22 13" />
     </svg>

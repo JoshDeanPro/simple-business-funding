@@ -446,10 +446,7 @@ function ApplyPage() {
             review your information and contact you regarding the next steps.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button
-              asChild
-              className="rounded-full btn-premium-cobalt px-6 font-semibold"
-            >
+            <Button asChild className="rounded-full btn-premium-cobalt px-6 font-semibold">
               <Link to="/">Back to home</Link>
             </Button>
             <Button asChild variant="outline" className="rounded-full btn-premium-outline">
@@ -522,7 +519,10 @@ function ApplyPage() {
               <div className="space-y-3">
                 <div>
                   <span className="block text-[11px] font-bold text-muted-text">Phone Support</span>
-                  <a href="tel:+17209001921" className="text-ink font-bold hover:underline block mt-0.5">
+                  <a
+                    href="tel:+17209001921"
+                    className="text-ink font-bold hover:underline block mt-0.5"
+                  >
                     (720) 900-1921
                   </a>
                 </div>
@@ -552,12 +552,12 @@ function ApplyPage() {
               <p className="mt-1.5 text-muted-text">
                 SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
                 Business Funding. We are an independent representative, not a bank. Mom &amp; Pop
-                Business Funding reviews submitted applications and determines whether funding options
-                are available.
+                Business Funding reviews submitted applications and determines whether funding
+                options are available.
               </p>
               <p className="mt-2 text-muted-text">
-                Completing the online form takes approximately 5 minutes. Six months of recent business
-                bank statements will be requested to complete the review.
+                Completing the online form takes approximately 5 minutes. Six months of recent
+                business bank statements will be requested to complete the review.
               </p>
             </div>
 
@@ -566,7 +566,8 @@ function ApplyPage() {
               <div className="border-b border-neutral-border/50 pb-4 mb-6">
                 <p className="text-xs text-muted-text flex items-center justify-between">
                   <span>
-                    Step {step + 1} of {steps.length}: <span className="font-bold text-ink">{steps[step]}</span>
+                    Step {step + 1} of {steps.length}:{" "}
+                    <span className="font-bold text-ink">{steps[step]}</span>
                   </span>
                   <span>Fields marked * are required</span>
                 </p>
@@ -578,676 +579,682 @@ function ApplyPage() {
                 </div>
               </div>
               {step === 0 && (
-            <div className="mt-8 space-y-4">
-              <SectionTitle>Business information</SectionTitle>
-              <Note>
-                Why we ask: Ownership and identity information may be needed to review the
-                application and obtain relevant credit or business information, as described in the
-                authorization below.
-              </Note>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.legalName}
-                  label="Legal / corporate business name"
-                  value={form.legalName}
-                  onChange={(value) => setField("legalName", value)}
-                  autoComplete="organization"
-                  required
-                  error={fieldErrors[fieldIds.legalName]}
-                />
-                <Field
-                  id={fieldIds.dba}
-                  label="DBA"
-                  value={form.dba}
-                  onChange={(value) => setField("dba", value)}
-                  autoComplete="organization"
-                />
-              </div>
-              <Field
-                id={fieldIds.address}
-                label="Physical address"
-                value={form.address}
-                onChange={(value) => setField("address", value)}
-                autoComplete="street-address"
-                required
-                error={fieldErrors[fieldIds.address]}
-              />
-              <div className="grid gap-4 sm:grid-cols-3">
-                <Field
-                  id={fieldIds.city}
-                  label="City"
-                  value={form.city}
-                  onChange={(value) => setField("city", value)}
-                  autoComplete="address-level2"
-                  required
-                  error={fieldErrors[fieldIds.city]}
-                />
-                <Field
-                  id={fieldIds.state}
-                  label="State"
-                  value={form.state}
-                  onChange={(value) => setField("state", value)}
-                  autoComplete="address-level1"
-                  required
-                  error={fieldErrors[fieldIds.state]}
-                />
-                <Field
-                  id={fieldIds.zip}
-                  label="ZIP code"
-                  value={form.zip}
-                  onChange={(value) => setField("zip", value)}
-                  autoComplete="postal-code"
-                  inputMode="numeric"
-                  required
-                  error={fieldErrors[fieldIds.zip]}
-                />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.bizPhone}
-                  label="Business phone"
-                  type="tel"
-                  value={form.bizPhone}
-                  onChange={(value) => setField("bizPhone", value)}
-                  autoComplete="tel"
-                  inputMode="tel"
-                  required
-                  error={fieldErrors[fieldIds.bizPhone]}
-                />
-                <Field
-                  id={fieldIds.fax}
-                  label="Fax"
-                  type="tel"
-                  value={form.fax}
-                  onChange={(value) => setField("fax", value)}
-                  autoComplete="fax"
-                  inputMode="tel"
-                  error={fieldErrors[fieldIds.fax]}
-                />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.taxId}
-                  label="Federal Tax ID (EIN)"
-                  value={form.taxId}
-                  onChange={(value) => setField("taxId", value)}
-                  autoComplete="off"
-                  inputMode="numeric"
-                  required
-                  error={fieldErrors[fieldIds.taxId]}
-                />
-                <Field
-                  id={fieldIds.primaryContact}
-                  label="Primary contact name"
-                  value={form.primaryContact}
-                  onChange={(value) => setField("primaryContact", value)}
-                  autoComplete="name"
-                  required
-                  error={fieldErrors[fieldIds.primaryContact]}
-                />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.email}
-                  label="Email address"
-                  type="email"
-                  value={form.email}
-                  onChange={(value) => setField("email", value)}
-                  autoComplete="email"
-                  required
-                  error={fieldErrors[fieldIds.email]}
-                />
-                <Field
-                  id={fieldIds.website}
-                  label="Website"
-                  value={form.website}
-                  onChange={(value) => setField("website", value)}
-                  autoComplete="url"
-                  error={fieldErrors[fieldIds.website]}
-                />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.dateStarted}
-                  label="Date business started"
-                  type="date"
-                  value={form.dateStarted}
-                  onChange={(value) => setField("dateStarted", value)}
-                  required
-                  error={fieldErrors[fieldIds.dateStarted]}
-                />
-                <Field
-                  id={fieldIds.lengthOwnership}
-                  label="Length of ownership (years)"
-                  value={form.lengthOwnership}
-                  onChange={(value) => setField("lengthOwnership", value)}
-                  inputMode="decimal"
-                  error={fieldErrors[fieldIds.lengthOwnership]}
-                />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.yearsAtLocation}
-                  label="Years at current location"
-                  value={form.yearsAtLocation}
-                  onChange={(value) => setField("yearsAtLocation", value)}
-                  inputMode="decimal"
-                  error={fieldErrors[fieldIds.yearsAtLocation]}
-                />
-                <Field
-                  id={fieldIds.numLocations}
-                  label="Number of locations"
-                  value={form.numLocations}
-                  onChange={(value) => setField("numLocations", value)}
-                  inputMode="numeric"
-                  error={fieldErrors[fieldIds.numLocations]}
-                />
-              </div>
-            </div>
-          )}
-
-          {step === 1 && (
-            <div className="mt-8 space-y-4">
-              <SectionTitle>Ownership information</SectionTitle>
-              <Note>
-                The applicant must have at least 67% ownership. If the primary applicant has less
-                than 67% ownership, additional owner information may be required.
-              </Note>
-              <Field
-                id={fieldIds.ownerName}
-                label="Owner's full name"
-                value={form.ownerName}
-                onChange={(value) => setField("ownerName", value)}
-                autoComplete="name"
-                required
-                error={fieldErrors[fieldIds.ownerName]}
-              />
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.ownerPhone}
-                  label="Contact phone number"
-                  type="tel"
-                  value={form.ownerPhone}
-                  onChange={(value) => setField("ownerPhone", value)}
-                  autoComplete="tel"
-                  inputMode="tel"
-                  required
-                  error={fieldErrors[fieldIds.ownerPhone]}
-                />
-                <Field
-                  id={fieldIds.ownerDob}
-                  label="Date of birth"
-                  type="date"
-                  value={form.ownerDob}
-                  onChange={(value) => setField("ownerDob", value)}
-                  required
-                  error={fieldErrors[fieldIds.ownerDob]}
-                />
-              </div>
-              <Field
-                id={fieldIds.ownerAddress}
-                label="Home address"
-                value={form.ownerAddress}
-                onChange={(value) => setField("ownerAddress", value)}
-                autoComplete="street-address"
-                required
-                error={fieldErrors[fieldIds.ownerAddress]}
-              />
-              <div className="grid gap-4 sm:grid-cols-3">
-                <Field
-                  id={fieldIds.ownerCity}
-                  label="City"
-                  value={form.ownerCity}
-                  onChange={(value) => setField("ownerCity", value)}
-                  autoComplete="address-level2"
-                  required
-                  error={fieldErrors[fieldIds.ownerCity]}
-                />
-                <Field
-                  id={fieldIds.ownerState}
-                  label="State"
-                  value={form.ownerState}
-                  onChange={(value) => setField("ownerState", value)}
-                  autoComplete="address-level1"
-                  required
-                  error={fieldErrors[fieldIds.ownerState]}
-                />
-                <Field
-                  id={fieldIds.ownerZip}
-                  label="ZIP code"
-                  value={form.ownerZip}
-                  onChange={(value) => setField("ownerZip", value)}
-                  autoComplete="postal-code"
-                  inputMode="numeric"
-                  required
-                  error={fieldErrors[fieldIds.ownerZip]}
-                />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-3">
-                <Field
-                  id={fieldIds.ownerSsn}
-                  label="Social Security number"
-                  value={form.ownerSsn}
-                  onChange={(value) => setField("ownerSsn", value)}
-                  autoComplete="off"
-                  inputMode="numeric"
-                  required
-                  error={fieldErrors[fieldIds.ownerSsn]}
-                />
-                <Field
-                  id={fieldIds.ownership}
-                  label="Ownership %"
-                  type="number"
-                  value={form.ownership}
-                  onChange={(value) => setField("ownership", value)}
-                  inputMode="decimal"
-                  required
-                  error={fieldErrors[fieldIds.ownership]}
-                />
-                <Field
-                  id={fieldIds.ownerTitle}
-                  label="Title"
-                  value={form.ownerTitle}
-                  onChange={(value) => setField("ownerTitle", value)}
-                  required
-                  error={fieldErrors[fieldIds.ownerTitle]}
-                />
-              </div>
-            </div>
-          )}
-
-          {step === 2 && (
-            <div className="mt-8 space-y-6">
-              <SectionTitle>Business profile</SectionTitle>
-              <div>
-                <Label className="mb-2 block">
-                  Ownership type <span className="text-destructive">*</span>
-                </Label>
-                <RadioGroup
-                  value={form.ownershipType}
-                  onValueChange={(value) => setField("ownershipType", value)}
-                  className="grid gap-2 sm:grid-cols-2"
-                >
-                  {["Sole proprietorship", "Corporation", "Partnership", "LLC"].map((option) => (
-                    <label
-                      key={option}
-                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-muted has-[[data-state=checked]]:bg-muted"
-                    >
-                      <RadioGroupItem value={option} /> {option}
-                    </label>
-                  ))}
-                </RadioGroup>
-                {fieldErrors[fieldIds.ownershipType] && (
-                  <p className="mt-2 text-sm text-destructive">
-                    {fieldErrors[fieldIds.ownershipType]}
-                  </p>
-                )}
-              </div>
-              <div>
-                <Label htmlFor={fieldIds.merchantType} className="mb-2 block">
-                  Merchant type <span className="text-destructive">*</span>
-                </Label>
-                <Select
-                  value={form.merchantType}
-                  onValueChange={(value) => setField("merchantType", value)}
-                >
-                  <SelectTrigger id={fieldIds.merchantType}>
-                    <SelectValue placeholder="Select…" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[
-                      "Retail",
-                      "Restaurant",
-                      "Lodging",
-                      "Service",
-                      "Internet",
-                      "Home-based",
-                      "Automotive",
-                      "Other",
-                    ].map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {fieldErrors[fieldIds.merchantType] && (
-                  <p className="mt-2 text-sm text-destructive">
-                    {fieldErrors[fieldIds.merchantType]}
-                  </p>
-                )}
-                {form.merchantType === "Other" && (
-                  <div className="mt-3">
+                <div className="mt-8 space-y-4">
+                  <SectionTitle>Business information</SectionTitle>
+                  <Note>
+                    Why we ask: Ownership and identity information may be needed to review the
+                    application and obtain relevant credit or business information, as described in
+                    the authorization below.
+                  </Note>
+                  <div className="grid gap-4 sm:grid-cols-2">
                     <Field
-                      id={fieldIds.merchantOther}
-                      label="Please describe"
-                      value={form.merchantOther}
-                      onChange={(value) => setField("merchantOther", value)}
+                      id={fieldIds.legalName}
+                      label="Legal / corporate business name"
+                      value={form.legalName}
+                      onChange={(value) => setField("legalName", value)}
+                      autoComplete="organization"
                       required
-                      error={fieldErrors[fieldIds.merchantOther]}
+                      error={fieldErrors[fieldIds.legalName]}
+                    />
+                    <Field
+                      id={fieldIds.dba}
+                      label="DBA"
+                      value={form.dba}
+                      onChange={(value) => setField("dba", value)}
+                      autoComplete="organization"
                     />
                   </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {step === 3 && (
-            <div className="mt-8 space-y-4">
-              <SectionTitle>Funding questions</SectionTitle>
-              <Note>
-                The review focuses on the information you provide here, the bank statements, and the
-                overall business profile. Funding is subject to review and approval.
-              </Note>
-              <Field
-                id={fieldIds.amountRequested}
-                label="Amount requested (USD)"
-                type="number"
-                value={form.amountRequested}
-                onChange={(value) => setField("amountRequested", value)}
-                inputMode="decimal"
-                required
-                error={fieldErrors[fieldIds.amountRequested]}
-              />
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.avgCardSales}
-                  label="Average monthly Visa & Mastercard sales"
-                  type="number"
-                  value={form.avgCardSales}
-                  onChange={(value) => setField("avgCardSales", value)}
-                  inputMode="decimal"
-                  required
-                  error={fieldErrors[fieldIds.avgCardSales]}
-                />
-                <Field
-                  id={fieldIds.avgGrossSales}
-                  label="Average gross monthly sales"
-                  type="number"
-                  value={form.avgGrossSales}
-                  onChange={(value) => setField("avgGrossSales", value)}
-                  inputMode="decimal"
-                  required
-                  error={fieldErrors[fieldIds.avgGrossSales]}
-                />
-              </div>
-              <div>
-                <Label className="mb-2 block">
-                  Has the business used a cash advance plan before?{" "}
-                  <span className="text-destructive">*</span>
-                </Label>
-                <RadioGroup
-                  value={form.usedAdvance}
-                  onValueChange={(value) => setField("usedAdvance", value)}
-                  className="grid gap-2 sm:grid-cols-2"
-                >
-                  {[
-                    ["yes", "Yes"],
-                    ["no", "No"],
-                  ].map(([value, label]) => (
-                    <label
-                      key={value}
-                      className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-muted has-[[data-state=checked]]:bg-muted"
-                    >
-                      <RadioGroupItem value={value} /> {label}
-                    </label>
-                  ))}
-                </RadioGroup>
-                {fieldErrors[fieldIds.usedAdvance] && (
-                  <p className="mt-2 text-sm text-destructive">
-                    {fieldErrors[fieldIds.usedAdvance]}
-                  </p>
-                )}
-              </div>
-              {form.usedAdvance === "yes" && (
-                <div className="space-y-4 rounded-xl border border-dashed border-border bg-surface p-4">
                   <Field
-                    id={fieldIds.prevCompany}
-                    label="Previous funding company"
-                    value={form.prevCompany}
-                    onChange={(value) => setField("prevCompany", value)}
+                    id={fieldIds.address}
+                    label="Physical address"
+                    value={form.address}
+                    onChange={(value) => setField("address", value)}
+                    autoComplete="street-address"
                     required
-                    error={fieldErrors[fieldIds.prevCompany]}
+                    error={fieldErrors[fieldIds.address]}
+                  />
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <Field
+                      id={fieldIds.city}
+                      label="City"
+                      value={form.city}
+                      onChange={(value) => setField("city", value)}
+                      autoComplete="address-level2"
+                      required
+                      error={fieldErrors[fieldIds.city]}
+                    />
+                    <Field
+                      id={fieldIds.state}
+                      label="State"
+                      value={form.state}
+                      onChange={(value) => setField("state", value)}
+                      autoComplete="address-level1"
+                      required
+                      error={fieldErrors[fieldIds.state]}
+                    />
+                    <Field
+                      id={fieldIds.zip}
+                      label="ZIP code"
+                      value={form.zip}
+                      onChange={(value) => setField("zip", value)}
+                      autoComplete="postal-code"
+                      inputMode="numeric"
+                      required
+                      error={fieldErrors[fieldIds.zip]}
+                    />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      id={fieldIds.bizPhone}
+                      label="Business phone"
+                      type="tel"
+                      value={form.bizPhone}
+                      onChange={(value) => setField("bizPhone", value)}
+                      autoComplete="tel"
+                      inputMode="tel"
+                      required
+                      error={fieldErrors[fieldIds.bizPhone]}
+                    />
+                    <Field
+                      id={fieldIds.fax}
+                      label="Fax"
+                      type="tel"
+                      value={form.fax}
+                      onChange={(value) => setField("fax", value)}
+                      autoComplete="fax"
+                      inputMode="tel"
+                      error={fieldErrors[fieldIds.fax]}
+                    />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      id={fieldIds.taxId}
+                      label="Federal Tax ID (EIN)"
+                      value={form.taxId}
+                      onChange={(value) => setField("taxId", value)}
+                      autoComplete="off"
+                      inputMode="numeric"
+                      required
+                      error={fieldErrors[fieldIds.taxId]}
+                    />
+                    <Field
+                      id={fieldIds.primaryContact}
+                      label="Primary contact name"
+                      value={form.primaryContact}
+                      onChange={(value) => setField("primaryContact", value)}
+                      autoComplete="name"
+                      required
+                      error={fieldErrors[fieldIds.primaryContact]}
+                    />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      id={fieldIds.email}
+                      label="Email address"
+                      type="email"
+                      value={form.email}
+                      onChange={(value) => setField("email", value)}
+                      autoComplete="email"
+                      required
+                      error={fieldErrors[fieldIds.email]}
+                    />
+                    <Field
+                      id={fieldIds.website}
+                      label="Website"
+                      value={form.website}
+                      onChange={(value) => setField("website", value)}
+                      autoComplete="url"
+                      error={fieldErrors[fieldIds.website]}
+                    />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      id={fieldIds.dateStarted}
+                      label="Date business started"
+                      type="date"
+                      value={form.dateStarted}
+                      onChange={(value) => setField("dateStarted", value)}
+                      required
+                      error={fieldErrors[fieldIds.dateStarted]}
+                    />
+                    <Field
+                      id={fieldIds.lengthOwnership}
+                      label="Length of ownership (years)"
+                      value={form.lengthOwnership}
+                      onChange={(value) => setField("lengthOwnership", value)}
+                      inputMode="decimal"
+                      error={fieldErrors[fieldIds.lengthOwnership]}
+                    />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      id={fieldIds.yearsAtLocation}
+                      label="Years at current location"
+                      value={form.yearsAtLocation}
+                      onChange={(value) => setField("yearsAtLocation", value)}
+                      inputMode="decimal"
+                      error={fieldErrors[fieldIds.yearsAtLocation]}
+                    />
+                    <Field
+                      id={fieldIds.numLocations}
+                      label="Number of locations"
+                      value={form.numLocations}
+                      onChange={(value) => setField("numLocations", value)}
+                      inputMode="numeric"
+                      error={fieldErrors[fieldIds.numLocations]}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {step === 1 && (
+                <div className="mt-8 space-y-4">
+                  <SectionTitle>Ownership information</SectionTitle>
+                  <Note>
+                    The applicant must have at least 67% ownership. If the primary applicant has
+                    less than 67% ownership, additional owner information may be required.
+                  </Note>
+                  <Field
+                    id={fieldIds.ownerName}
+                    label="Owner's full name"
+                    value={form.ownerName}
+                    onChange={(value) => setField("ownerName", value)}
+                    autoComplete="name"
+                    required
+                    error={fieldErrors[fieldIds.ownerName]}
                   />
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Field
-                      id={fieldIds.origBalance}
-                      label="Original balance"
-                      type="number"
-                      value={form.origBalance}
-                      onChange={(value) => setField("origBalance", value)}
-                      inputMode="decimal"
+                      id={fieldIds.ownerPhone}
+                      label="Contact phone number"
+                      type="tel"
+                      value={form.ownerPhone}
+                      onChange={(value) => setField("ownerPhone", value)}
+                      autoComplete="tel"
+                      inputMode="tel"
                       required
-                      error={fieldErrors[fieldIds.origBalance]}
+                      error={fieldErrors[fieldIds.ownerPhone]}
                     />
                     <Field
-                      id={fieldIds.currentBalance}
-                      label="Current balance"
-                      type="number"
-                      value={form.currentBalance}
-                      onChange={(value) => setField("currentBalance", value)}
-                      inputMode="decimal"
+                      id={fieldIds.ownerDob}
+                      label="Date of birth"
+                      type="date"
+                      value={form.ownerDob}
+                      onChange={(value) => setField("ownerDob", value)}
                       required
-                      error={fieldErrors[fieldIds.currentBalance]}
+                      error={fieldErrors[fieldIds.ownerDob]}
                     />
                   </div>
                   <Field
-                    id={fieldIds.currentPayment}
-                    label="Current payment or daily holdback %"
-                    value={form.currentPayment}
-                    onChange={(value) => setField("currentPayment", value)}
+                    id={fieldIds.ownerAddress}
+                    label="Home address"
+                    value={form.ownerAddress}
+                    onChange={(value) => setField("ownerAddress", value)}
+                    autoComplete="street-address"
                     required
-                    error={fieldErrors[fieldIds.currentPayment]}
+                    error={fieldErrors[fieldIds.ownerAddress]}
+                  />
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <Field
+                      id={fieldIds.ownerCity}
+                      label="City"
+                      value={form.ownerCity}
+                      onChange={(value) => setField("ownerCity", value)}
+                      autoComplete="address-level2"
+                      required
+                      error={fieldErrors[fieldIds.ownerCity]}
+                    />
+                    <Field
+                      id={fieldIds.ownerState}
+                      label="State"
+                      value={form.ownerState}
+                      onChange={(value) => setField("ownerState", value)}
+                      autoComplete="address-level1"
+                      required
+                      error={fieldErrors[fieldIds.ownerState]}
+                    />
+                    <Field
+                      id={fieldIds.ownerZip}
+                      label="ZIP code"
+                      value={form.ownerZip}
+                      onChange={(value) => setField("ownerZip", value)}
+                      autoComplete="postal-code"
+                      inputMode="numeric"
+                      required
+                      error={fieldErrors[fieldIds.ownerZip]}
+                    />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <Field
+                      id={fieldIds.ownerSsn}
+                      label="Social Security number"
+                      value={form.ownerSsn}
+                      onChange={(value) => setField("ownerSsn", value)}
+                      autoComplete="off"
+                      inputMode="numeric"
+                      required
+                      error={fieldErrors[fieldIds.ownerSsn]}
+                    />
+                    <Field
+                      id={fieldIds.ownership}
+                      label="Ownership %"
+                      type="number"
+                      value={form.ownership}
+                      onChange={(value) => setField("ownership", value)}
+                      inputMode="decimal"
+                      required
+                      error={fieldErrors[fieldIds.ownership]}
+                    />
+                    <Field
+                      id={fieldIds.ownerTitle}
+                      label="Title"
+                      value={form.ownerTitle}
+                      onChange={(value) => setField("ownerTitle", value)}
+                      required
+                      error={fieldErrors[fieldIds.ownerTitle]}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div className="mt-8 space-y-6">
+                  <SectionTitle>Business profile</SectionTitle>
+                  <div>
+                    <Label className="mb-2 block">
+                      Ownership type <span className="text-destructive">*</span>
+                    </Label>
+                    <RadioGroup
+                      value={form.ownershipType}
+                      onValueChange={(value) => setField("ownershipType", value)}
+                      className="grid gap-2 sm:grid-cols-2"
+                    >
+                      {["Sole proprietorship", "Corporation", "Partnership", "LLC"].map(
+                        (option) => (
+                          <label
+                            key={option}
+                            className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-muted has-[[data-state=checked]]:bg-muted"
+                          >
+                            <RadioGroupItem value={option} /> {option}
+                          </label>
+                        ),
+                      )}
+                    </RadioGroup>
+                    {fieldErrors[fieldIds.ownershipType] && (
+                      <p className="mt-2 text-sm text-destructive">
+                        {fieldErrors[fieldIds.ownershipType]}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <Label htmlFor={fieldIds.merchantType} className="mb-2 block">
+                      Merchant type <span className="text-destructive">*</span>
+                    </Label>
+                    <Select
+                      value={form.merchantType}
+                      onValueChange={(value) => setField("merchantType", value)}
+                    >
+                      <SelectTrigger id={fieldIds.merchantType}>
+                        <SelectValue placeholder="Select…" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[
+                          "Retail",
+                          "Restaurant",
+                          "Lodging",
+                          "Service",
+                          "Internet",
+                          "Home-based",
+                          "Automotive",
+                          "Other",
+                        ].map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {fieldErrors[fieldIds.merchantType] && (
+                      <p className="mt-2 text-sm text-destructive">
+                        {fieldErrors[fieldIds.merchantType]}
+                      </p>
+                    )}
+                    {form.merchantType === "Other" && (
+                      <div className="mt-3">
+                        <Field
+                          id={fieldIds.merchantOther}
+                          label="Please describe"
+                          value={form.merchantOther}
+                          onChange={(value) => setField("merchantOther", value)}
+                          required
+                          error={fieldErrors[fieldIds.merchantOther]}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {step === 3 && (
+                <div className="mt-8 space-y-4">
+                  <SectionTitle>Funding questions</SectionTitle>
+                  <Note>
+                    The review focuses on the information you provide here, the bank statements, and
+                    the overall business profile. Funding is subject to review and approval.
+                  </Note>
+                  <Field
+                    id={fieldIds.amountRequested}
+                    label="Amount requested (USD)"
+                    type="number"
+                    value={form.amountRequested}
+                    onChange={(value) => setField("amountRequested", value)}
+                    inputMode="decimal"
+                    required
+                    error={fieldErrors[fieldIds.amountRequested]}
+                  />
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      id={fieldIds.avgCardSales}
+                      label="Average monthly Visa & Mastercard sales"
+                      type="number"
+                      value={form.avgCardSales}
+                      onChange={(value) => setField("avgCardSales", value)}
+                      inputMode="decimal"
+                      required
+                      error={fieldErrors[fieldIds.avgCardSales]}
+                    />
+                    <Field
+                      id={fieldIds.avgGrossSales}
+                      label="Average gross monthly sales"
+                      type="number"
+                      value={form.avgGrossSales}
+                      onChange={(value) => setField("avgGrossSales", value)}
+                      inputMode="decimal"
+                      required
+                      error={fieldErrors[fieldIds.avgGrossSales]}
+                    />
+                  </div>
+                  <div>
+                    <Label className="mb-2 block">
+                      Has the business used a cash advance plan before?{" "}
+                      <span className="text-destructive">*</span>
+                    </Label>
+                    <RadioGroup
+                      value={form.usedAdvance}
+                      onValueChange={(value) => setField("usedAdvance", value)}
+                      className="grid gap-2 sm:grid-cols-2"
+                    >
+                      {[
+                        ["yes", "Yes"],
+                        ["no", "No"],
+                      ].map(([value, label]) => (
+                        <label
+                          key={value}
+                          className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-sm hover:bg-muted has-[[data-state=checked]]:bg-muted"
+                        >
+                          <RadioGroupItem value={value} /> {label}
+                        </label>
+                      ))}
+                    </RadioGroup>
+                    {fieldErrors[fieldIds.usedAdvance] && (
+                      <p className="mt-2 text-sm text-destructive">
+                        {fieldErrors[fieldIds.usedAdvance]}
+                      </p>
+                    )}
+                  </div>
+                  {form.usedAdvance === "yes" && (
+                    <div className="space-y-4 rounded-xl border border-dashed border-border bg-surface p-4">
+                      <Field
+                        id={fieldIds.prevCompany}
+                        label="Previous funding company"
+                        value={form.prevCompany}
+                        onChange={(value) => setField("prevCompany", value)}
+                        required
+                        error={fieldErrors[fieldIds.prevCompany]}
+                      />
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <Field
+                          id={fieldIds.origBalance}
+                          label="Original balance"
+                          type="number"
+                          value={form.origBalance}
+                          onChange={(value) => setField("origBalance", value)}
+                          inputMode="decimal"
+                          required
+                          error={fieldErrors[fieldIds.origBalance]}
+                        />
+                        <Field
+                          id={fieldIds.currentBalance}
+                          label="Current balance"
+                          type="number"
+                          value={form.currentBalance}
+                          onChange={(value) => setField("currentBalance", value)}
+                          inputMode="decimal"
+                          required
+                          error={fieldErrors[fieldIds.currentBalance]}
+                        />
+                      </div>
+                      <Field
+                        id={fieldIds.currentPayment}
+                        label="Current payment or daily holdback %"
+                        value={form.currentPayment}
+                        onChange={(value) => setField("currentPayment", value)}
+                        required
+                        error={fieldErrors[fieldIds.currentPayment]}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {step === 4 && (
+                <div className="mt-8 space-y-6">
+                  <SectionTitle>Documents</SectionTitle>
+                  <Note>
+                    Recent business bank statements may be requested during follow-up after your
+                    application is reviewed.
+                  </Note>
+                  <FileField
+                    id={fieldIds.bankStatements}
+                    label="Recent business bank statements"
+                    files={bankStmts}
+                    setFiles={setBankStmts}
+                    multiple
+                    hint="Optional at submission - PDF, JPG, JPEG, PNG - up to 15MB per file"
+                    error={fieldErrors[fieldIds.bankStatements]}
+                    setError={(message) => setUploadError(fieldIds.bankStatements, message)}
+                  />
+                  <FileField
+                    id={fieldIds.contract}
+                    label="Original funding contract (if you have an existing cash advance or funding balance)"
+                    files={contract}
+                    setFiles={setContract}
+                    multiple
+                    hint="Optional"
+                    error={fieldErrors[fieldIds.contract]}
+                    setError={(message) => setUploadError(fieldIds.contract, message)}
+                  />
+                  <FileField
+                    id={fieldIds.supporting}
+                    label="Optional supporting documents"
+                    files={supporting}
+                    setFiles={setSupporting}
+                    multiple
+                    hint="Optional"
+                    error={fieldErrors[fieldIds.supporting]}
+                    setError={(message) => setUploadError(fieldIds.supporting, message)}
                   />
                 </div>
               )}
-            </div>
-          )}
 
-          {step === 4 && (
-            <div className="mt-8 space-y-6">
-              <SectionTitle>Documents</SectionTitle>
-              <Note>
-                Recent business bank statements may be requested during follow-up after your
-                application is reviewed.
-              </Note>
-              <FileField
-                id={fieldIds.bankStatements}
-                label="Recent business bank statements"
-                files={bankStmts}
-                setFiles={setBankStmts}
-                multiple
-                hint="Optional at submission - PDF, JPG, JPEG, PNG - up to 15MB per file"
-                error={fieldErrors[fieldIds.bankStatements]}
-                setError={(message) => setUploadError(fieldIds.bankStatements, message)}
-              />
-              <FileField
-                id={fieldIds.contract}
-                label="Original funding contract (if you have an existing cash advance or funding balance)"
-                files={contract}
-                setFiles={setContract}
-                multiple
-                hint="Optional"
-                error={fieldErrors[fieldIds.contract]}
-                setError={(message) => setUploadError(fieldIds.contract, message)}
-              />
-              <FileField
-                id={fieldIds.supporting}
-                label="Optional supporting documents"
-                files={supporting}
-                setFiles={setSupporting}
-                multiple
-                hint="Optional"
-                error={fieldErrors[fieldIds.supporting]}
-                setError={(message) => setUploadError(fieldIds.supporting, message)}
-              />
-            </div>
-          )}
-
-          {step === 5 && (
-            <div className="mt-8 space-y-5">
-              <SectionTitle>Signature and authorization</SectionTitle>
-              <div className="rounded-xl bg-surface p-4 text-sm">
-                <p className="font-medium text-foreground">Review before you submit</p>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  <KeyValue label="Business" value={form.legalName || "Not entered"} />
-                  <KeyValue label="Contact" value={form.primaryContact || "Not entered"} />
-                  <KeyValue
-                    label="Amount requested"
-                    value={form.amountRequested || "Not entered"}
+              {step === 5 && (
+                <div className="mt-8 space-y-5">
+                  <SectionTitle>Signature and authorization</SectionTitle>
+                  <div className="rounded-xl bg-surface p-4 text-sm">
+                    <p className="font-medium text-foreground">Review before you submit</p>
+                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                      <KeyValue label="Business" value={form.legalName || "Not entered"} />
+                      <KeyValue label="Contact" value={form.primaryContact || "Not entered"} />
+                      <KeyValue
+                        label="Amount requested"
+                        value={form.amountRequested || "Not entered"}
+                      />
+                      <KeyValue label="Funding use" value={form.merchantType || "Not entered"} />
+                      <KeyValue
+                        label="Bank statements"
+                        value={
+                          bankStmts.length > 0
+                            ? `${bankStmts.length} file${bankStmts.length === 1 ? "" : "s"} selected`
+                            : "None selected"
+                        }
+                      />
+                      <KeyValue
+                        label="Supporting docs"
+                        value={
+                          supporting.length + contract.length > 0
+                            ? `${supporting.length + contract.length} file${
+                                supporting.length + contract.length === 1 ? "" : "s"
+                              } selected`
+                            : "None selected"
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-border bg-surface p-4 text-sm text-muted-foreground">
+                    <p>By signing below, the applicant certifies that:</p>
+                    <ul className="mt-2 list-disc space-y-1 pl-5">
+                      <li>
+                        All submitted information and documents are true, correct, and complete.
+                      </li>
+                      <li>
+                        SmallBizLoans.com, its agents, partners, and funding providers may verify
+                        the submitted information.
+                      </li>
+                      <li>
+                        Credit reports and other relevant business or owner information may be
+                        obtained from third parties where permitted.
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      id={fieldIds.signName}
+                      label="Typed legal name"
+                      value={form.signName}
+                      onChange={(value) => setField("signName", value)}
+                      autoComplete="name"
+                      required
+                      error={fieldErrors[fieldIds.signName]}
+                    />
+                    <Field
+                      id={fieldIds.signDate}
+                      label="Date"
+                      type="date"
+                      value={form.signDate}
+                      onChange={(value) => setField("signDate", value)}
+                      required
+                      error={fieldErrors[fieldIds.signDate]}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={fieldIds.signature}>
+                      Electronic signature <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id={fieldIds.signature}
+                      name={fieldIds.signature}
+                      className="mt-1.5 font-signature"
+                      style={{
+                        fontFamily: "'Segoe Script', 'Brush Script MT', cursive",
+                        fontSize: "1.25rem",
+                      }}
+                      value={form.signature}
+                      onChange={(event) => setField("signature", event.target.value)}
+                      placeholder="Type your signature"
+                    />
+                    {fieldErrors[fieldIds.signature] && (
+                      <p className="mt-1 text-sm text-destructive">
+                        {fieldErrors[fieldIds.signature]}
+                      </p>
+                    )}
+                  </div>
+                  <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-background p-4">
+                    <Checkbox
+                      checked={form.consent}
+                      onCheckedChange={(value) => setField("consent", !!value)}
+                      className="mt-0.5"
+                    />
+                    <span className="text-sm">
+                      I authorize SmallBizLoans.com to review the information and documents I have
+                      submitted, and I certify the statements above.
+                    </span>
+                  </label>
+                  {fieldErrors[fieldIds.consent] && (
+                    <p className="text-sm text-destructive">{fieldErrors[fieldIds.consent]}</p>
+                  )}
+                  <input
+                    type="text"
+                    name="submissionId"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    value={submissionId.current}
+                    readOnly
                   />
-                  <KeyValue label="Funding use" value={form.merchantType || "Not entered"} />
-                  <KeyValue
-                    label="Bank statements"
-                    value={
-                      bankStmts.length > 0
-                        ? `${bankStmts.length} file${bankStmts.length === 1 ? "" : "s"} selected`
-                        : "None selected"
-                    }
-                  />
-                  <KeyValue
-                    label="Supporting docs"
-                    value={
-                      supporting.length + contract.length > 0
-                        ? `${supporting.length + contract.length} file${
-                            supporting.length + contract.length === 1 ? "" : "s"
-                          } selected`
-                        : "None selected"
-                    }
+                  <input
+                    type="text"
+                    name="website_url"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    value={form.honeypot}
+                    onChange={(event) => setField("honeypot", event.target.value)}
                   />
                 </div>
-              </div>
-              <div className="rounded-xl border border-border bg-surface p-4 text-sm text-muted-foreground">
-                <p>By signing below, the applicant certifies that:</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5">
-                  <li>All submitted information and documents are true, correct, and complete.</li>
-                  <li>
-                    SmallBizLoans.com, its agents, partners, and funding providers may verify the
-                    submitted information.
-                  </li>
-                  <li>
-                    Credit reports and other relevant business or owner information may be obtained
-                    from third parties where permitted.
-                  </li>
-                </ul>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  id={fieldIds.signName}
-                  label="Typed legal name"
-                  value={form.signName}
-                  onChange={(value) => setField("signName", value)}
-                  autoComplete="name"
-                  required
-                  error={fieldErrors[fieldIds.signName]}
-                />
-                <Field
-                  id={fieldIds.signDate}
-                  label="Date"
-                  type="date"
-                  value={form.signDate}
-                  onChange={(value) => setField("signDate", value)}
-                  required
-                  error={fieldErrors[fieldIds.signDate]}
-                />
-              </div>
-              <div>
-                <Label htmlFor={fieldIds.signature}>
-                  Electronic signature <span className="text-destructive">*</span>
-                </Label>
-                <Input
-                  id={fieldIds.signature}
-                  name={fieldIds.signature}
-                  className="mt-1.5 font-signature"
-                  style={{
-                    fontFamily: "'Segoe Script', 'Brush Script MT', cursive",
-                    fontSize: "1.25rem",
-                  }}
-                  value={form.signature}
-                  onChange={(event) => setField("signature", event.target.value)}
-                  placeholder="Type your signature"
-                />
-                {fieldErrors[fieldIds.signature] && (
-                  <p className="mt-1 text-sm text-destructive">{fieldErrors[fieldIds.signature]}</p>
+              )}
+
+              {error && (
+                <div
+                  className="mt-6 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive"
+                  role="alert"
+                >
+                  {error}
+                </div>
+              )}
+
+              <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={back}
+                  disabled={step === 0 || submitting}
+                  className="rounded-full btn-premium-outline font-semibold"
+                >
+                  <ChevronLeft className="mr-1 h-4 w-4" /> Back
+                </Button>
+                {step < steps.length - 1 ? (
+                  <Button
+                    type="button"
+                    onClick={next}
+                    disabled={submitting}
+                    className="rounded-full btn-premium-cobalt font-semibold"
+                  >
+                    Continue <ChevronRight className="ml-1 h-4 w-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={submit}
+                    disabled={submitting}
+                    className="rounded-full btn-premium-cobalt font-semibold"
+                  >
+                    {submitting ? "Submitting…" : "Submit application"}
+                  </Button>
                 )}
               </div>
-              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-background p-4">
-                <Checkbox
-                  checked={form.consent}
-                  onCheckedChange={(value) => setField("consent", !!value)}
-                  className="mt-0.5"
-                />
-                <span className="text-sm">
-                  I authorize SmallBizLoans.com to review the information and documents I have
-                  submitted, and I certify the statements above.
-                </span>
-              </label>
-              {fieldErrors[fieldIds.consent] && (
-                <p className="text-sm text-destructive">{fieldErrors[fieldIds.consent]}</p>
-              )}
-              <input
-                type="text"
-                name="submissionId"
-                tabIndex={-1}
-                autoComplete="off"
-                className="hidden"
-                value={submissionId.current}
-                readOnly
-              />
-              <input
-                type="text"
-                name="website_url"
-                tabIndex={-1}
-                autoComplete="off"
-                className="hidden"
-                value={form.honeypot}
-                onChange={(event) => setField("honeypot", event.target.value)}
-              />
             </div>
-          )}
-
-          {error && (
-            <div
-              className="mt-6 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive"
-              role="alert"
-            >
-              {error}
-            </div>
-          )}
-
-          <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={back}
-              disabled={step === 0 || submitting}
-              className="rounded-full btn-premium-outline font-semibold"
-            >
-              <ChevronLeft className="mr-1 h-4 w-4" /> Back
-            </Button>
-            {step < steps.length - 1 ? (
-              <Button
-                type="button"
-                onClick={next}
-                disabled={submitting}
-                className="rounded-full btn-premium-cobalt font-semibold"
-              >
-                Continue <ChevronRight className="ml-1 h-4 w-4" />
-              </Button>
-            ) : (
-              <Button
-                type="button"
-                onClick={submit}
-                disabled={submitting}
-                className="rounded-full btn-premium-cobalt font-semibold"
-              >
-                {submitting ? "Submitting…" : "Submit application"}
-              </Button>
-            )}
           </div>
         </div>
-      </div>
-    </div>
 
         <p className="mt-6 text-center text-xs text-muted-text">
           Your information is submitted securely. SmallBizLoans.com does not guarantee approval,
@@ -1436,9 +1443,7 @@ function formatFileLabel(key: "bankStatementsNames" | "contractNames" | "support
 function KeyValue({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-card px-3 py-2">
-      <div className="text-xs font-semibold text-muted-foreground">
-        {label}
-      </div>
+      <div className="text-xs font-semibold text-muted-foreground">{label}</div>
       <div className="mt-1 text-sm font-medium text-foreground">{value}</div>
     </div>
   );
