@@ -474,7 +474,7 @@ function ApplyPage() {
           {/* Compact Sticky Rail */}
           <aside className="space-y-6 lg:sticky lg:top-24">
             {/* Desktop stepper */}
-            <div className="hidden lg:block card-premium p-5 rounded">
+            <div className="hidden lg:block border-l border-neutral-border/50 pl-5">
               <h3 className="text-sm font-bold text-ink mb-4 border-b border-neutral-border/50 pb-2">
                 Progress
               </h3>
@@ -509,8 +509,8 @@ function ApplyPage() {
             </div>
 
             {/* Support info */}
-            <div className="card-premium p-5 rounded text-xs space-y-4">
-              <h4 className="font-bold text-ink border-b border-neutral-border/50 pb-2">
+            <div className="border-l border-neutral-border/50 pl-5 text-xs space-y-4">
+              <h4 className="font-bold text-ink pb-2">
                 Support & Contact
               </h4>
               <p className="text-muted-text leading-relaxed">
@@ -547,7 +547,7 @@ function ApplyPage() {
           {/* Main workspace */}
           <div>
             {/* Before you begin disclosure */}
-            <div className="card-premium p-5 rounded text-xs leading-relaxed text-ink mb-6">
+            <div className="p-5 rounded-xl bg-cloud/50 border border-neutral-border/30 text-xs leading-relaxed text-ink mb-6">
               <p className="font-bold text-ink">Application disclosure</p>
               <p className="mt-1.5 text-muted-text">
                 SmallBizLoans helps business owners submit funding applications to Mom &amp; Pop
@@ -562,7 +562,7 @@ function ApplyPage() {
             </div>
 
             {/* Workspace Card wrapper */}
-            <div className="card-premium p-6 sm:p-8 rounded">
+            <div className="p-6 sm:p-8 rounded-xl border border-neutral-border/30 bg-white">
               <div className="border-b border-neutral-border/50 pb-4 mb-6">
                 <p className="text-xs text-muted-text flex items-center justify-between">
                   <span>

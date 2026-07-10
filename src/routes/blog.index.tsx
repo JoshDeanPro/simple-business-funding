@@ -131,7 +131,7 @@ function BlogPage() {
 
         {/* Articles List */}
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wider text-muted-text border-b border-neutral-border/50 pb-2 mb-6">
+          <h3 className="text-sm font-bold text-muted-text border-b border-neutral-border/50 pb-2 mb-6">
             {activeCategory === "All" ? "All publications" : `${activeCategory} articles`}
           </h3>
           

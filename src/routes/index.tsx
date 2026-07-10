@@ -206,7 +206,7 @@ function Index() {
 
           <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] items-stretch">
             {/* Featured Outcome card */}
-            <div className="card-premium p-6 sm:p-8 rounded-2xl flex flex-col justify-between">
+            <div className="p-6 sm:p-8 rounded-2xl border border-neutral-border/30 bg-white flex flex-col justify-between">
               <div>
                 <h3 className="text-lg sm:text-xl font-bold text-ink mb-3">
                   Managing inventory and operations
@@ -226,21 +226,21 @@ function Index() {
 
             {/* Side list stack */}
             <div className="space-y-4 flex flex-col justify-between">
-              <div className="card-premium p-5 rounded-2xl flex-1 flex flex-col justify-center">
+              <div className="p-5 rounded-2xl border border-neutral-border/30 bg-white flex-1 flex flex-col justify-center">
                 <h4 className="font-bold text-ink text-sm">Purchase required equipment</h4>
                 <p className="mt-1 text-xs text-muted-text leading-relaxed">
                   Acquire restaurant equipment, repair machinery, commercial vehicles, or IT
                   hardware to increase operational capacity.
                 </p>
               </div>
-              <div className="card-premium p-5 rounded-2xl flex-1 flex flex-col justify-center">
+              <div className="p-5 rounded-2xl border border-neutral-border/30 bg-white flex-1 flex flex-col justify-center">
                 <h4 className="font-bold text-ink text-sm">Create financial flexibility</h4>
                 <p className="mt-1 text-xs text-muted-text leading-relaxed">
                   Secure breathing room to cover rent, taxes, or utilities during historical slow
                   months or off-season periods.
                 </p>
               </div>
-              <div className="card-premium p-5 rounded-2xl flex-1 flex flex-col justify-center">
+              <div className="p-5 rounded-2xl border border-neutral-border/30 bg-white flex-1 flex flex-col justify-center">
                 <h4 className="font-bold text-ink text-sm">Invest in client expansion</h4>
                 <p className="mt-1 text-xs text-muted-text leading-relaxed">
                   Finance initial raw materials, hire short-term contractors, or expand capacity to
@@ -380,7 +380,7 @@ function Index() {
 
       {/* 7. Human Contact Assistance */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="card-premium bg-soft-aqua/10 p-6 sm:p-8 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-8">
+        <div className="bg-soft-aqua/10 p-6 sm:p-8 rounded-2xl border border-neutral-border/30 flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="space-y-2 max-w-xl">
             <h3 className="text-lg font-bold text-ink">Need assistance preparing your file?</h3>
             <p className="text-xs text-muted-text leading-relaxed">

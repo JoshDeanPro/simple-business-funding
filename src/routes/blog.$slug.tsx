@@ -139,7 +139,7 @@ function BlogArticlePage() {
           {/* Left Column - Sticky Table of Contents */}
           <aside className="hidden lg:block lg:sticky lg:top-24 space-y-6">
             <div className="border-l border-neutral-border/50 pl-4 space-y-3 text-xs">
-              <span className="block font-bold text-ink uppercase tracking-wider mb-2">
+              <span className="block font-bold text-ink mb-2">
                 On this page
               </span>
               {post.sections.map((section) => {

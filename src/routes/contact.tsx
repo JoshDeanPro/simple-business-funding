@@ -194,7 +194,7 @@ function ContactPage() {
           </div>
 
           {/* Simple Contact Form */}
-          <div className="card-premium p-6 sm:p-8 rounded-2xl">
+          <div className="p-6 sm:p-8 rounded-2xl border border-neutral-border/30 bg-white">
             <h2 className="text-base font-bold text-ink border-b border-neutral-border/50 pb-2 mb-4">
               Send a Message
             </h2>

@@ -119,8 +119,8 @@ function FaqPage() {
         <div className="grid gap-8 lg:grid-cols-[200px_1fr] items-start">
           {/* Sticky left navigation rail */}
           <aside className="space-y-6 lg:sticky lg:top-24">
-            <div className="hidden lg:block card-premium p-4 rounded text-xs">
-              <h3 className="sm:text-sm font-bold text-ink mb-3 border-b border-neutral-border/50 pb-2">
+            <div className="hidden lg:block border-l border-neutral-border/50 pl-4 text-xs">
+              <h3 className="sm:text-sm font-bold text-ink mb-3">
                 Help categories
               </h3>
               <ul className="space-y-2.5">
@@ -141,12 +141,12 @@ function FaqPage() {
             </div>
 
             {/* Support Desk Card */}
-            <div className="card-premium p-4 rounded text-xs">
+            <div className="border-l border-neutral-border/50 pl-4 text-xs">
               <h4 className="sm:text-sm font-bold text-ink mb-2">Still need help?</h4>
               <p className="text-muted-text leading-relaxed">
                 Connect directly with our file representative desk for assistance.
               </p>
-              <div className="mt-4 space-y-2.5 bg-cloud p-3 rounded border border-neutral-border/40">
+              <div className="mt-4 space-y-2.5">
                 <div>
                   <span className="block text-[11px] font-bold text-muted-text">Call Support</span>
                   <a
