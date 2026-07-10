@@ -57,8 +57,8 @@
   --accent-foreground: #101410;
   --destructive: #b42318;
   --destructive-foreground: #ffffff;
-  --border: #c8d0c8;
-  --input: #aeb8ae;
+  --border: transparent;
+  --input: transparent;
   --ring: #00ff00;
   --brand: #00ff00;
   --brand-foreground: #000000;
