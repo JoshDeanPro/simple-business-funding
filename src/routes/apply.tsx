@@ -15,8 +15,54 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { emailRow, sendLeadEmail } from "@/lib/email.server";
 
 export const Route = createFileRoute("/apply")({
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
+        const body = (await request.json()) as {
+          form?: Record<string, unknown>;
+          files?: Record<string, string[]>;
+        };
+        const form = body.form || {};
+        if (!String(form.legalName || "").trim() || !String(form.email || "").trim()) {
+          return Response.json({ error: "Business name and email are required." }, { status: 400 });
+        }
+        try {
+          const fields = [
+            "legalName",
+            "primaryContact",
+            "email",
+            "bizPhone",
+            "amountRequested",
+            "ownershipType",
+            "merchantType",
+            "avgGrossSales",
+            "avgCardSales",
+          ];
+          const rows = fields.map((field) => emailRow(field, form[field]));
+          const files = body.files || {};
+          rows.push(
+            emailRow(
+              "Uploaded files",
+              Object.entries(files)
+                .map(([key, values]) => `${key}: ${values.join(", ") || "none"}`)
+                .join(" | "),
+            ),
+          );
+          await sendLeadEmail(`New funding application from ${form.legalName}`, rows);
+          return Response.json({ success: true });
+        } catch (error) {
+          console.error(error);
+          return Response.json(
+            { error: "We could not submit your application. Please try again shortly." },
+            { status: 500 },
+          );
+        }
+      },
+    },
+  },
   head: () => ({
     meta: [
       { title: "Apply — Smallbizloanz" },
@@ -154,11 +200,27 @@ function ApplyPage() {
     }
     setError(null);
     setSubmitting(true);
-    // No backend wired here. Simulate secure submission.
-    await new Promise((r) => setTimeout(r, 900));
-    setSubmitting(false);
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    try {
+      const response = await fetch("/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form,
+          files: {
+            bankStatements: bankStmts.map((file) => file.name),
+            contracts: contract.map((file) => file.name),
+            supporting: supporting.map((file) => file.name),
+          },
+        }),
+      });
+      if (!response.ok) throw new Error("Application submission failed");
+      setSubmitting(false);
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setSubmitting(false);
+      setError("We could not submit your application. Please try again or contact us directly.");
+    }
   }
 
   if (submitted) {
@@ -171,8 +233,7 @@ function ApplyPage() {
           <h1 className="mt-6 text-4xl font-bold tracking-tight">Application Received</h1>
           <p className="mt-4 text-muted-foreground">
             Thank you. Your application has been submitted successfully. A representative will
-            review your information and contact you regarding the next steps. A confirmation email
-            will follow shortly.
+            review your information and contact you regarding the next steps.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button
@@ -193,16 +254,6 @@ function ApplyPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
-        <div className="mb-8 flex items-center gap-4 rounded-2xl border border-border bg-surface p-3 sm:gap-5 sm:p-4">
-          <img
-            src="/images/blog-cash-flow.png"
-            alt="Small-business owner reviewing financial notes"
-            className="h-20 w-24 rounded-xl object-cover sm:h-24 sm:w-32"
-          />
-          <p className="text-sm text-muted-foreground">
-            A clear application helps us understand your business and find the right next step.
-          </p>
-        </div>
         <div className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Business Funding Application
@@ -211,6 +262,9 @@ function ApplyPage() {
             Step {step + 1} of {steps.length} — {steps[step]}. Fields marked{" "}
             <span className="text-destructive">*</span> are required.
           </p>
+          <Link to="/faq" className="mt-2 inline-flex text-sm font-medium text-brand hover:underline">
+            Have questions? Read the FAQ.
+          </Link>
           <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-muted">
             <div
               className="h-full rounded-full bg-brand transition-all"

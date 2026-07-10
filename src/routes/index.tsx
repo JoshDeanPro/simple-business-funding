@@ -1,19 +1,49 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  FileText,
-  ClipboardCheck,
-  PhoneCall,
-  CheckCircle2,
   Building2,
+  CheckCircle2,
+  ClipboardCheck,
   Clock,
-  Layers,
+  FileText,
   Landmark,
+  Layers,
+  PhoneCall,
 } from "lucide-react";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
+import {
+  organizationSchema,
+  pageHead,
+  toJsonLd,
+  webpageSchema,
+  websiteSchema,
+} from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    ...pageHead({
+      title: "Small Business Loans and Business Funding | Smallbizloanz",
+      description:
+        "Apply online for small-business funding with a clear review process, six months of recent business bank statements, and straightforward contact options.",
+      path: "/",
+      imageAlt: "Smallbizloanz small business loans and business funding",
+    }),
+    meta: [
+      { name: "theme-color", content: "#f9fafb" },
+      toJsonLd(organizationSchema()),
+      toJsonLd(websiteSchema("/")),
+      toJsonLd(
+        webpageSchema({
+          title: "Small Business Loans and Business Funding",
+          description:
+            "Apply online for small-business funding with a clear review process and straightforward contact options.",
+          path: "/",
+          breadcrumbs: [{ name: "Home", path: "/" }],
+        }),
+      ),
+    ],
+  }),
   component: Index,
 });
 
@@ -21,12 +51,12 @@ const benefits = [
   {
     icon: ClipboardCheck,
     title: "Simple application",
-    desc: "A short online form — no lengthy paperwork or in-person visits.",
+    desc: "A short online form with clear steps and no in-person visit required.",
   },
   {
     icon: FileText,
-    title: "Minimal paperwork",
-    desc: "Six months of recent business bank statements is usually all we need.",
+    title: "Focused documentation",
+    desc: "Six months of recent business bank statements is generally the main upload request.",
   },
   {
     icon: Layers,
@@ -35,13 +65,13 @@ const benefits = [
   },
   {
     icon: Clock,
-    title: "Fast review",
-    desc: "Applications are reviewed promptly and you'll hear back from a real person.",
+    title: "Clear review process",
+    desc: "Applications are reviewed based on the information and documents you submit.",
   },
   {
     icon: Building2,
     title: "Traditional & nontraditional",
-    desc: "We work with retail, restaurants, service businesses, home-based, and more.",
+    desc: "We work with retail, restaurants, service businesses, home-based businesses, and more.",
   },
   {
     icon: Landmark,
@@ -54,7 +84,7 @@ const steps = [
   {
     n: "01",
     title: "Complete the online application",
-    desc: "Tell us about your business and how much funding you're looking for.",
+    desc: "Tell us about your business, the funding request, and basic contact information.",
   },
   {
     n: "02",
@@ -64,23 +94,23 @@ const steps = [
   {
     n: "03",
     title: "Talk with a representative",
-    desc: "A representative reviews your application and contacts you regarding next steps.",
+    desc: "A representative reviews the submission and follows up about next steps.",
   },
 ];
 
 function Index() {
   return (
     <SiteLayout>
-      {/* Hero */}
       <section className="relative overflow-hidden bg-surface">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:py-24">
           <div className="relative z-10 flex flex-col justify-center">
             <h1 className="max-w-xl text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
-              Small Business Loans <span className="text-brand">Made Simple</span>
+              Small Business Loans and <span className="text-brand">Business Funding</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">
-              Access business funding through a straightforward application process with minimal
-              paperwork.
+              Smallbizloanz helps eligible small businesses apply online for funding through a
+              straightforward review process. Six months of recent business bank statements are
+              generally required, and approval is not guaranteed.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button
@@ -96,30 +126,42 @@ function Index() {
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
-            <p className="mt-5 text-xs text-muted-foreground">
-              Six months of recent business bank statements required.
-            </p>
+            <div className="mt-6 grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
+              <p>Business funding for eligible small businesses.</p>
+              <p>Review based on submitted business and financial information.</p>
+              <p>Six months of recent business bank statements may be required.</p>
+              <p>No guarantee of approval or funding.</p>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4 text-sm font-medium">
+              <Link to="/faq" className="text-brand hover:underline">
+                Read business funding FAQs
+              </Link>
+              <Link to="/blog" className="text-brand hover:underline">
+                Browse funding resources
+              </Link>
+              <Link to="/contact" className="text-brand hover:underline">
+                Contact Smallbizloanz
+              </Link>
+            </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-primary shadow-2xl shadow-primary/10 sm:aspect-[16/10]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-primary shadow-lg shadow-primary/10 sm:aspect-[16/10]">
             <img
-              src="/images/hero-business-funding.png"
+              src="/images/stock/hero.jpg"
               alt="Small-business owner reviewing plans with a funding advisor in a bakery"
-              className="absolute inset-0 h-full w-full object-cover object-right"
+              className="absolute inset-0 h-full w-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/25 via-transparent to-transparent" />
           </div>
         </div>
       </section>
 
-      {/* Benefits */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Funding built around your business
+            Business funding for eligible small businesses
           </h2>
           <p className="mt-3 text-muted-foreground">
-            We focus on making funding accessible for the businesses that traditional lenders often
-            overlook.
+            We keep the process straightforward so business owners can understand what is
+            requested, what will be reviewed, and what happens next.
           </p>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -138,13 +180,12 @@ function Index() {
         </div>
       </section>
 
-      {/* How it works */}
       <section className="bg-surface">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">How it works</h2>
             <p className="mt-3 text-muted-foreground">
-              Three simple steps from application to a conversation with a representative.
+              Three simple steps from online application to a conversation with a representative.
             </p>
           </div>
           <ol className="mt-10 grid gap-6 md:grid-cols-3">
@@ -170,14 +211,13 @@ function Index() {
         </div>
       </section>
 
-      {/* Requirements strip */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="grid gap-10 rounded-3xl border border-border bg-card p-8 md:grid-cols-2 md:p-12">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">What you'll need</h2>
             <p className="mt-3 text-muted-foreground">
-              We keep documentation light. The application itself takes most applicants under 15
-              minutes.
+              We keep documentation focused on the information that helps us review the request.
+              The application itself takes most applicants under 15 minutes.
             </p>
             <ul className="mt-6 space-y-3 text-sm">
               {[
@@ -185,6 +225,7 @@ function Index() {
                 "Six months of recent business bank statements",
                 "Original funding contract (only if you have an existing balance)",
                 "Any optional supporting documents you'd like to include",
+                "A clear way to contact your business if we have questions",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
@@ -192,6 +233,10 @@ function Index() {
                 </li>
               ))}
             </ul>
+            <p className="mt-6 text-sm text-muted-foreground">
+              If you need help before you start, use the contact options below or read the FAQ
+              page for a quick overview of the process.
+            </p>
           </div>
           <div className="rounded-2xl bg-primary p-8 text-primary-foreground md:p-10">
             <PhoneCall className="h-6 w-6 opacity-80" />

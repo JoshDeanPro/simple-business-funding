@@ -58,11 +58,6 @@ function FaqPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
-        <img
-          src="/images/blog-business-growth.png"
-          alt="Business owner reviewing plans in a workshop"
-          className="mb-10 h-56 w-full rounded-3xl object-cover object-center sm:h-72"
-        />
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           Frequently asked questions
         </h1>
@@ -71,21 +66,17 @@ function FaqPage() {
           happy to help.
         </p>
 
-        <Accordion
-          type="single"
-          collapsible
-          className="mt-10 rounded-2xl border border-border bg-card px-2"
-        >
+        <Accordion type="single" collapsible className="mt-10 border-y border-border">
           {faqs.map((f, i) => (
             <AccordionItem
               key={i}
               value={`item-${i}`}
               className="border-b border-border last:border-b-0"
             >
-              <AccordionTrigger className="px-4 text-left text-base font-medium hover:no-underline">
+              <AccordionTrigger className="px-0 text-left text-base font-medium hover:no-underline">
                 {f.q}
               </AccordionTrigger>
-              <AccordionContent className="px-4 text-sm text-muted-foreground">
+              <AccordionContent className="px-0 text-sm text-muted-foreground">
                 {f.a}
               </AccordionContent>
             </AccordionItem>
