@@ -21,29 +21,32 @@ import {
 } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    ...pageHead({
+  head: () => {
+    const seo = pageHead({
       title: "Small Business Loans and Business Funding | Smallbizloanz",
       description:
         "Apply online for small-business funding with a clear review process, six months of recent business bank statements, and straightforward contact options.",
       path: "/",
       imageAlt: "Smallbizloanz small business loans and business funding",
-    }),
-    meta: [{ name: "theme-color", content: "#f9fafb" }],
-    scripts: [
-      toJsonLd(organizationSchema()),
-      toJsonLd(websiteSchema("/")),
-      toJsonLd(
-        webpageSchema({
-          title: "Small Business Loans and Business Funding",
-          description:
-            "Apply online for small-business funding with a clear review process and straightforward contact options.",
-          path: "/",
-          breadcrumbs: [{ name: "Home", path: "/" }],
-        }),
-      ),
-    ],
-  }),
+    });
+    return {
+      ...seo,
+      meta: [...seo.meta, { name: "theme-color", content: "#f9fafb" }],
+      scripts: [
+        toJsonLd(organizationSchema()),
+        toJsonLd(websiteSchema()),
+        toJsonLd(
+          webpageSchema({
+            title: "Small Business Loans and Business Funding",
+            description:
+              "Apply online for small-business funding with a clear review process and straightforward contact options.",
+            path: "/",
+            breadcrumbs: [{ name: "Home", path: "/" }],
+          }),
+        ),
+      ],
+    };
+  },
   component: Index,
 });
 
@@ -102,12 +105,18 @@ function Index() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden bg-surface">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
+        <div className="absolute right-[-6rem] top-16 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:py-24">
           <div className="relative z-10 flex flex-col justify-center">
-            <h1 className="max-w-xl text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+              Business funding application
+            </p>
+            <h1 className="mt-4 max-w-xl text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               Small Business Loans and <span className="text-brand">Business Funding</span>
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">
+            <p className="mt-5 max-w-lg text-lg leading-8 text-muted-foreground">
               Smallbizloanz helps eligible small businesses apply online for funding through a
               straightforward review process. Six months of recent business bank statements are
               generally required, and approval is not guaranteed.
@@ -126,11 +135,23 @@ function Index() {
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
-            <div className="mt-6 grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
-              <p>Business funding for eligible small businesses.</p>
-              <p>Review based on submitted business and financial information.</p>
-              <p>Six months of recent business bank statements may be required.</p>
-              <p>No guarantee of approval or funding.</p>
+            <div className="mt-8 grid gap-3 rounded-3xl border border-border/70 bg-background/80 p-5 text-sm text-muted-foreground shadow-sm backdrop-blur sm:grid-cols-2">
+              <p className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                Business funding for eligible small businesses.
+              </p>
+              <p className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                Review based on submitted business and financial information.
+              </p>
+              <p className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                Six months of recent business bank statements may be required.
+              </p>
+              <p className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                No guarantee of approval or funding.
+              </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 text-sm font-medium">
               <Link to="/faq" className="text-brand hover:underline">

@@ -4,4 +4,11 @@
   "compatibility_date": "2026-07-10",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "destination_address": "jnyco@icloud.com",
+      "allowed_sender_addresses": ["lizzy.alemayehu@smallbizloanz.com"]
+    }
+  ]
 }

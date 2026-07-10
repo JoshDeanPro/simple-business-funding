@@ -3,26 +3,29 @@ import { SiteLayout } from "@/components/site-layout";
 import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    ...pageHead({
+  head: () => {
+    const seo = pageHead({
       title: "Privacy Policy | Smallbizloanz",
       description: "Privacy policy for Smallbizloanz.com.",
       path: "/privacy",
-    }),
-    scripts: [
-      toJsonLd(
-        webpageSchema({
-          title: "Privacy Policy",
-          description: "Privacy policy for Smallbizloanz.com.",
-          path: "/privacy",
-          breadcrumbs: [
-            { name: "Home", path: "/" },
-            { name: "Privacy Policy", path: "/privacy" },
-          ],
-        }),
-      ),
-    ],
-  }),
+    });
+    return {
+      ...seo,
+      scripts: [
+        toJsonLd(
+          webpageSchema({
+            title: "Privacy Policy",
+            description: "Privacy policy for Smallbizloanz.com.",
+            path: "/privacy",
+            breadcrumbs: [
+              { name: "Home", path: "/" },
+              { name: "Privacy Policy", path: "/privacy" },
+            ],
+          }),
+        ),
+      ],
+    };
+  },
   component: () => (
     <SiteLayout>
       <article className="prose mx-auto max-w-3xl px-4 pb-20 pt-16 sm:px-6 sm:pt-20">

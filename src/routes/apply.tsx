@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2, ChevronLeft, ChevronRight, Info, Upload, X } from "lucide-react";
-import { useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useMemo, useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -67,7 +67,7 @@ const fieldIds = {
 
 const steps = ["Business", "Ownership", "Profile", "Funding", "Documents", "Sign & submit"] as const;
 const ACCEPTED = ".pdf,.jpg,.jpeg,.png";
-const MAX_MB = 15;
+const MAX_MB = 5;
 
 export const Route = createFileRoute("/apply")({
   server: {
@@ -223,28 +223,31 @@ export const Route = createFileRoute("/apply")({
       },
     },
   },
-  head: () => ({
-    ...pageHead({
+  head: () => {
+    const seo = pageHead({
       title: "Apply for Small Business Funding | Smallbizloanz",
       description:
         "Apply online for small-business funding. The application requests business details, ownership information, and recent business bank statements.",
       path: "/apply",
-    }),
-    meta: [
-      toJsonLd(
-        webpageSchema({
-          title: "Apply for Small Business Funding",
-          description:
-            "Apply online for small-business funding. The application requests business details, ownership information, and recent business bank statements.",
-          path: "/apply",
-          breadcrumbs: [
-            { name: "Home", path: "/" },
-            { name: "Apply", path: "/apply" },
-          ],
-        }),
-      ),
-    ],
-  }),
+    });
+    return {
+      ...seo,
+      scripts: [
+        toJsonLd(
+          webpageSchema({
+            title: "Apply for Small Business Funding",
+            description:
+              "Apply online for small-business funding. The application requests business details, ownership information, and recent business bank statements.",
+            path: "/apply",
+            breadcrumbs: [
+              { name: "Home", path: "/" },
+              { name: "Apply", path: "/apply" },
+            ],
+          }),
+        ),
+      ],
+    };
+  },
   component: ApplyPage,
 });
 
@@ -1119,11 +1122,11 @@ function ApplyPage() {
   );
 }
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function SectionTitle({ children }: { children: ReactNode }) {
   return <h2 className="text-xl font-semibold">{children}</h2>;
 }
 
-function Note({ children }: { children: React.ReactNode }) {
+function Note({ children }: { children: ReactNode }) {
   return (
     <div className="flex items-start gap-2 rounded-lg border border-brand/20 bg-brand/5 p-3 text-sm text-foreground">
       <Info className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
@@ -1150,7 +1153,7 @@ function Field({
   required?: boolean;
   type?: string;
   autoComplete?: string;
-  inputMode?: ChangeEvent<HTMLInputElement>["target"]["inputMode"];
+  inputMode?: "search" | "text" | "none" | "tel" | "url" | "email" | "numeric" | "decimal";
   error?: string;
 }) {
   return (
@@ -1283,14 +1286,11 @@ function FileField({
 
 async function collectAttachments(formData: FormData) {
   const attachments: Array<{ filename: string; content: string; contentType?: string }> = [];
-  const include = (key: string) => {
+  const include = async (key: string) => {
     for (const value of formData.getAll(key)) {
       if (!(value instanceof File) || value.size === 0) continue;
-      attachments.push({
-        filename: value.name,
-        content: Buffer.from(awaitFile(value)).toString("base64"),
-        contentType: value.type || "application/octet-stream",
-      });
+      const content = Buffer.from(await value.arrayBuffer()).toString("base64");
+      attachments.push({ filename: value.name, content, contentType: value.type || undefined });
     }
   };
 
@@ -1298,10 +1298,6 @@ async function collectAttachments(formData: FormData) {
   await include("contract");
   await include("supporting");
   return attachments;
-}
-
-async function awaitFile(file: File) {
-  return await file.arrayBuffer();
 }
 
 function initialForm() {

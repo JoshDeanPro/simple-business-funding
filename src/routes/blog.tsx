@@ -5,28 +5,31 @@ import { blogPosts } from "@/lib/blog-posts";
 import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog")({
-  head: () => ({
-    ...pageHead({
+  head: () => {
+    const seo = pageHead({
       title: "Small Business Funding Resources | Smallbizloanz",
       description:
         "Practical guidance on business funding, bank statements, application documents, and reviewing funding terms.",
       path: "/blog",
-    }),
-    scripts: [
-      toJsonLd(
-        webpageSchema({
-          title: "Small Business Funding Resources",
-          description:
-            "Practical guidance on business funding, bank statements, application documents, and reviewing funding terms.",
-          path: "/blog",
-          breadcrumbs: [
-            { name: "Home", path: "/" },
-            { name: "Resources", path: "/blog" },
-          ],
-        }),
-      ),
-    ],
-  }),
+    });
+    return {
+      ...seo,
+      scripts: [
+        toJsonLd(
+          webpageSchema({
+            title: "Small Business Funding Resources",
+            description:
+              "Practical guidance on business funding, bank statements, application documents, and reviewing funding terms.",
+            path: "/blog",
+            breadcrumbs: [
+              { name: "Home", path: "/" },
+              { name: "Resources", path: "/blog" },
+            ],
+          }),
+        ),
+      ],
+    };
+  },
   component: BlogPage,
 });
 
@@ -115,12 +118,4 @@ function BlogPage() {
       </section>
     </SiteLayout>
   );
-}
-
-function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(value));
 }

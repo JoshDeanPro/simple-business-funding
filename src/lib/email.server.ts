@@ -1,4 +1,7 @@
-const destination = () => process.env.LEAD_EMAIL || "jnyco@icloud.com";
+import { env } from "cloudflare:workers";
+
+const destination = "jnyco@icloud.com";
+const sender = "lizzy.alemayehu@smallbizloanz.com";
 
 function escapeHtml(value: unknown) {
   return String(value ?? "")
@@ -25,19 +28,19 @@ export async function sendLeadEmail(
   message?: string,
   attachments: EmailAttachment[] = [],
 ) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) throw new Error("RESEND_API_KEY is not configured");
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: "Smallbizloanz <onboarding@resend.dev>",
-      to: [destination()],
-      subject,
-      html: `<div style="font-family:Arial,sans-serif;color:#172033"><h2>${escapeHtml(subject)}</h2><table>${rows.join("")}</table>${message ? `<p style="margin-top:20px;white-space:pre-wrap">${escapeHtml(message)}</p>` : ""}</div>`,
-      attachments: attachments.length > 0 ? attachments : undefined,
-    }),
+  await env.EMAIL.send({
+    from: sender,
+    to: destination,
+    subject,
+    text: [subject, message, rows.join("\n")].filter(Boolean).join("\n\n"),
+    html: `<div style="font-family:Arial,sans-serif;color:#172033"><h2>${escapeHtml(subject)}</h2><table>${rows.join("")}</table>${message ? `<p style="margin-top:20px;white-space:pre-wrap">${escapeHtml(message)}</p>` : ""}</div>`,
+    attachments: attachments.length > 0
+      ? attachments.map(({ filename, content, contentType }) => ({
+          filename,
+          content,
+          type: contentType || "application/octet-stream",
+          disposition: "attachment" as const,
+        }))
+      : undefined,
   });
-  if (!response.ok)
-    throw new Error(`Email provider rejected the request: ${await response.text()}`);
 }

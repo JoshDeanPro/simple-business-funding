@@ -69,7 +69,7 @@ export function organizationSchema() {
   };
 }
 
-export function websiteSchema(path = "/") {
+export function websiteSchema() {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -77,11 +77,6 @@ export function websiteSchema(path = "/") {
         "@type": "WebSite",
         name: SITE_NAME,
         url: SITE_URL,
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${SITE_URL}${path === "/" ? "" : path}?q={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
       },
     ],
   };
@@ -185,5 +180,8 @@ export function breadcrumbSchema(items: BreadcrumbItem[], path: string) {
 }
 
 export function toJsonLd(value: Record<string, unknown>) {
-  return { type: "application/ld+json", children: JSON.stringify(value) };
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify(value),
+  };
 }

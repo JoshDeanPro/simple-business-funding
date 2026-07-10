@@ -10,28 +10,31 @@ import { Button } from "@/components/ui/button";
 import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/faq")({
-  head: () => ({
-    ...pageHead({
+  head: () => {
+    const seo = pageHead({
       title: "Small Business Loan and Funding FAQ | Smallbizloanz",
       description:
         "Answers to common questions about applying for small-business funding, bank statements, review timing, and application support.",
       path: "/faq",
-    }),
-    scripts: [
-      toJsonLd(
-        webpageSchema({
-          title: "Small Business Loan and Funding FAQ",
-          description:
-            "Answers to common questions about applying for small-business funding, bank statements, review timing, and application support.",
-          path: "/faq",
-          breadcrumbs: [
-            { name: "Home", path: "/" },
-            { name: "FAQ", path: "/faq" },
-          ],
-        }),
-      ),
-    ],
-  }),
+    });
+    return {
+      ...seo,
+      scripts: [
+        toJsonLd(
+          webpageSchema({
+            title: "Small Business Loan and Funding FAQ",
+            description:
+              "Answers to common questions about applying for small-business funding, bank statements, review timing, and application support.",
+            path: "/faq",
+            breadcrumbs: [
+              { name: "Home", path: "/" },
+              { name: "FAQ", path: "/faq" },
+            ],
+          }),
+        ),
+      ],
+    };
+  },
   component: FaqPage,
 });
 

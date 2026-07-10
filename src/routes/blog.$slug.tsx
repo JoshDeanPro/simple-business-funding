@@ -15,13 +15,15 @@ export const Route = createFileRoute("/blog/$slug")({
       });
     }
 
+    const seo = pageHead({
+      title: `${post.title} | Smallbizloanz`,
+      description: post.intro,
+      path: `/blog/${post.slug}`,
+      type: "article",
+    });
+
     return {
-      ...pageHead({
-        title: `${post.title} | Smallbizloanz`,
-        description: post.intro,
-        path: `/blog/${post.slug}`,
-        type: "article",
-      }),
+      ...seo,
       scripts: [
         toJsonLd(
           webpageSchema({
@@ -33,7 +35,6 @@ export const Route = createFileRoute("/blog/$slug")({
               { name: "Resources", path: "/blog" },
               { name: post.title, path: `/blog/${post.slug}` },
             ],
-            type: "Article",
           }),
         ),
         toJsonLd(
@@ -42,6 +43,8 @@ export const Route = createFileRoute("/blog/$slug")({
             description: post.intro,
             path: `/blog/${post.slug}`,
             image: post.image,
+            updatedAt: post.updatedAt,
+            publishedAt: post.publishedAt,
             section: post.category,
           }),
         ),
@@ -177,12 +180,4 @@ function BlogArticlePage() {
       </article>
     </SiteLayout>
   );
-}
-
-function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(value));
 }

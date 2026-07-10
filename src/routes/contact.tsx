@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, Mail, Phone } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { emailRow, sendLeadEmail } from "@/lib/email.server";
+import { claimSubmission, releaseSubmission } from "@/lib/submission-guard";
 import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
@@ -19,8 +20,29 @@ export const Route = createFileRoute("/contact")({
           email?: string;
           phone?: string;
           message?: string;
+          submissionId?: string;
         };
+        const submissionId = body.submissionId?.trim();
+        if (!submissionId) {
+          return Response.json(
+            { error: "Missing submission token." },
+            {
+              status: 400,
+              headers: { "X-Robots-Tag": "noindex, nofollow" },
+            },
+          );
+        }
+        if (!claimSubmission(submissionId)) {
+          return Response.json(
+            { error: "This message was already submitted. Please refresh and try again." },
+            {
+              status: 409,
+              headers: { "X-Robots-Tag": "noindex, nofollow" },
+            },
+          );
+        }
         if (!body.name?.trim() || !body.email?.trim() || !body.message?.trim()) {
+          releaseSubmission(submissionId);
           return Response.json(
             { error: "Name, email, and message are required." },
             {
@@ -45,6 +67,7 @@ export const Route = createFileRoute("/contact")({
             { headers: { "X-Robots-Tag": "noindex, nofollow" } },
           );
         } catch (error) {
+          releaseSubmission(submissionId);
           console.error(error);
           return Response.json(
             { error: "We could not send your message. Please try again shortly." },
@@ -57,35 +80,39 @@ export const Route = createFileRoute("/contact")({
       },
     },
   },
-  head: () => ({
-    ...pageHead({
+  head: () => {
+    const seo = pageHead({
       title: "Contact Smallbizloanz | Business Funding Assistance",
       description:
         "Contact Smallbizloanz by phone, email, or the contact form for help with business funding questions and applications.",
       path: "/contact",
-    }),
-    scripts: [
-      toJsonLd(
-        webpageSchema({
-          title: "Contact Smallbizloanz",
-          description:
-            "Contact Smallbizloanz by phone, email, or the contact form for help with business funding questions and applications.",
-          path: "/contact",
-          breadcrumbs: [
-            { name: "Home", path: "/" },
-            { name: "Contact", path: "/contact" },
-          ],
-        }),
-      ),
-    ],
-  }),
+    });
+    return {
+      ...seo,
+      scripts: [
+        toJsonLd(
+          webpageSchema({
+            title: "Contact Smallbizloanz",
+            description:
+              "Contact Smallbizloanz by phone, email, or the contact form for help with business funding questions and applications.",
+            path: "/contact",
+            breadcrumbs: [
+              { name: "Home", path: "/" },
+              { name: "Contact", path: "/contact" },
+            ],
+          }),
+        ),
+      ],
+    };
+  },
   component: ContactPage,
 });
 
 function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const submissionId = useRef(crypto.randomUUID());
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     try {
@@ -93,7 +120,7 @@ function ContactPage() {
       const response = await fetch("/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(form.entries())),
+        body: JSON.stringify({ ...Object.fromEntries(form.entries()), submissionId: submissionId.current }),
       });
       if (!response.ok) throw new Error("Contact form submission failed");
       setStatus("sent");
@@ -166,6 +193,7 @@ function ContactPage() {
               </div>
             ) : (
               <form onSubmit={onSubmit} className="mt-6 space-y-4">
+                <input type="hidden" name="submissionId" value={submissionId.current} readOnly />
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field id="name" label="Name" required autoComplete="name" />
                   <Field id="business" label="Business name" autoComplete="organization" />

@@ -3,26 +3,29 @@ import { SiteLayout } from "@/components/site-layout";
 import { pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/terms")({
-  head: () => ({
-    ...pageHead({
+  head: () => {
+    const seo = pageHead({
       title: "Terms of Use | Smallbizloanz",
       description: "Terms of use for Smallbizloanz.com.",
       path: "/terms",
-    }),
-    scripts: [
-      toJsonLd(
-        webpageSchema({
-          title: "Terms of Use",
-          description: "Terms of use for Smallbizloanz.com.",
-          path: "/terms",
-          breadcrumbs: [
-            { name: "Home", path: "/" },
-            { name: "Terms of Use", path: "/terms" },
-          ],
-        }),
-      ),
-    ],
-  }),
+    });
+    return {
+      ...seo,
+      scripts: [
+        toJsonLd(
+          webpageSchema({
+            title: "Terms of Use",
+            description: "Terms of use for Smallbizloanz.com.",
+            path: "/terms",
+            breadcrumbs: [
+              { name: "Home", path: "/" },
+              { name: "Terms of Use", path: "/terms" },
+            ],
+          }),
+        ),
+      ],
+    };
+  },
   component: () => (
     <SiteLayout>
       <article className="mx-auto max-w-3xl px-4 pb-20 pt-16 sm:px-6 sm:pt-20">
