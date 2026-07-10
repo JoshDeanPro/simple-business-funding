@@ -1,13 +1,53 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Clock3 } from "lucide-react";
 import { SiteLayout } from "@/components/site-layout";
-import { getBlogPost } from "@/lib/blog-posts";
+import { blogPosts, getBlogPost } from "@/lib/blog-posts";
+import { articleSchema, pageHead, toJsonLd, webpageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
     const post = getBlogPost(params.slug);
+    if (!post) {
+      return pageHead({
+        title: "Article not found | Smallbizloanz",
+        description: "The requested article is not available.",
+        path: `/blog/${params.slug}`,
+      });
+    }
+
     return {
-      meta: [{ title: post ? `${post.title} — Smallbizloanz` : "Article — Smallbizloanz" }],
+      ...pageHead({
+        title: `${post.title} | Smallbizloanz`,
+        description: post.intro,
+        path: `/blog/${post.slug}`,
+        type: "article",
+      }),
+      meta: [
+        toJsonLd(
+          webpageSchema({
+            title: post.title,
+            description: post.intro,
+            path: `/blog/${post.slug}`,
+            breadcrumbs: [
+              { name: "Home", path: "/" },
+              { name: "Resources", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ],
+            type: "Article",
+          }),
+        ),
+        toJsonLd(
+          articleSchema({
+            title: post.title,
+            description: post.intro,
+            path: `/blog/${post.slug}`,
+            image: post.image,
+            updatedAt: post.updatedAt,
+            publishedAt: post.publishedAt,
+            section: post.category,
+          }),
+        ),
+      ],
     };
   },
   component: BlogArticlePage,
@@ -23,16 +63,29 @@ function BlogArticlePage() {
         <section className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6">
           <p className="text-sm font-semibold text-brand">Article not found</p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">That article is not available.</h1>
-          <Link
-            to="/blog"
-            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
-          >
-            <ArrowLeft className="h-4 w-4" /> Back to the journal
-          </Link>
+          <p className="mt-4 text-muted-foreground">
+            Try the resources page or go back to the home page.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:bg-brand/90"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back to resources
+            </Link>
+            <Link
+              to="/apply"
+              className="inline-flex items-center gap-2 rounded-full border border-input bg-background px-4 py-2 text-sm font-semibold text-foreground hover:bg-accent"
+            >
+              Apply
+            </Link>
+          </div>
         </section>
       </SiteLayout>
     );
   }
+
+  const related = blogPosts.filter((item) => item.slug !== slug).slice(0, 2);
 
   return (
     <SiteLayout>
@@ -41,23 +94,25 @@ function BlogArticlePage() {
           to="/blog"
           className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
         >
-          <ArrowLeft className="h-4 w-4" /> All articles
+          <ArrowLeft className="h-4 w-4" /> All resources
         </Link>
         <div className="mt-10 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-16">
           <div>
-            <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-brand">
+            <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-brand">
               <span>{post.category}</span>
               <span className="h-1 w-1 rounded-full bg-border" />
               <span className="inline-flex items-center gap-1 text-muted-foreground normal-case tracking-normal">
                 <Clock3 className="h-3.5 w-3.5" />
                 {post.readTime}
               </span>
+              <span className="normal-case tracking-normal text-muted-foreground">
+                Updated {formatDate(post.updatedAt)}
+              </span>
             </div>
             <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
               {post.title}
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">{post.intro}</p>
-            <p className="mt-6 text-sm text-muted-foreground">{post.date}</p>
           </div>
           <img
             src={post.image}
@@ -98,8 +153,41 @@ function BlogArticlePage() {
               </Link>
             </div>
           </div>
+
+          <div className="mt-12 border-t border-border pt-10">
+            <h2 className="text-2xl font-semibold tracking-tight">Related resources</h2>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+              {related.map((item) => (
+                <Link
+                  key={item.slug}
+                  to="/blog/$slug"
+                  params={{ slug: item.slug }}
+                  className="group rounded-2xl border border-border bg-card p-5 transition-shadow hover:shadow-sm"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
+                    {item.category}
+                  </p>
+                  <h3 className="mt-3 text-xl font-semibold leading-tight group-hover:text-brand">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.intro}</p>
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+                    Read article <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </article>
     </SiteLayout>
   );
+}
+
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(value));
 }

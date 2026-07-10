@@ -6,8 +6,47 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { emailRow, sendLeadEmail } from "@/lib/email.server";
 
 export const Route = createFileRoute("/contact")({
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
+        const body = (await request.json()) as {
+          name?: string;
+          business?: string;
+          email?: string;
+          phone?: string;
+          message?: string;
+        };
+        if (!body.name?.trim() || !body.email?.trim() || !body.message?.trim()) {
+          return Response.json(
+            { error: "Name, email, and message are required." },
+            { status: 400 },
+          );
+        }
+        try {
+          await sendLeadEmail(
+            `New contact request from ${body.name}`,
+            [
+              emailRow("Name", body.name),
+              emailRow("Business", body.business),
+              emailRow("Email", body.email),
+              emailRow("Phone", body.phone),
+            ],
+            body.message,
+          );
+          return Response.json({ success: true });
+        } catch (error) {
+          console.error(error);
+          return Response.json(
+            { error: "We could not send your message. Please try again shortly." },
+            { status: 500 },
+          );
+        }
+      },
+    },
+  },
   head: () => ({
     meta: [
       { title: "Contact — Smallbizloanz" },
@@ -31,24 +70,23 @@ function ContactPage() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
-    await new Promise((r) => setTimeout(r, 700));
-    setStatus("sent");
+    try {
+      const form = new FormData(e.currentTarget);
+      const response = await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(form.entries())),
+      });
+      if (!response.ok) throw new Error("Contact form submission failed");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
     <SiteLayout>
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
-        <div className="relative mb-12 h-56 overflow-hidden rounded-3xl sm:h-72">
-          <img
-            src="/images/hero-business-funding.png"
-            alt="Business owner and advisor planning together"
-            className="h-full w-full object-cover object-right"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/45 to-transparent" />
-          <p className="absolute inset-y-0 left-0 flex max-w-sm items-center px-8 text-2xl font-semibold text-primary-foreground sm:px-12 sm:text-3xl">
-            A real person is ready to help.
-          </p>
-        </div>
         <div className="grid gap-12 md:grid-cols-2">
           <div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact us</h1>

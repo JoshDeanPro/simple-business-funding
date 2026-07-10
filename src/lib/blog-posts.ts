@@ -2,8 +2,9 @@ export type BlogPost = {
   slug: string;
   title: string;
   category: string;
-  date: string;
   readTime: string;
+  publishedAt: string;
+  updatedAt: string;
   intro: string;
   image: string;
   alt: string;
@@ -15,12 +16,13 @@ export const blogPosts: BlogPost[] = [
     slug: "understanding-small-business-funding",
     title: "Understanding small business funding options",
     category: "Funding basics",
-    date: "June 12, 2026",
     readTime: "6 min read",
+    publishedAt: "2026-07-10",
+    updatedAt: "2026-07-10",
     intro:
       "The right funding is less about chasing the biggest number and more about choosing a structure your business can comfortably support.",
-    image: "/images/blog-business-basics.png",
-    alt: "Boutique owner opening her storefront",
+    image: "/images/stock/financials.jpg",
+    alt: "Small-business owner organizing financial materials at a desk",
     sections: [
       {
         heading: "Start with the job the money needs to do",
@@ -48,12 +50,13 @@ export const blogPosts: BlogPost[] = [
     slug: "how-bank-statements-are-reviewed",
     title: "How lenders review business bank statements",
     category: "Applications",
-    date: "May 28, 2026",
     readTime: "5 min read",
+    publishedAt: "2026-07-10",
+    updatedAt: "2026-07-10",
     intro:
       "Bank statements show the operating rhythm of a business. Here is what a review usually tries to understand from them.",
-    image: "/images/blog-cash-flow.png",
-    alt: "Restaurant owner reviewing cash-flow notes",
+    image: "/images/stock/retail.jpg",
+    alt: "Independent retail storefront with colorful displays",
     sections: [
       {
         heading: "Consistency matters",
@@ -81,12 +84,13 @@ export const blogPosts: BlogPost[] = [
     slug: "preparing-for-a-funding-review",
     title: "Preparing your business for a funding review",
     category: "Preparation",
-    date: "May 9, 2026",
     readTime: "4 min read",
+    publishedAt: "2026-07-10",
+    updatedAt: "2026-07-10",
     intro:
       "A few small preparation steps can make an application easier to complete and help a representative understand your business faster.",
-    image: "/images/blog-business-growth.png",
-    alt: "Contractor reviewing plans on a tablet",
+    image: "/images/stock/workshop.jpg",
+    alt: "Technician working in a modern workshop",
     sections: [
       {
         heading: "Gather the basics first",
