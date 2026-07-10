@@ -7,12 +7,6 @@ declare module "cloudflare:workers" {
         subject: string;
         text?: string;
         html?: string;
-        attachments?: Array<{
-          filename: string;
-          content: string;
-          type?: string;
-          disposition?: "attachment" | "inline";
-        }>;
       }): Promise<void>;
     };
   };

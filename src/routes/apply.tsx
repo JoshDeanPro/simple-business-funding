@@ -152,13 +152,6 @@ export const Route = createFileRoute("/apply")({
             { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
           );
         }
-        if (!formData.getAll("bankStatements").some((value) => value instanceof File)) {
-          releaseSubmission(submissionId);
-          return Response.json(
-            { error: "Please upload your six months of business bank statements." },
-            { status: 400, headers: { "X-Robots-Tag": "noindex, nofollow" } },
-          );
-        }
         if (text("consent") !== "true") {
           releaseSubmission(submissionId);
           return Response.json(
@@ -208,12 +201,11 @@ export const Route = createFileRoute("/apply")({
             emailRow("Current payment", text("currentPayment")),
           ];
 
-          const attachments = await collectAttachments(formData);
+          const fileRows = summarizeFiles(formData);
           await sendLeadEmail(
             `New funding application from ${legalName}`,
-            rows,
+            [...rows, ...fileRows],
             undefined,
-            attachments,
           );
           return Response.json(
             { success: true },
@@ -221,7 +213,7 @@ export const Route = createFileRoute("/apply")({
           );
         } catch (error) {
           releaseSubmission(submissionId);
-          console.error(error);
+          console.error("Application submission failed");
           return Response.json(
             { error: "We could not submit your application. Please try again shortly." },
             { status: 500, headers: { "X-Robots-Tag": "noindex, nofollow" } },
@@ -367,10 +359,7 @@ function ApplyPage() {
     }
 
     if (step === 4) {
-      if (bankStmts.length === 0) {
-        nextErrors[fieldIds.bankStatements] =
-          "Upload six months of recent business bank statements.";
-      }
+      // Documents are optional at submission and may be requested later.
     }
 
     if (step === 5) {
@@ -419,9 +408,9 @@ function ApplyPage() {
       for (const [key, value] of Object.entries(form)) {
         body.set(key, typeof value === "boolean" ? String(value) : value);
       }
-      bankStmts.forEach((file) => body.append("bankStatements", file));
-      contract.forEach((file) => body.append("contract", file));
-      supporting.forEach((file) => body.append("supporting", file));
+      body.set("bankStatementsNames", bankStmts.map((file) => file.name).join(", "));
+      body.set("contractNames", contract.map((file) => file.name).join(", "));
+      body.set("supportingNames", supporting.map((file) => file.name).join(", "));
 
       const response = await fetch("/apply", {
         method: "POST",
@@ -495,7 +484,7 @@ function ApplyPage() {
               </h2>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 <li>Basic business and ownership information</li>
-                <li>Recent business bank statements</li>
+                <li>Recent business bank statements may be requested during follow-up</li>
                 <li>A few uninterrupted minutes to complete the form</li>
               </ul>
             </div>
@@ -1030,14 +1019,17 @@ function ApplyPage() {
           {step === 4 && (
             <div className="mt-8 space-y-6">
               <SectionTitle>Documents</SectionTitle>
+              <Note>
+                Recent business bank statements may be requested during follow-up after your
+                application is reviewed.
+              </Note>
               <FileField
                 id={fieldIds.bankStatements}
-                label="Six months of recent business bank statements"
-                required
+                label="Recent business bank statements"
                 files={bankStmts}
                 setFiles={setBankStmts}
                 multiple
-                hint="PDF, JPG, JPEG, PNG - up to 15MB per file"
+                hint="Optional at submission - PDF, JPG, JPEG, PNG - up to 15MB per file"
                 error={fieldErrors[fieldIds.bankStatements]}
                 setError={(message) => setUploadError(fieldIds.bankStatements, message)}
               />
@@ -1047,6 +1039,7 @@ function ApplyPage() {
                 files={contract}
                 setFiles={setContract}
                 multiple
+                hint="Optional"
                 error={fieldErrors[fieldIds.contract]}
                 setError={(message) => setUploadError(fieldIds.contract, message)}
               />
@@ -1056,6 +1049,7 @@ function ApplyPage() {
                 files={supporting}
                 setFiles={setSupporting}
                 multiple
+                hint="Optional"
                 error={fieldErrors[fieldIds.supporting]}
                 setError={(message) => setUploadError(fieldIds.supporting, message)}
               />
@@ -1065,6 +1059,36 @@ function ApplyPage() {
           {step === 5 && (
             <div className="mt-8 space-y-5">
               <SectionTitle>Signature and authorization</SectionTitle>
+              <div className="rounded-xl bg-surface p-4 text-sm">
+                <p className="font-medium text-foreground">Review before you submit</p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  <KeyValue label="Business" value={form.legalName || "Not entered"} />
+                  <KeyValue label="Contact" value={form.primaryContact || "Not entered"} />
+                  <KeyValue
+                    label="Amount requested"
+                    value={form.amountRequested || "Not entered"}
+                  />
+                  <KeyValue label="Funding use" value={form.merchantType || "Not entered"} />
+                  <KeyValue
+                    label="Bank statements"
+                    value={
+                      bankStmts.length > 0
+                        ? `${bankStmts.length} file${bankStmts.length === 1 ? "" : "s"} selected`
+                        : "None selected"
+                    }
+                  />
+                  <KeyValue
+                    label="Supporting docs"
+                    value={
+                      supporting.length + contract.length > 0
+                        ? `${supporting.length + contract.length} file${
+                            supporting.length + contract.length === 1 ? "" : "s"
+                          } selected`
+                        : "None selected"
+                    }
+                  />
+                </div>
+              </div>
               <div className="rounded-xl border border-border bg-surface p-4 text-sm text-muted-foreground">
                 <p>By signing below, the applicant certifies that:</p>
                 <ul className="mt-2 list-disc space-y-1 pl-5">
@@ -1364,20 +1388,30 @@ function FileField({
   );
 }
 
-async function collectAttachments(formData: FormData) {
-  const attachments: Array<{ filename: string; content: string; contentType?: string }> = [];
-  const include = async (key: string) => {
-    for (const value of formData.getAll(key)) {
-      if (!(value instanceof File) || value.size === 0) continue;
-      const content = Buffer.from(await value.arrayBuffer()).toString("base64");
-      attachments.push({ filename: value.name, content, contentType: value.type || undefined });
-    }
-  };
+function summarizeFiles(formData: FormData) {
+  const lines: string[] = [];
+  for (const key of ["bankStatementsNames", "contractNames", "supportingNames"] as const) {
+    const value = String(formData.get(key) ?? "").trim();
+    lines.push(emailRow(formatFileLabel(key), value || "None"));
+  }
+  return lines;
+}
 
-  await include("bankStatements");
-  await include("contract");
-  await include("supporting");
-  return attachments;
+function formatFileLabel(key: "bankStatementsNames" | "contractNames" | "supportingNames") {
+  if (key === "bankStatementsNames") return "Bank statements";
+  if (key === "contractNames") return "Funding contract";
+  return "Supporting documents";
+}
+
+function KeyValue({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg bg-card px-3 py-2">
+      <div className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        {label}
+      </div>
+      <div className="mt-1 text-sm font-medium text-foreground">{value}</div>
+    </div>
+  );
 }
 
 function initialForm() {

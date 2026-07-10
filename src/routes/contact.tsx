@@ -68,7 +68,7 @@ export const Route = createFileRoute("/contact")({
           );
         } catch (error) {
           releaseSubmission(submissionId);
-          console.error(error);
+          console.error("Contact form submission failed");
           return Response.json(
             { error: "We could not send your message. Please try again shortly." },
             {

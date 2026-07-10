@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ArrowRight,
   Building2,
@@ -73,8 +74,8 @@ const steps = [
   },
   {
     n: "02",
-    title: "Submit your documents",
-    desc: "Upload six months of recent business bank statements and any supporting documents.",
+    title: "Provide any requested documents",
+    desc: "Recent business bank statements and supporting documents may be requested during follow-up.",
   },
   {
     n: "03",
@@ -82,6 +83,24 @@ const steps = [
     desc: "A representative reviews the submission and follows up about next steps.",
   },
 ];
+
+const goalChoices = [
+  "Immediate business expenses",
+  "Inventory or equipment",
+  "Growth or a larger opportunity",
+  "Hiring or increasing capacity",
+  "Additional breathing room",
+  "Something else",
+] as const;
+
+const focusChoices = [
+  "Customers",
+  "Growth",
+  "Employees",
+  "Planning instead of reacting",
+  "More time outside the business",
+  "Another priority",
+] as const;
 
 function Index() {
   return (
@@ -103,7 +122,7 @@ function Index() {
                 className="w-full rounded-full bg-brand text-brand-foreground hover:bg-brand-hover sm:w-auto"
               >
                 <Link to="/apply">
-                  Start your application <ArrowRight className="ml-1 h-4 w-4" />
+                  Start My Application <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full rounded-full sm:w-auto">
@@ -135,10 +154,12 @@ function Index() {
         </div>
       </section>
 
+      <GoalReflection />
+
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Funding that fits real business needs
+            Practical ways funding may support the business
           </h2>
           <p className="mt-3 text-muted-foreground">
             The goal is not pressure. It is making the request relevant, manageable, and clear
@@ -167,7 +188,9 @@ function Index() {
       <section className="bg-surface">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">How it works</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Simple application process
+            </h2>
             <p className="mt-3 text-muted-foreground">
               A straightforward path from your first form to a conversation with a representative.
             </p>
@@ -188,7 +211,7 @@ function Index() {
               className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
             >
               <Link to="/apply">
-                Start your application <ArrowRight className="ml-1 h-4 w-4" />
+                Start My Application <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -267,7 +290,7 @@ function Index() {
               className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
             >
               <Link to="/apply">
-                Start your application <ArrowRight className="ml-1 h-4 w-4" />
+                Start My Application <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
             <Button
@@ -286,5 +309,109 @@ function Index() {
         </div>
       </section>
     </SiteLayout>
+  );
+}
+
+function GoalReflection() {
+  const [goal, setGoal] = useState<(typeof goalChoices)[number] | "">("");
+  const [focus, setFocus] = useState<(typeof focusChoices)[number] | "">("");
+
+  const reflection =
+    goal && focus
+      ? `If funding helps with ${goal.toLowerCase()}, it may create more room to focus on ${focus.toLowerCase()}.`
+      : "Choose two options to see a short reflection.";
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <div className="grid gap-6 rounded-3xl border border-border bg-card p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">
+            Optional reflection
+          </p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            What would funding help you move forward on?
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            This is only for you. It stays on the page and helps frame the next step without
+            suggesting eligibility or tracking your answers.
+          </p>
+
+          <div className="mt-6 grid gap-2 sm:grid-cols-2">
+            {goalChoices.map((option) => (
+              <ChoiceButton key={option} selected={goal === option} onClick={() => setGoal(option)}>
+                {option}
+              </ChoiceButton>
+            ))}
+          </div>
+
+          <h3 className="mt-8 text-xl font-semibold tracking-tight">
+            What would handling that allow you to focus on?
+          </h3>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            {focusChoices.map((option) => (
+              <ChoiceButton
+                key={option}
+                selected={focus === option}
+                onClick={() => setFocus(option)}
+              >
+                {option}
+              </ChoiceButton>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-between rounded-2xl bg-surface p-6">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand">
+              Your reflection
+            </p>
+            <p className="mt-4 text-2xl font-semibold leading-tight text-foreground">
+              {reflection}
+            </p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+              What keeps getting delayed while this need remains unresolved?
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-full bg-brand text-brand-foreground hover:bg-brand-hover"
+            >
+              <Link to="/apply">Start My Application</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full">
+              <a href="#what-youll-need">See what you&rsquo;ll need</a>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChoiceButton({
+  selected,
+  onClick,
+  children,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  children: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-2xl border px-4 py-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+        selected
+          ? "border-brand bg-brand text-brand-foreground"
+          : "border-border bg-background text-foreground hover:bg-muted"
+      }`}
+      aria-pressed={selected}
+    >
+      {children}
+    </button>
   );
 }
