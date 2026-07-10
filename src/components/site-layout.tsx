@@ -186,8 +186,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function BrandIcon() {
   return (
-    <span className="grid h-8 w-8 place-items-center text-cobalt bg-soft-aqua rounded-lg border border-neutral-border/30">
-      <BriefcaseBusiness className="h-5 w-5" fill="currentColor" aria-hidden="true" />
-    </span>
+    <svg className="h-5 w-5 text-cobalt shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+      <polyline points="16 7 22 7 22 13" />
+    </svg>
   );
 }

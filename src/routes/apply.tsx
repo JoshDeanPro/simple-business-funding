@@ -478,7 +478,7 @@ function ApplyPage() {
           <aside className="space-y-6 lg:sticky lg:top-24">
             {/* Desktop stepper */}
             <div className="hidden lg:block card-premium p-5 rounded">
-              <h3 className="text-xs font-bold text-ink uppercase tracking-wider mb-4 border-b border-neutral-border/50 pb-2">
+              <h3 className="text-sm font-bold text-ink mb-4 border-b border-neutral-border/50 pb-2">
                 Progress
               </h3>
               <ol className="space-y-4">
@@ -488,19 +488,19 @@ function ApplyPage() {
                   return (
                     <li key={s} className="flex items-center gap-3">
                       <span
-                        className={`flex h-6 w-6 shrink-0 items-center justify-center text-xs font-bold rounded ${
+                        className={`flex h-6 w-6 shrink-0 items-center justify-center text-xs font-bold rounded-full ${
                           isActive
-                            ? "bg-evergreen text-white"
+                            ? "bg-cobalt text-white"
                             : isDone
-                              ? "bg-sage/40 text-evergreen border border-evergreen"
-                              : "bg-paper text-muted-text border border-neutral-border"
+                              ? "bg-soft-aqua text-cobalt border border-cobalt"
+                              : "bg-cloud text-muted-text border border-neutral-border"
                         }`}
                       >
                         {isDone ? "✓" : i + 1}
                       </span>
                       <span
                         className={`text-xs font-semibold ${
-                          isActive ? "text-evergreen font-bold" : "text-muted-text"
+                          isActive ? "text-cobalt font-bold" : "text-muted-text"
                         }`}
                       >
                         {s}
@@ -513,7 +513,7 @@ function ApplyPage() {
 
             {/* Support info */}
             <div className="card-premium p-5 rounded text-xs space-y-4">
-              <h4 className="font-bold text-ink border-b border-neutral-border/50 pb-2 uppercase tracking-wider">
+              <h4 className="font-bold text-ink border-b border-neutral-border/50 pb-2">
                 Support & Contact
               </h4>
               <p className="text-muted-text leading-relaxed">
@@ -521,13 +521,13 @@ function ApplyPage() {
               </p>
               <div className="space-y-3">
                 <div>
-                  <span className="block text-[9px] uppercase font-bold text-muted-text">Phone Support</span>
+                  <span className="block text-[11px] font-bold text-muted-text">Phone Support</span>
                   <a href="tel:+17209001921" className="text-ink font-bold hover:underline block mt-0.5">
                     (720) 900-1921
                   </a>
                 </div>
                 <div>
-                  <span className="block text-[9px] uppercase font-bold text-muted-text">Email Address</span>
+                  <span className="block text-[11px] font-bold text-muted-text">Email Address</span>
                   <a
                     href="mailto:lizzy.alemayehu@smallbizloanz.com"
                     className="text-ink font-bold break-all hover:underline block mt-0.5"
@@ -1436,7 +1436,7 @@ function formatFileLabel(key: "bankStatementsNames" | "contractNames" | "support
 function KeyValue({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-card px-3 py-2">
-      <div className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <div className="text-xs font-semibold text-muted-foreground">
         {label}
       </div>
       <div className="mt-1 text-sm font-medium text-foreground">{value}</div>
